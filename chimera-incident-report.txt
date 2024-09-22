@@ -1,0 +1,41 @@
+# Security Incident Report
+## Facility Omega - Containment Breach
+
+Date: [Redacted]
+Report Filed By: Chief of Security, Marcus Steele
+
+Incident Overview:
+At 0247 hours, a Level 5 containment breach occurred in Sector 7 of Facility Omega. Enhanced Specimen H-173E escaped primary containment, resulting in significant damage to the facility and multiple casualties.
+
+Chronology of Events:
+- 0247: Psionic dampeners in Sector 7 experienced unexplained failure.
+- 0249: H-173E breached containment cell, overpowering guard detail.
+- 0251: Facility-wide alarm triggered. Lockdown protocols initiated.
+- 0255: H-173E encountered Conduit response team in Corridor B. Three Conduits incapacitated.
+- 0301: Specimen last seen entering ventilation system in Sector 4.
+- 0310: All non-essential personnel evacuated. Sweep teams deployed.
+- 0452: Facility declared clear. H-173E's whereabouts unknown.
+
+Casualties and Damages:
+- Personnel: 7 injured (3 critical), 2 fatalities
+- Structural Damage: Estimated at 65% of Sector 7, 30% of Sector 4
+- Equipment Loss: 2 Psionic Amplification Chambers destroyed
+
+Containment Measures Taken:
+1. Facility-wide psionic dampening field activated (radius: 5km)
+2. All nearby settlements placed on high alert
+3. Covert reconnaissance teams deployed to surrounding areas
+4. Cover story disseminated: industrial accident at research facility
+
+Preliminary Findings:
+1. H-173E displayed abilities beyond projected parameters
+2. Standard containment protocols proved inadequate
+3. Possible insider involvement in psionic dampener failure (under investigation)
+
+Recommendations:
+1. Immediate upgrade of all containment systems
+2. Review and enhancement of Conduit combat training against psionic threats
+3. Implementation of Project Cerberus as failsafe (pending approval)
+4. Expansion of memory alteration protocols for all staff below Level 4 clearance
+
+Note: This incident underscores the volatility of Project Chimera. Reassessment of risk-reward ratio strongly advised.

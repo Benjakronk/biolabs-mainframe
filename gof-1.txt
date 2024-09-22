@@ -1,0 +1,45 @@
+# Project GoF (Gain of Function): Research Summary
+
+Classification: Top Secret
+Lead Researchers: Dr. Sira Vartian, Dr. Sylas Ito
+
+Project Overview:
+Project GoF aims to create an enhanced Pokémon hybrid by splicing the DNA of Prayblade (specimen PB-027) with Veerum (specimen VR-104). The goal is to combine Prayblade's predatory instincts and physical prowess with Veerum's adaptability and disease resistance.
+
+Key Objectives:
+1. Enhance overall physical capabilities (strength, speed, endurance)
+2. Improve disease resistance and adaptive immune response
+3. Maintain or enhance Prayblade's hunting instincts
+4. Incorporate Veerum's shape-shifting abilities to a limited degree
+
+Methodology:
+1. CRISPR-Cas9 gene editing to splice key genetic sequences
+2. Viral vector delivery system for gene integration
+3. Embryonic stem cell manipulation for hybrid embryo creation
+4. Artificial incubation in controlled environment
+
+Progress to Date:
+- Successfully isolated key genetic markers from both species
+- Achieved 67% viability in preliminary hybrid embryos
+- Observed unexpected synergies in immune system development
+- Encountered challenges in stabilizing shape-shifting abilities
+
+Key Findings:
+1. Hybrid specimens show a 200% increase in physical strength compared to Prayblade
+2. Disease resistance surpasses both parent species by an order of magnitude
+3. Unexpected development of highly aggressive behavior in adolescent specimens
+4. Limited success in incorporating shape-shifting; hybrid can alter skin texture and color
+
+Concerns:
+1. Heightened aggression may make specimens difficult to control
+2. Potential for creating a superior predator that could disrupt ecosystems
+3. Unforeseen mutations occurring in later generations of hybrids
+4. Ethical considerations of creating a potentially sentient hybrid species
+
+Next Steps:
+1. Refine gene splicing technique to better incorporate shape-shifting abilities
+2. Develop advanced containment protocols for mature specimens
+3. Initiate long-term studies on hybrid specimen lifespan and reproductive capabilities
+4. Explore potential military applications as per request from [REDACTED]
+
+Note: All personnel involved in Project GoF are required to sign additional non-disclosure agreements. Any breach of confidentiality will result in severe consequences.

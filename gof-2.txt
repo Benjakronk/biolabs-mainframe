@@ -1,0 +1,46 @@
+# Project GoF: Incident Log
+
+Security Level: Ultra Violet
+Compiled by: Security Chief Marcus Steele
+
+Incident #GoF-001
+Date: [Redacted]
+Description: Specimen GoF-03 displayed unexpected growth rate, reaching adult size in 48 hours. Containment protocols upgraded.
+Action Taken: Increased sedative dosage in specimen's diet. Reinforced containment cell walls.
+
+Incident #GoF-007
+Date: [Redacted]
+Description: Researcher Dr. Yuki Tanaka exposed to hybrid specimen's blood during routine sample collection. Dr. Tanaka quarantined for observation.
+Action Taken: Implemented new safety protocols for sample collection. Dr. Tanaka cleared after 72-hour observation period.
+
+Incident #GoF-013
+Date: [Redacted]
+Description: Specimen GoF-05 demonstrated ability to partially liquefy its body, allowing it to escape primary containment.
+Action Taken: Recaptured specimen within 20 minutes. Installed energy field barriers as secondary containment measure.
+
+Incident #GoF-019
+Date: [Redacted]
+Description: Multiple specimens began exhibiting synchronized behavior, suggesting potential hive-mind development.
+Action Taken: Specimens separated and placed in psionic-shielded containment units. Research team to investigate potential telepathic abilities.
+
+Incident #GoF-026
+Date: [Redacted]
+Description: Specimen GoF-08 attacked and severely injured two staff members. Incident occurred after specimen overheard discussion about project termination.
+Action Taken: Enhanced audio dampening in containment areas. Injured staff transferred to intensive care. Specimen GoF-08 terminated as per safety protocols.
+
+Incident #GoF-032
+Date: [Redacted]
+Description: Evidence of unauthorized access to Project GoF data servers. No data breach detected, but system logs showed unusual activity patterns.
+Action Taken: Cybersecurity team deployed. All project data transferred to air-gapped system. Investigation ongoing.
+
+Incident #GoF-038
+Date: [Redacted]
+Description: Mature specimen GoF-11 developed ability to emit a neurotoxin through its skin. Two researchers exposed during examination.
+Action Taken: Exposed researchers administered antidote and placed under observation. All staff now required to wear hazmat suits during specimen interaction.
+
+URGENT - Incident #GoF-042
+Date: [Redacted - 2 days ago]
+Description: Complete containment breach. Multiple GoF specimens escaped primary facility. Evidence suggests specimens are utilizing limited shape-shifting abilities to evade capture.
+Action Taken: Facility-wide lockdown initiated. Evacuation of non-essential personnel. Elite capture team deployed. Regional authorities placed on high alert under guise of containment for an "unknown pathogen".
+
+Note: This log is to be updated in real-time. All staff are reminded that discussing Project GoF or related incidents outside of secure facilities is strictly prohibited and punishable under international law.

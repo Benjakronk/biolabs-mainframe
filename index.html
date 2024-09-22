@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starhaven Biolabs Terminal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        body {
+            font-family: 'Roboto Mono', monospace;
+            color: #16c60c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('biolabs.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .terminal {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(45deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.9));
+            position: relative;
+        }
+        .terminal::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #ff0000, #ff9000, #ceb569, #00ff00, #00ce77, #0000ff, #8b00ff);
+        }
+        .content {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(22, 30, 62, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+        input {
+            background-color: rgba(12, 12, 29, 0.8);
+            color: #16c60c;
+            border: 1px solid #16c60c;
+            padding: 10px;
+            width: 90%;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-family: 'Roboto Mono', monospace;
+        }
+        button {
+            background-color: #16c60c;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1ef01e;
+        }
+        .hidden {
+            display: none;
+        }
+        h2 {
+            text-align: center;
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        #documentContent {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: rgba(12, 12, 29, 0.8);
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #16c60c;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #1ef01e;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+        #welcomeScreen {
+            text-align: center;
+        }
+        #welcomeScreen img {
+            width: 30%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #16c60c;
+        }
+        .blink {
+            animation: blink-animation 1s steps(5, start) infinite;
+        }
+        @keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="content">
+            <div id="loginScreen">
+                <h2>Starhaven Biolabs Terminal</h2>
+                <p>Enter username:</p>
+                <input type="text" id="usernameInput" placeholder="Username">
+                <p>Enter password:</p>
+                <input type="password" id="passwordInput" placeholder="Password">
+                <button onclick="login()">Login</button>
+                <p id="loginError" class="hidden" style="color: #ff3333;"></p>
+            </div>
+            <div id="welcomeScreen" class="hidden">
+                <h2>Welcome, Dr. Amelia Pine</h2>
+                <img src="amelia.jpeg" alt="Dr. Amelia Pine">
+                <p>Access granted to Starhaven Biolabs systems.</p>
+                <p class="blink">Press any key to continue...</p>
+            </div>
+            <div id="projectMenu" class="hidden">
+                <h2>Project Selection</h2>
+                <ul id="projectList"></ul>
+                <button onclick="logout()">Logout</button>
+            </div>
+            <div id="projectLoginScreen" class="hidden">
+                <h2 id="projectLoginTitle"></h2>
+                <p>Enter project password:</p>
+                <input type="password" id="projectPasswordInput">
+                <button onclick="loginProject()">Access Project</button>
+                <p id="projectLoginError" class="hidden" style="color: #ff3333;"></p>
+                <button onclick="backToProjects()">Back to Projects</button>
+            </div>
+            <div id="documentMenu" class="hidden">
+                <h2 id="documentMenuTitle"></h2>
+                <ul id="documentList"></ul>
+                <button onclick="backToProjects()">Back to Projects</button>
+            </div>
+            <div id="documentViewer" class="hidden">
+                <h2 id="documentTitle"></h2>
+                <pre id="documentContent"></pre>
+                <button onclick="backToDocuments()">Back to Documents</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const MAIN_PASSWORD = 'umbrella123';
+        const projects = [
+            { id: 'chimera', name: 'Project Chimera', password: 'chimera456' },
+            { id: 'proteus', name: 'Project Proteus', password: 'proteus789' },
+            { id: 'gof', name: 'Project GoF', password: 'gof101112' }
+        ];
+        const documents = {
+            chimera: [
+                { id: 1, title: 'Chimera Overview', filename: 'chimera_overview.txt' },
+                { id: 2, title: 'Chimera Research Notes', filename: 'chimera_notes.txt' },
+            ],
+            proteus: [
+                { id: 1, title: 'Proteus Overview', filename: 'proteus_overview.txt' },
+                { id: 2, title: 'Proteus Experiment Logs', filename: 'proteus_logs.txt' },
+            ],
+            gof: [
+                { id: 1, title: 'GoF Overview', filename: 'gof_overview.txt' },
+                { id: 2, title: 'GoF Staff Records', filename: 'gof_staff.txt' },
+            ]
+        };
+
+        let currentProject = null;
+
+        function login() {
+            const username = document.getElementById('usernameInput').value.trim();
+            const password = document.getElementById('passwordInput').value;
+            
+            if (username === '') {
+                document.getElementById('loginError').textContent = 'Please enter a username.';
+                document.getElementById('loginError').classList.remove('hidden');
+                return;
+            }
+            
+            if (password === MAIN_PASSWORD) {
+                showWelcomeScreen();
+            } else {
+                document.getElementById('loginError').textContent = 'Incorrect password. Access denied.';
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        }
+
+        function showWelcomeScreen() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('welcomeScreen').classList.remove('hidden');
+            document.addEventListener('keydown', proceedToProjectMenu);
+        }
+
+        function proceedToProjectMenu() {
+            document.removeEventListener('keydown', proceedToProjectMenu);
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            showProjectMenu();
+        }
+
+        function showProjectMenu() {
+            document.getElementById('projectMenu').classList.remove('hidden');
+            const projectList = document.getElementById('projectList');
+            projectList.innerHTML = '';
+            projects.forEach(project => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="#" onclick="showProjectLogin('${project.id}')">${project.name}</a>`;
+                projectList.appendChild(li);
+            });
+        }
+
+        function showProjectLogin(projectId) {
+            currentProject = projects.find(p => p.id === projectId);
+            document.getElementById('projectMenu').classList.add('hidden');
+            document.getElementById('projectLoginScreen').classList.remove('hidden');
+            document.getElementById('projectLoginTitle').textContent = `Access ${currentProject.name}`;
+            document.getElementById('projectPasswordInput').value = '';
+            document.getElementById('projectLoginError').classList.add('hidden');
+        }
+
+        function loginProject() {
+            const password = document.getElementById('projectPasswordInput').value;
+            if (password === currentProject.password) {
+                showDocumentMenu();
+            } else {
+                document.getElementById('projectLoginError').textContent = 'Incorrect project password. Access denied.';
+                document.getElementById('projectLoginError').classList.remove('hidden');
+            }
+        }
+
+        function showDocumentMenu() {
+            document.getElementById('projectLoginScreen').classList.add('hidden');
+            document.getElementById('documentMenu').classList.remove('hidden');
+            document.getElementById('documentMenuTitle').textContent = currentProject.name + ' Documents';
+            const documentList = document.getElementById('documentList');
+            documentList.innerHTML = '';
+            documents[currentProject.id].forEach(doc => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="#" onclick="viewDocument('${currentProject.id}', ${doc.id})">${doc.title}</a>`;
+                documentList.appendChild(li);
+            });
+        }
+
+        function viewDocument(projectId, docId) {
+            const doc = documents[projectId].find(d => d.id === docId);
+            if (doc) {
+                fetch(doc.filename)
+                    .then(response => response.text())
+                    .then(content => {
+                        document.getElementById('documentMenu').classList.add('hidden');
+                        document.getElementById('documentViewer').classList.remove('hidden');
+                        document.getElementById('documentTitle').textContent = doc.title;
+                        document.getElementById('documentContent').textContent = content;
+                    })
+                    .catch(error => {
+                        console.error('Error loading document:', error);
+                        alert('Error loading document. Please try again.');
+                    });
+            }
+        }
+
+        function backToProjects() {
+            document.getElementById('projectLoginScreen').classList.add('hidden');
+            document.getElementById('documentMenu').classList.add('hidden');
+            showProjectMenu();
+        }
+
+        function backToDocuments() {
+            document.getElementById('documentViewer').classList.add('hidden');
+            showDocumentMenu();
+        }
+
+        function logout() {
+            document.getElementById('projectMenu').classList.add('hidden');
+            document.getElementById('projectLoginScreen').classList.add('hidden');
+            document.getElementById('documentMenu').classList.add('hidden');
+            document.getElementById('documentViewer').classList.add('hidden');
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('usernameInput').value = '';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('loginError').classList.add('hidden');
+            currentProject = null;
+        }
+    </script>
+</body>
+</html>

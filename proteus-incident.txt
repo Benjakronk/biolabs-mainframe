@@ -1,0 +1,29 @@
+# Incident Report: Project Proteus Breach
+
+Date: [Redacted]
+Report Filed By: Chief of Security Marcus Steele, Dr. Amelia Pine
+
+Incident Overview:
+At [Redacted], a containment breach occurred in the Project Proteus research wing. Subject P escaped its containment unit and assumed the form of a researcher, leading to a facility-wide lockdown and search operation.
+
+Chronology of Events:
+- 0315: Containment unit alarms triggered in Sector 3.
+- 0317: Subject P last seen on camera transforming into Dr. Liam Hayes.
+- 0320: Facility-wide alert issued. All personnel ordered to remain in place for identity verification.
+- 0345: Sweep teams deployed with specialized detection equipment.
+- 0412: Subject P cornered in the genetics lab, reverted to base form, and recontained.
+
+Security Failures:
+1. Biometric scanners failed to detect the difference between Subject P and Dr. Hayes.
+2. Containment unit showed signs of deliberate sabotage, possibly from an inside source.
+3. Emergency protocols were not initiated quickly enough, allowing Subject P to roam freely for 27 minutes.
+
+Actions Taken:
+1. All staff underwent rigorous identity verification process.
+2. Containment protocols upgraded to include constant video surveillance and energy field monitoring.
+3. Investigation launched into possible insider assistance in the breach.
+
+Additional Notes:
+During its escape, Subject P accessed several high-security terminals. While we believe no data was stolen, we cannot rule out the possibility that it absorbed information through unknown means. All recent research data should be considered potentially compromised.
+
+This incident underscores the dangerous potential of Subject P if it were to escape into the general population. Extreme caution is advised in all future interactions.
