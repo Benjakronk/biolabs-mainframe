@@ -1,0 +1,32 @@
+From: a.pine@biolabs.com
+To: j.foster@biolabs.com, m.chen@biolabs.com
+Subject: Project H - Next Steps
+Team,
+Our window of opportunity is approaching. J, ensure you're on duty for the night shift on Friday. M, I need you to "accidentally" trigger a minor containment breach in Lab 3 at precisely 22:00. This should draw security away from the main server room.
+Remember, we only get one shot at this.
+A.P.
+
+From: a.pine@biolabs.com
+To: j.foster@biolabs.com
+Subject: Access Codes
+J,
+I've managed to obtain partial access codes for the Hybridization database. You'll need to use the cypher we discussed to complete the sequence. Once you're in, download everything you can onto the secure drive.
+Delete this message after memorizing the codes:
+7X4R-9Y2B-??3Z-1W8P
+A.P.
+
+From: a.pine@biolabs.com
+To: m.chen@biolabs.com
+Subject: Diversion Tactics
+M,
+Your role is crucial. After triggering the containment breach, make sure to keep the response team occupied for at least 15 minutes. Use the excuse of potential contamination if needed. This should give J enough time to access and download the files.
+If anything goes wrong, initiate Protocol Zeta.
+A.P.
+
+From: a.pine@biolabs.com
+To: j.foster@biolabs.com, m.chen@biolabs.com
+Subject: Mission Success
+Team,
+Excellent work last night. The data has been secured and transmitted to our superiors. Maintain your usual routines and avoid any suspicious behavior. We'll likely be relocated soon for the next phase of the operation.
+Stay vigilant. Our cause is just.
+A.P.

@@ -81,12 +81,12 @@
         .hidden {
             display: none;
         }
-        h2, h3 {
+        h2 {
             text-align: center;
             color: #00ff00;
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }
-        #documentContent, #emailContent {
+        #documentContent {
             white-space: pre-wrap;
             word-wrap: break-word;
             background-color: rgba(12, 12, 29, 0.8);
@@ -147,15 +147,11 @@
                 <h2>Welcome, Dr. Amelia Pine</h2>
                 <img src="amelia.jpeg" alt="Dr. Amelia Pine">
                 <p>Access granted to Starhaven Biolabs systems.</p>
-                <p class="blink">Press any key or tap anywhere to continue...</p>
+                <p class="blink">Press any key to continue...</p>
             </div>
             <div id="projectMenu" class="hidden">
                 <h2>Project Selection</h2>
                 <ul id="projectList"></ul>
-                <h3>Other Options</h3>
-                <ul>
-                    <li><a href="#" onclick="showEmailMenu()">E-mails</a></li>
-                </ul>
                 <button onclick="logout()">Logout</button>
             </div>
             <div id="projectLoginScreen" class="hidden">
@@ -176,16 +172,6 @@
                 <pre id="documentContent"></pre>
                 <button onclick="backToDocuments()">Back to Documents</button>
             </div>
-            <div id="emailMenu" class="hidden">
-                <h2>E-mails</h2>
-                <ul id="emailList"></ul>
-                <button onclick="backToProjects()">Back to Main Menu</button>
-            </div>
-            <div id="emailViewer" class="hidden">
-                <h2 id="emailTitle"></h2>
-                <pre id="emailContent"></pre>
-                <button onclick="backToEmails()">Back to E-mails</button>
-            </div>
         </div>
     </div>
 
@@ -193,7 +179,7 @@
         const MAIN_PASSWORD = 'testurion';
         const projects = [
             { id: 'chimera', name: 'Project Chimera', password: '7X4R-9Y2B-??3Z-1W8P' },
-            { id: 'proteus', name: 'Project Proteus', password: 'P-1' },
+            { id: 'proteus', name: 'Project Proteus', password: 'testurion' },
             { id: 'gof', name: 'Project GoF', password: '7X4R-9Y2B-??3Z-1W8P' }
         ];
         const documents = {
@@ -215,21 +201,10 @@
             gof: [
                 { id: 1, title: 'GoF Overview', filename: 'gof-1.txt' },
                 { id: 2, title: 'GoF Incident Logs', filename: 'gof-2.txt' },
-                { id: 3, title: 'GoF Secret E-Mails', filename: 'gof-3.txt' },
-                { id: 4, title: 'GoF Stable Form Achieved', filename: 'gof-4.txt' },
+                { id: 2, title: 'GoF Secret E-Mails', filename: 'gof-3.txt' },
+                { id: 2, title: 'GoF Stable Form Achieved', filename: 'gof-4.txt' },
             ]
         };
-        const emails = [
-            { id: 1, title: 'Proteus Team - Updates', filename: 'pine-proteus.txt' },
-            { id: 2, title: 'MB - Vespair Lair', filename: 'pine-mb1.txt' },
-            { id: 3, title: 'Scepter - Next steps', filename: 'pine-tc.txt' },
-            { id: 4, title: 'Yucca - New trainers', filename: 'pine-yucca.txt' },
-            { id: 5, title: 'MB - RE: Next steps', filename: 'pine-mb2.txt' },
-            { id: 6, title: 'Orre - Shadow Research', filename: 'pine-orre.txt' },
-            { id: 7, title: 'MB - Maxine', filename: 'pine-mb3.txt' },
-            { id: 8, title: 'MB - WTF!?', filename: 'pine-incident.txt' },
-            { id: 9, title: 'Scepter - !CRITICAL!', filename: 'pine-final.txt' },
-        ];
 
         let currentProject = null;
 
@@ -260,10 +235,12 @@
         }
 
         function proceedToProjectMenu(event) {
+            // Prevent default behavior for touch events
             if (event.type === 'touchstart') {
                 event.preventDefault();
             }
             
+            // Remove all event listeners
             document.removeEventListener('keydown', proceedToProjectMenu);
             document.getElementById('welcomeScreen').removeEventListener('click', proceedToProjectMenu);
             document.getElementById('welcomeScreen').removeEventListener('touchstart', proceedToProjectMenu);
@@ -333,45 +310,9 @@
             }
         }
 
-        function showEmailMenu() {
-            document.getElementById('projectMenu').classList.add('hidden');
-            document.getElementById('emailMenu').classList.remove('hidden');
-            const emailList = document.getElementById('emailList');
-            emailList.innerHTML = '';
-            emails.forEach(email => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a href="#" onclick="viewEmail(${email.id})">${email.title}</a>`;
-                emailList.appendChild(li);
-            });
-        }
-
-        function viewEmail(emailId) {
-            const email = emails.find(e => e.id === emailId);
-            if (email) {
-                fetch(email.filename)
-                    .then(response => response.text())
-                    .then(content => {
-                        document.getElementById('emailMenu').classList.add('hidden');
-                        document.getElementById('emailViewer').classList.remove('hidden');
-                        document.getElementById('emailTitle').textContent = email.title;
-                        document.getElementById('emailContent').textContent = content;
-                    })
-                    .catch(error => {
-                        console.error('Error loading email:', error);
-                        alert('Error loading email. Please try again.');
-                    });
-            }
-        }
-
-        function backToEmails() {
-            document.getElementById('emailViewer').classList.add('hidden');
-            showEmailMenu();
-        }
-
         function backToProjects() {
             document.getElementById('projectLoginScreen').classList.add('hidden');
             document.getElementById('documentMenu').classList.add('hidden');
-            document.getElementById('emailMenu').classList.add('hidden');
             showProjectMenu();
         }
 
@@ -386,8 +327,6 @@
             document.getElementById('documentMenu').classList.add('hidden');
             document.getElementById('documentViewer').classList.add('hidden');
             document.getElementById('welcomeScreen').classList.add('hidden');
-            document.getElementById('emailMenu').classList.add('hidden');
-            document.getElementById('emailViewer').classList.add('hidden');
             document.getElementById('loginScreen').classList.remove('hidden');
             document.getElementById('usernameInput').value = '';
             document.getElementById('passwordInput').value = '';
