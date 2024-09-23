@@ -112,6 +112,7 @@
         }
         #welcomeScreen {
             text-align: center;
+            cursor: pointer;
         }
         #welcomeScreen img {
             width: 30%;
@@ -178,8 +179,8 @@
         const MAIN_PASSWORD = 'testurion';
         const projects = [
             { id: 'chimera', name: 'Project Chimera', password: 'hydra18' },
-            { id: 'proteus', name: 'Project Proteus', password: 'admin12' },
-            { id: 'gof', name: 'Project GoF', password: 'veerulent' }
+            { id: 'proteus', name: 'Project Proteus', password: 'admin47' },
+            { id: 'gof', name: 'Project GoF', password: 'veerulent23' }
         ];
         const documents = {
             chimera: [
@@ -229,10 +230,21 @@
             document.getElementById('loginScreen').classList.add('hidden');
             document.getElementById('welcomeScreen').classList.remove('hidden');
             document.addEventListener('keydown', proceedToProjectMenu);
+            document.getElementById('welcomeScreen').addEventListener('click', proceedToProjectMenu);
+            document.getElementById('welcomeScreen').addEventListener('touchstart', proceedToProjectMenu);
         }
 
-        function proceedToProjectMenu() {
+        function proceedToProjectMenu(event) {
+            // Prevent default behavior for touch events
+            if (event.type === 'touchstart') {
+                event.preventDefault();
+            }
+            
+            // Remove all event listeners
             document.removeEventListener('keydown', proceedToProjectMenu);
+            document.getElementById('welcomeScreen').removeEventListener('click', proceedToProjectMenu);
+            document.getElementById('welcomeScreen').removeEventListener('touchstart', proceedToProjectMenu);
+            
             document.getElementById('welcomeScreen').classList.add('hidden');
             showProjectMenu();
         }
