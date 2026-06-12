@@ -1,399 +1,1756 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starhaven Biolabs Terminal</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumen OS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap');
 
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        body {
-            font-family: 'Roboto Mono', monospace;
-            color: #16c60c;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-image: url('biolabs.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        .terminal {
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: linear-gradient(45deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.9));
-            position: relative;
-        }
-        .terminal::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(to right, #ff0000, #ff9000, #ceb569, #00ff00, #00ce77, #0000ff, #8b00ff);
-        }
-        .content {
-            max-width: 800px;
-            width: 100%;
-            background-color: rgba(22, 30, 62, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-        }
-        input {
-            background-color: rgba(12, 12, 29, 0.8);
-            color: #16c60c;
-            border: 1px solid #16c60c;
-            padding: 10px;
-            width: 90%;
-            margin-top: 10px;
-            border-radius: 5px;
-            font-family: 'Roboto Mono', monospace;
-        }
-        button {
-            background-color: #16c60c;
-            color: #1a1a2e;
-            border: none;
-            padding: 10px 20px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-family: 'Roboto Mono', monospace;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #1ef01e;
-        }
-        .hidden {
-            display: none;
-        }
-        h2, h3 {
-            text-align: center;
-            color: #00ff00;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }
-        #documentContent, #emailContent {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            background-color: rgba(12, 12, 29, 0.8);
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid #16c60c;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        a {
-            color: #00ff00;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        a:hover {
-            color: #1ef01e;
-            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-        }
-        #welcomeScreen {
-            text-align: center;
-            cursor: pointer;
-        }
-        #welcomeScreen img {
-            width: 30%;
-            height: auto;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 2px solid #16c60c;
-        }
-        .blink {
-            animation: blink-animation 1s steps(5, start) infinite;
-        }
-        @keyframes blink-animation {
-            to {
-                visibility: hidden;
-            }
-        }
-    </style>
+:root{
+  --bg0:#121214;        /* deepest surface */
+  --bg1:#1a1a1c;        /* window body */
+  --bg2:#222226;        /* chrome / titlebars */
+  --bg3:#2c2c31;        /* hover / raised */
+  --line:#37373d;       /* hairlines */
+  --txt:#d6d4cf;        /* primary text */
+  --dim:#8a8782;        /* secondary text */
+  --faint:#5c5a56;      /* tertiary */
+  --orange:#ffa500;     /* system accent / alert */
+  --orange-dim:#b9791b;
+  --ether:#54d6e0;      /* thin cyan ether glow */
+  --violet:#9a7bff;     /* ether violet */
+  --danger:#ff5c4d;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --serif:'Spectral',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0;overflow:hidden}
+body{
+  font-family:var(--mono);
+  color:var(--txt);
+  background:#000;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+/* ===================== BOOT / LOGIN ===================== */
+#login{
+  position:fixed;inset:0;z-index:9000;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:
+    radial-gradient(1200px 600px at 70% -10%, rgba(154,123,255,.10), transparent 60%),
+    radial-gradient(900px 500px at 10% 110%, rgba(84,214,224,.08), transparent 60%),
+    linear-gradient(160deg,#0e0e10,#16161a 60%,#0e0e10);
+}
+.login-card{width:340px;text-align:center}
+.login-avatar{
+  width:96px;height:96px;border-radius:50%;object-fit:cover;
+  border:1px solid var(--line);margin:0 auto 18px;display:block;
+  filter:grayscale(.25) contrast(1.02);
+  box-shadow:0 0 0 6px rgba(255,165,0,.04),0 0 30px rgba(0,0,0,.6);
+}
+.login-os{font-size:11px;letter-spacing:.42em;color:var(--faint);text-transform:uppercase;margin-bottom:28px}
+.login-welcome{font-family:var(--serif);font-size:23px;color:var(--txt);margin:0 0 4px}
+.login-welcome b{color:var(--orange);font-weight:500}
+.login-sub{font-size:11px;color:var(--faint);margin:0 0 26px;letter-spacing:.02em}
+.login-btn{
+  font-family:var(--mono);font-size:13px;letter-spacing:.05em;
+  background:transparent;color:var(--orange);
+  border:1px solid var(--orange-dim);border-radius:6px;
+  padding:11px 30px;cursor:pointer;transition:.18s;
+}
+.login-btn:hover{background:rgba(255,165,0,.08);box-shadow:0 0 22px rgba(255,165,0,.10)}
+.login-foot{position:absolute;bottom:18px;font-size:10px;color:var(--faint);letter-spacing:.18em}
+.login-foot .dot{color:var(--ether)}
+
+.boot-line{font-size:11px;color:var(--dim);height:14px;letter-spacing:.04em}
+
+/* ===================== DESKTOP ===================== */
+#desktop{
+  position:fixed;inset:0;z-index:1;display:none;
+  background:
+    radial-gradient(1400px 700px at 78% -15%, rgba(154,123,255,.08), transparent 55%),
+    radial-gradient(1100px 600px at -5% 115%, rgba(84,214,224,.07), transparent 55%),
+    linear-gradient(165deg,#101013,#17171b 55%,#0d0d10);
+  overflow:hidden;
+}
+#desktop.wp-sisters{
+  background:
+    linear-gradient(rgba(13,13,16,.72),rgba(13,13,16,.86)),
+    radial-gradient(900px 500px at 50% 30%, rgba(255,165,0,.06), transparent 60%),
+    linear-gradient(165deg,#14110d,#16161b 55%,#0d0d10);
+}
+
+/* desktop icons */
+#icons{position:absolute;top:18px;left:14px;display:flex;flex-direction:column;gap:4px;flex-wrap:wrap;max-height:calc(100% - 80px)}
+.dicon{
+  width:84px;padding:9px 6px;border-radius:8px;text-align:center;cursor:pointer;
+  color:var(--txt);transition:.12s;border:1px solid transparent;
+}
+.dicon:hover{background:rgba(255,255,255,.04);border-color:var(--line)}
+.dicon.sel{background:rgba(255,165,0,.10);border-color:var(--orange-dim)}
+.dicon .gl{font-size:26px;line-height:1;display:block;margin-bottom:6px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.dicon .lb{font-size:10.5px;color:var(--dim);letter-spacing:.01em;word-break:break-word}
+.dicon.alert .gl{animation:pulseOrange 1.6s ease-in-out infinite}
+@keyframes pulseOrange{0%,100%{filter:drop-shadow(0 0 0 rgba(255,165,0,0))}50%{filter:drop-shadow(0 0 8px rgba(255,165,0,.7))}}
+
+/* ===================== WINDOWS ===================== */
+.win{
+  position:absolute;min-width:280px;min-height:160px;
+  background:var(--bg1);border:1px solid var(--line);border-radius:9px;
+  box-shadow:0 18px 50px rgba(0,0,0,.55),0 2px 0 rgba(255,255,255,.02) inset;
+  display:flex;flex-direction:column;overflow:hidden;
+  animation:winIn .14s ease-out;
+}
+@keyframes winIn{from{opacity:0;transform:translateY(6px) scale(.99)}to{opacity:1;transform:none}}
+.win.focused{border-color:#4a4a52;box-shadow:0 22px 60px rgba(0,0,0,.6),0 0 0 1px rgba(255,165,0,.06)}
+.titlebar{
+  height:34px;flex:0 0 34px;display:flex;align-items:center;gap:8px;padding:0 10px;
+  background:linear-gradient(var(--bg2),#1d1d21);border-bottom:1px solid var(--line);
+  cursor:default;
+}
+.tb-glyph{font-size:13px;filter:grayscale(.2)}
+.tb-title{font-size:11.5px;color:var(--dim);letter-spacing:.04em;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.win.focused .tb-title{color:var(--txt)}
+.tb-btns{display:flex;gap:7px}
+.tb-btn{width:12px;height:12px;border-radius:50%;border:none;cursor:pointer;padding:0;opacity:.85;transition:.12s}
+.tb-btn:hover{opacity:1}
+.tb-min{background:#3a3a40}
+.tb-min:hover{background:#55555c}
+.tb-close{background:#5a2f2a}
+.tb-close:hover{background:var(--danger)}
+.win-body{flex:1;overflow:auto;position:relative}
+.win-body::-webkit-scrollbar{width:10px;height:10px}
+.win-body::-webkit-scrollbar-thumb{background:#33333a;border-radius:5px;border:2px solid var(--bg1)}
+.win-body::-webkit-scrollbar-thumb:hover{background:#44444c}
+.resize-h{position:absolute;right:0;bottom:0;width:16px;height:16px;cursor:nwse-resize;z-index:5}
+.resize-h::after{content:"";position:absolute;right:3px;bottom:3px;width:7px;height:7px;border-right:2px solid var(--faint);border-bottom:2px solid var(--faint)}
+
+/* ===================== FILES APP ===================== */
+.files{display:flex;height:100%;font-size:12px}
+.files-side{width:150px;flex:0 0 150px;background:#161619;border-right:1px solid var(--line);padding:8px 0;overflow:auto}
+.files-crumb{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--dim);font-size:11px;letter-spacing:.03em;display:flex;align-items:center;gap:6px}
+.files-crumb .seg{color:var(--orange)}
+.side-item{padding:6px 12px;color:var(--dim);cursor:pointer;display:flex;gap:7px;align-items:center;border-left:2px solid transparent}
+.side-item:hover{background:var(--bg3);color:var(--txt)}
+.side-item.active{color:var(--orange);border-left-color:var(--orange);background:rgba(255,165,0,.06)}
+.files-main{flex:1;display:flex;flex-direction:column}
+.files-list{padding:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:6px;align-content:start;overflow:auto}
+.fitem{padding:12px 8px 10px;border-radius:7px;text-align:center;cursor:pointer;border:1px solid transparent;transition:.1s}
+.fitem:hover{background:var(--bg3);border-color:var(--line)}
+.fitem .fg{font-size:30px;display:block;margin-bottom:7px;filter:grayscale(.15)}
+.fitem .fn{font-size:10.5px;color:var(--txt);word-break:break-word;line-height:1.3}
+.fitem.unread .fn::after{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ether);margin-left:4px;vertical-align:middle;box-shadow:0 0 6px var(--ether)}
+.fitem.folder .fg{color:#d8b66a}
+.fitem.justadded{animation:flashAdd 1.4s ease-out}
+@keyframes flashAdd{0%,40%{background:rgba(255,165,0,.18);border-color:var(--orange-dim)}100%{background:transparent}}
+.files-empty{color:var(--faint);padding:30px;text-align:center;font-style:italic;font-size:12px;grid-column:1/-1}
+
+/* ===================== READER (notes/docs) ===================== */
+.reader{padding:30px 38px;max-width:740px;margin:0 auto;line-height:1.62}
+.reader.lab{font-family:var(--mono);font-size:12.5px;color:#c9cdd1}
+.reader.grief{font-family:var(--serif);font-size:16px;color:#cfc9c0}
+.reader.grief p{margin:0 0 1.05em}
+.reader.lab .h{color:var(--orange);letter-spacing:.06em;font-weight:700;margin-bottom:14px;font-size:12px}
+.reader.plain{font-family:var(--sans);font-size:14px;color:#cdccc8;line-height:1.66}
+.reader .meta-strip{font-family:var(--mono);font-size:10.5px;color:var(--faint);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:20px;letter-spacing:.04em}
+.redact{background:#3a3a3f;color:transparent;border-radius:2px;padding:0 .15em;user-select:none}
+.docnote{white-space:pre-wrap}
+
+/* ===================== MAIL APP ===================== */
+.mail{display:flex;height:100%;font-size:12px}
+.mail-side{width:140px;flex:0 0 140px;background:#161619;border-right:1px solid var(--line);padding:8px 0}
+.mail-folder{padding:8px 12px;color:var(--dim);cursor:pointer;display:flex;justify-content:space-between;border-left:2px solid transparent}
+.mail-folder:hover{background:var(--bg3);color:var(--txt)}
+.mail-folder.active{color:var(--orange);border-left-color:var(--orange);background:rgba(255,165,0,.06)}
+.mail-folder .ct{font-size:10px;color:var(--faint)}
+.mail-list{width:230px;flex:0 0 230px;border-right:1px solid var(--line);overflow:auto}
+.mrow{padding:11px 13px;border-bottom:1px solid #232328;cursor:pointer;transition:.1s}
+.mrow:hover{background:var(--bg3)}
+.mrow.active{background:rgba(255,165,0,.07)}
+.mrow.unread .mfrom{color:var(--txt)}
+.mrow.unread::before{content:"";float:right;width:6px;height:6px;border-radius:50%;background:var(--ether);margin-top:4px;box-shadow:0 0 6px var(--ether)}
+.mfrom{font-size:11px;color:var(--dim);margin-bottom:3px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msubj{font-size:11.5px;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mrow.unread .msubj{color:#fff}
+.mdate{font-size:9.5px;color:var(--faint);margin-top:3px;letter-spacing:.03em}
+.mail-read{flex:1;overflow:auto;padding:24px 30px}
+.mail-read .mh{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+.mail-read .mh .s{font-family:var(--serif);font-size:18px;color:var(--txt);margin-bottom:10px}
+.mail-read .mh .kv{font-size:11px;color:var(--dim);margin:2px 0}
+.mail-read .mh .kv b{color:var(--faint);font-weight:400;display:inline-block;width:46px}
+.mail-read .body{font-family:var(--serif);font-size:14.5px;line-height:1.66;color:#cfcabf;white-space:pre-wrap}
+.mail-read .body.mono{font-family:var(--mono);font-size:12.5px;color:#c9cdd1;line-height:1.6}
+.mail-empty{flex:1;display:flex;align-items:center;justify-content:center;color:var(--faint);font-style:italic}
+.thread-msg{border-left:2px solid var(--line);padding:2px 0 2px 16px;margin-bottom:22px}
+.thread-msg .th{font-size:10.5px;color:var(--faint);font-family:var(--mono);margin-bottom:8px;line-height:1.7}
+.thread-msg .th b{color:var(--dim);font-weight:400}
+
+/* ===================== IMAGE VIEWER ===================== */
+.iv{display:flex;flex-direction:column;height:100%;background:#0c0c0e}
+.iv-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px;overflow:hidden;position:relative}
+.iv-stage svg{max-width:100%;max-height:100%;border-radius:4px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.iv-cap{padding:10px 16px;border-top:1px solid var(--line);background:#141416;font-family:var(--serif);font-style:italic;font-size:13px;color:var(--dim);text-align:center;min-height:20px}
+.iv-bar{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid var(--line);background:var(--bg2)}
+.iv-nav{background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:5px;width:26px;height:24px;cursor:pointer;font-size:13px}
+.iv-nav:hover{color:var(--orange);border-color:var(--orange-dim)}
+.iv-count{font-size:10.5px;color:var(--faint);letter-spacing:.05em}
+.iv-thumbs{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line);overflow-x:auto;background:#0e0e10}
+.iv-thumb{width:54px;height:40px;flex:0 0 54px;border-radius:4px;border:1px solid var(--line);overflow:hidden;cursor:pointer;opacity:.6;transition:.12s}
+.iv-thumb.active{opacity:1;border-color:var(--orange)}
+.iv-thumb:hover{opacity:1}
+.iv-thumb svg{width:100%;height:100%}
+
+/* ===================== MUSIC ===================== */
+.music{padding:0;height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,#16161a,#101012)}
+.music-head{padding:20px 22px 14px;border-bottom:1px solid var(--line)}
+.music-head .pl{font-family:var(--serif);font-size:17px;color:var(--txt)}
+.music-head .sub{font-size:10.5px;color:var(--faint);letter-spacing:.06em;margin-top:3px}
+.tracks{flex:1;overflow:auto;padding:6px 0}
+.track{display:flex;align-items:center;gap:12px;padding:10px 22px;cursor:pointer;font-size:12.5px;color:var(--dim);border-left:2px solid transparent}
+.track:hover{background:var(--bg3);color:var(--txt)}
+.track.playing{color:var(--ether);border-left-color:var(--ether);background:rgba(84,214,224,.05)}
+.track .num{width:18px;color:var(--faint);font-size:11px}
+.track .nm{flex:1}
+.track .eq{display:none;gap:2px;align-items:flex-end;height:13px}
+.track.playing .eq{display:flex}
+.track .eq i{width:3px;background:var(--ether);animation:eq .9s ease-in-out infinite}
+.track .eq i:nth-child(2){animation-delay:.2s}.track .eq i:nth-child(3){animation-delay:.4s}
+@keyframes eq{0%,100%{height:4px}50%{height:13px}}
+.track.special .nm::after{content:" ◆";color:var(--violet);font-size:10px}
+.music-foot{padding:12px 22px;border-top:1px solid var(--line);font-size:10.5px;color:var(--faint);font-style:italic;font-family:var(--serif);min-height:18px}
+
+/* ===================== ETHER MONITOR ===================== */
+.ether{padding:20px;height:100%;font-size:12px;display:flex;flex-direction:column;gap:16px;background:#0d0e10}
+.ether-read{text-align:center;padding:18px;border:1px solid var(--line);border-radius:8px;background:#121316}
+.ether-val{font-size:15px;letter-spacing:.06em;margin-top:6px}
+.ether-val.nominal{color:var(--ether)}
+.ether-val.anom{color:var(--orange);animation:pulseOrange 1.2s infinite}
+.ether-graph{height:70px;border:1px solid var(--line);border-radius:8px;background:#121316;position:relative;overflow:hidden}
+.ether-graph svg{position:absolute;inset:0;width:100%;height:100%}
+.ether-log{flex:1;overflow:auto;font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:8px;padding:10px;background:#101113;line-height:1.8}
+.ether-log .anom{color:var(--orange)}
+.ether-log .t{color:var(--faint)}
+
+/* ===================== SETTINGS ===================== */
+.settings{padding:24px 28px;font-size:12.5px;max-width:520px}
+.settings h3{font-family:var(--serif);font-size:16px;color:var(--txt);margin:0 0 4px}
+.set-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #232328}
+.set-row .lab{color:var(--txt)}
+.set-row .desc{color:var(--faint);font-size:10.5px;margin-top:3px}
+.wp-opts{display:flex;gap:10px;margin-top:4px}
+.wp-opt{width:64px;height:40px;border-radius:5px;border:1px solid var(--line);cursor:pointer}
+.wp-opt.sel{border-color:var(--orange);box-shadow:0 0 0 2px rgba(255,165,0,.2)}
+.wp-default{background:linear-gradient(165deg,#17171b,#0d0d10)}
+.wp-sis{background:linear-gradient(165deg,#241c12,#0d0d10)}
+.set-users{font-family:var(--mono);font-size:11px}
+.set-users .n{color:var(--orange)}
+
+/* ===================== TRASH ===================== */
+.trash-banner{background:rgba(255,92,77,.06);border-bottom:1px solid #3a2420;color:var(--dim);font-size:11px;padding:9px 14px;font-style:italic}
+
+/* ===================== IM WINDOW ===================== */
+.im{display:flex;flex-direction:column;height:100%;background:#141416}
+.im-head{padding:10px 14px;border-bottom:1px solid var(--line);font-size:11px;color:var(--dim)}
+.im-head .who{color:var(--orange)}
+.im-log{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.im-msg{max-width:78%;padding:8px 12px;border-radius:10px;font-size:12.5px;line-height:1.45}
+.im-msg.them{background:#26262b;color:#dcd9d3;align-self:flex-start;border-bottom-left-radius:3px}
+.im-msg.me{background:var(--orange-dim);color:#161106;align-self:flex-end;border-bottom-right-radius:3px}
+.im-msg.typing{color:var(--faint);font-style:italic}
+.im-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+.im-input input{flex:1;background:#0e0e10;border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:12px;outline:none}
+.im-input input:focus{border-color:var(--orange-dim)}
+.im-input button{background:var(--orange-dim);color:#161106;border:none;border-radius:6px;padding:0 14px;cursor:pointer;font-family:var(--mono);font-size:12px}
+.im-canned{display:flex;flex-wrap:wrap;gap:6px;padding:0 10px 10px}
+.im-canned button{background:#222226;border:1px solid var(--line);color:var(--dim);border-radius:14px;padding:5px 11px;font-size:10.5px;cursor:pointer;font-family:var(--mono)}
+.im-canned button:hover{color:var(--orange);border-color:var(--orange-dim)}
+
+/* ===================== TASKBAR ===================== */
+#taskbar{
+  position:fixed;left:0;right:0;bottom:0;height:42px;z-index:8000;
+  background:linear-gradient(#1c1c20,#161619);border-top:1px solid var(--line);
+  display:flex;align-items:center;padding:0 10px;gap:8px;
+  box-shadow:0 -6px 20px rgba(0,0,0,.4);
+}
+.tb-start{display:flex;align-items:center;gap:8px;padding:5px 12px;border-radius:6px;cursor:default}
+.tb-start .logo{color:var(--orange);font-weight:700;letter-spacing:.1em;font-size:12px}
+.tb-tasks{flex:1;display:flex;gap:6px;overflow:hidden}
+.tbtn{display:flex;align-items:center;gap:6px;padding:5px 11px;border-radius:6px;background:#222226;border:1px solid transparent;cursor:pointer;font-size:11px;color:var(--dim);max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbtn:hover{background:var(--bg3);color:var(--txt)}
+.tbtn.active{border-color:var(--orange-dim);color:var(--txt);background:rgba(255,165,0,.07)}
+.tb-tray{display:flex;align-items:center;gap:14px;padding-right:6px}
+.tray-item{font-size:10.5px;color:var(--dim);display:flex;align-items:center;gap:5px;cursor:default}
+.tray-item .ledg{width:7px;height:7px;border-radius:50%;background:var(--ether);box-shadow:0 0 6px var(--ether)}
+.tray-item.anom .ledg{background:var(--orange);box-shadow:0 0 7px var(--orange);animation:pulseOrange 1.2s infinite}
+#trayUsers{cursor:pointer}
+#trayUsers.two{color:var(--orange)}
+#trayUsers.two .ico{animation:pulseOrange 2s infinite}
+.tray-clock{font-size:11px;color:var(--txt);letter-spacing:.04em;min-width:54px;text-align:right}
+.tray-logout{background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:5px;padding:5px 10px;cursor:pointer;font-family:var(--mono);font-size:10.5px}
+.tray-logout:hover{color:var(--danger);border-color:#5a2f2a}
+
+/* ===================== TOAST / NOTIFY ===================== */
+#toasts{position:fixed;right:14px;bottom:54px;z-index:8500;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.toast{
+  background:#1d1d21;border:1px solid var(--line);border-left:3px solid var(--orange);
+  border-radius:7px;padding:11px 14px;max-width:300px;font-size:11.5px;color:var(--txt);
+  box-shadow:0 10px 30px rgba(0,0,0,.5);animation:toastIn .25s ease-out;cursor:pointer;
+}
+.toast.ether{border-left-color:var(--ether)}
+.toast .tt{font-size:10px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+/* shutdown overlay */
+#shutdown{position:fixed;inset:0;z-index:9500;background:#0a0a0c;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px}
+#shutdown .msg{font-size:12px;color:var(--dim);letter-spacing:.04em}
+#shutdown .sub{font-size:10.5px;color:var(--faint)}
+
+.cursor-ghost{position:fixed;z-index:9999;pointer-events:none;width:16px;height:22px;opacity:0;transition:opacity .4s}
+.cursor-ghost svg{filter:drop-shadow(0 0 4px rgba(255,165,0,.5))}
+
+@media (max-width:720px){
+  .win{left:0!important;top:0!important;width:100vw!important;height:calc(100vh - 42px)!important;border-radius:0;min-width:0}
+  .files-side,.mail-side{display:none}
+  .mail-list{width:100%;flex:1}
+  .mail-read{display:none}
+}
+</style>
 </head>
 <body>
-    <div class="terminal">
-        <div class="content">
-            <div id="loginScreen">
-                <h2>Starhaven Biolabs Terminal</h2>
-                <p>Enter username:</p>
-                <input type="text" id="usernameInput" placeholder="Username">
-                <p>Enter password:</p>
-                <input type="password" id="passwordInput" placeholder="Password">
-                <button onclick="login()">Login</button>
-                <p id="loginError" class="hidden" style="color: #ff3333;"></p>
-            </div>
-            <div id="welcomeScreen" class="hidden">
-                <h2>Welcome, Dr. Amelia Pine</h2>
-                <img src="amelia.jpeg" alt="Dr. Amelia Pine">
-                <p>Access granted to Starhaven Biolabs systems.</p>
-                <p class="blink">Press any key or tap anywhere to continue...</p>
-            </div>
-            <div id="projectMenu" class="hidden">
-                <h2>Project Selection</h2>
-                <ul id="projectList"></ul>
-                <h3>Other Options</h3>
-                <ul>
-                    <li><a href="#" onclick="showEmailMenu()">E-mails</a></li>
-                </ul>
-                <button onclick="logout()">Logout</button>
-            </div>
-            <div id="projectLoginScreen" class="hidden">
-                <h2 id="projectLoginTitle"></h2>
-                <p>Enter project password:</p>
-                <input type="password" id="projectPasswordInput">
-                <button onclick="loginProject()">Access Project</button>
-                <p id="projectLoginError" class="hidden" style="color: #ff3333;"></p>
-                <button onclick="backToProjects()">Back to Projects</button>
-            </div>
-            <div id="documentMenu" class="hidden">
-                <h2 id="documentMenuTitle"></h2>
-                <ul id="documentList"></ul>
-                <button onclick="backToProjects()">Back to Projects</button>
-            </div>
-            <div id="documentViewer" class="hidden">
-                <h2 id="documentTitle"></h2>
-                <pre id="documentContent"></pre>
-                <button onclick="backToDocuments()">Back to Documents</button>
-            </div>
-            <div id="emailMenu" class="hidden">
-                <h2>E-mails</h2>
-                <ul id="emailList"></ul>
-                <button onclick="backToProjects()">Back to Main Menu</button>
-            </div>
-            <div id="emailViewer" class="hidden">
-                <h2 id="emailTitle"></h2>
-                <pre id="emailContent"></pre>
-                <button onclick="backToEmails()">Back to E-mails</button>
-            </div>
-        </div>
+
+<!-- ===================== LOGIN ===================== -->
+<div id="login">
+  <div class="login-card">
+    <div class="login-os">Lumen&nbsp;OS</div>
+    <img src="amelia.jpeg" class="login-avatar" alt="" onerror="this.style.display='none'">
+    <p class="login-welcome">Welcome back, <b>A.&nbsp;Pine</b></p>
+    <p class="login-sub" id="loginSub">Last login: — from this device</p>
+    <button class="login-btn" id="loginBtn" onclick="bootIn()">Sign in</button>
+    <div class="boot-line" id="bootLine" style="margin-top:22px"></div>
+  </div>
+  <div class="login-foot"><span class="dot">◆</span> ether-powered &nbsp;·&nbsp; consumer build 8.4 &nbsp;·&nbsp; <span class="dot">◆</span></div>
+</div>
+
+<!-- ===================== DESKTOP ===================== -->
+<div id="desktop">
+  <div id="icons"></div>
+</div>
+
+<!-- ===================== TASKBAR ===================== -->
+<div id="taskbar" style="display:none">
+  <div class="tb-start"><span class="logo">◆ LUMEN</span></div>
+  <div class="tb-tasks" id="tbTasks"></div>
+  <div class="tb-tray">
+    <div class="tray-item" id="trayEther" title="Ether Monitor"><span class="ledg"></span><span id="trayEtherTxt">ether: nominal</span></div>
+    <div class="tray-item" id="trayUsers" onclick="openApp('settings')" title="Active sessions"><span class="ico">👤</span><span id="trayUsersTxt">1 user signed in</span></div>
+    <div class="tray-clock" id="trayClock">--:--</div>
+    <button class="tray-logout" onclick="logout()">⏻</button>
+  </div>
+</div>
+
+<div id="toasts"></div>
+<div class="cursor-ghost" id="ghostCursor"><svg viewBox="0 0 16 22"><path d="M0 0 L0 16 L4 12 L7 19 L9 18 L6 11 L12 11 Z" fill="#ffa500" stroke="#000" stroke-width=".5"/></svg></div>
+
+<div id="shutdown">
+  <div class="login-os">Lumen&nbsp;OS</div>
+  <div class="msg" id="shutdownMsg">Signing out…</div>
+  <div class="sub" id="shutdownSub"></div>
+</div>
+
+<script>
+/* ============================================================
+   LUMEN OS  —  Pine personal desktop  (Pokémon: Shima 5e prop)
+   Single self-contained build. See Pine_Desktop_DesignDoc.md.
+   ============================================================ */
+
+/* ---------- GM CONFIG (tune the whole session here) ---------- */
+const GM_CONFIG = {
+  coUserIdentityHints : false,   // if true, co-user events lean toward naming "H." (Helena)
+  eventFrequency      : 'normal',// 'rare' | 'normal' | 'frequent'
+  imInteractive       : true,    // Tier-3 IM lets the table type back as "Amelia"
+  startingTier        : 0,       // begin a session already at this suspicion tier (0-3)
+  showEtherSpikes     : true,    // Ether Monitor logs anomalous resonance
+  unlockEncFiles      : false,   // if true, the sealed .enc archive opens (future content gate)
+  resetState          : false,   // set true once to wipe persisted state, then set back
+};
+
+/* ---------- PERSISTENCE (window.storage in-artifact, else localStorage) ---------- */
+const Store = (function(){
+  const KEY = 'lumenos.pine.v1';
+  const hasArtifact = (typeof window!=='undefined' && window.storage && typeof window.storage.getItem==='function');
+  function read(){
+    try{
+      const raw = hasArtifact ? window.storage.getItem(KEY) : localStorage.getItem(KEY);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+  function write(obj){
+    try{
+      const raw = JSON.stringify(obj);
+      if(hasArtifact) window.storage.setItem(KEY, raw); else localStorage.setItem(KEY, raw);
+    }catch(e){}
+  }
+  return {read, write};
+})();
+
+const DEFAULT_STATE = {
+  loginCount   : 0,
+  read         : {},     // fileId -> true
+  tier         : GM_CONFIG.startingTier,
+  fired        : {},     // eventId -> true (so they don't repeat)
+  mutations    : [],     // co-user file additions that have appeared
+  imLog        : [],     // {who,text}
+  coverIntact  : true,
+  lastLoginAt  : null,
+  trashRecovered: {},
+};
+let STATE = (function(){
+  if(GM_CONFIG.resetState){ const s=structuredCloneSafe(DEFAULT_STATE); Store.write(s); return s; }
+  const saved = Store.read();
+  return saved ? Object.assign(structuredCloneSafe(DEFAULT_STATE), saved) : structuredCloneSafe(DEFAULT_STATE);
+})();
+function structuredCloneSafe(o){ return JSON.parse(JSON.stringify(o)); }
+function persist(){ Store.write(STATE); }
+
+/* ============================================================
+   CONTENT  —  the machine's files (from Pine_Desktop_ContentPack.md)
+   doc styles: 'lab' (mono), 'grief' (serif), 'plain' (sans)
+   ============================================================ */
+
+const FILES = {
+/* ---- THREAD A — House ---- */
+'tower-study':{name:'tower-study.txt',app:'notes',glyph:'📄',style:'grief',thread:'A',
+ body:`They've given me the old observatory at the top of the tower to work in.
+Five flights of cold stone and a door that doesn't lock from the inside.
+The lenses are gone — sold, like everything here — but the mounts are still
+bolted to the floor, pointing at nothing. Someone pinned star charts where the
+sky used to be.
+
+It's E.'s room when he's here. His maps are still on the curved wall. I move my
+papers around them and try not to read them and read them anyway. I try not to
+be here when he is.
+
+The window faces the sea. On clear mornings you can watch the weather come in
+off the water for an hour before it arrives. It is the only part of this house
+I would miss.`},
+
+'to-the-caretaker':{name:'to-the-caretaker.txt',app:'notes',glyph:'📄',style:'plain',thread:'A',
+ body:`For the caretaker, since he will not knock:
+
+- I do not need the library opened for me. I have keys. The "by appointment"
+  rule is for the researchers you log, not for me. Stop reporting my hours.
+- H. has asked that the west wing stay closed. Fine. I have no business in a wing
+  full of sheeted furniture and whatever has moved in through the broken windows.
+- If anyone asks who I am, I am a visiting archivist. That is the agreed answer.
+  Use it.
+- The salt gets into everything up here. Two of the tower panes are cracked
+  through. No one will replace them. Of course no one will.`},
+
+'ether-bill-dispute':{name:'ether-bill-dispute.txt',app:'notes',glyph:'📄',style:'plain',thread:null,
+ body:`THIRD attempt to get the Coast ether utility to acknowledge that a house with
+two permanent occupants and a mothballed west wing should NOT be drawing peak
+industrial load. Either their meter is broken or something in this building runs
+all night that no one will tell me about. I have stopped expecting an answer.
+File reference ████-4471. I will be dead of old age before they close it.`},
+
+'groceries-promontory':{name:'groceries-promontory.txt',app:'notes',glyph:'📄',style:'plain',thread:null,
+ body:`The nearest village is forty minutes down the promontory road and closes early.
+List: lamp oil (the good kind, the cheap kind smokes), tea, more tea, bread,
+something green if the boat came in, batteries, ear plugs (the gulls).
+Ask if anyone delivers this far out. They won't.`},
+
+/* ---- THREAD B — Aurora ---- */
+'she-asked-again':{name:'she-asked-again.txt',app:'notes',glyph:'📓',style:'grief',thread:'B',
+ body:`She asked who I was again today.
+
+I told her I was her sister. She smiled — that easy smile she still has, the one
+thing it didn't take — and she said, "I always wanted a sister." Like it was good
+news. Like I was a stranger bringing her a gift.
+
+I said yes. You have one. I'm right here.
+
+She asked if I'd visit again. As if I am someone who visits. As if I have ever,
+once, since this started, gone more than nine days without standing in that room.
+
+I left before she saw my face do the thing it does.
+
+I am going to fix this. I do not care what it costs or who I have to become to buy
+the means. I have stopped pretending that sentence frightens me.`},
+
+'timeline':{name:'timeline.txt',app:'notes',glyph:'📄',style:'lab',thread:'B',
+ body:`AURORA — LAST LUCID MONTHS (reconstructed, best effort)
+
+— Spring: normal. Letters, visits, the river survey work. Sharp as ever.
+— Early summer: the trial. She volunteered. "Paid, harmless, twenty minutes with
+  a partner Pokémon and a very polite technician." Her words, in her last normal
+  letter. I have read that letter four hundred times.
+— After: three weeks of "tired." Headaches. Names going soft at the edges.
+— Then the drop. Not gradual after that point. A door closing.
+— By autumn she did not reliably know our mother. By winter she did not know me.
+
+The doctors call it idiopathic. Idiopathic means "we don't know and we've stopped
+looking." I have not stopped looking.
+
+The ONLY anomaly in her year is the trial. Everyone wants me to accept coincidence.
+I am a scientist. I do not believe in a healthy woman whose mind empties three weeks
+after she was wired to a Pokémon and told to "share an experience."`},
+
+'records-wall':{name:'records-wall.txt',app:'notes',glyph:'📄',style:'lab',thread:'B',
+ body:`What I have been able to get:
+  - Her intake form. Real. Her signature. The program name redacted on the copy
+    they released, of course.
+  - A consent waiver so broad it consents to the heat death of the universe.
+  - Nothing else. The trial's sponsor "cannot locate" the dataset. The technician
+    "is no longer with the program." The program "concluded."
+
+What I have learned trying:
+  - A legitimate request gets you a legitimate wall.
+  - The people who ran that trial have resources, lawyers, and silence I cannot
+    out-spend or out-wait.
+  - There is exactly one kind of organisation that can open doors like these, and
+    they came to ME, in the end. They offered access. I have stopped asking myself
+    whether I should have said no. The question is a luxury and Aurora does not have
+    time for my conscience.
+
+If the share took something out of her, the share can be made to give it back.
+First I have to find where it went.`},
+
+'redacted-trial':{name:'redacted-trial.enc',app:'enc',glyph:'🔒',style:null,thread:'B'},
+
+'playlist-for-her':{name:'playlist-for-her.txt',app:'notes',glyph:'📄',style:'plain',thread:'B',
+ body:`Songs A. used to know every word to. I play them in the tower sometimes. The
+caretaker thinks I'm strange. The caretaker is correct.
+(See: Music. The third track was her favourite. She'd kill me for admitting I
+remember that and she doesn't.)`},
+
+/* ---- THREAD C — shared-exp research ---- */
+'share-principle':{name:'share-principle.txt',app:'notes',glyph:'📄',style:'lab',thread:'C',
+ body:`PRINCIPLE OF THE SHARE (working notes — mine, not theirs)
+
+A trainer and a bonded Pokémon already exchange more than commands. The bond
+carries feeling, intent, a thread of shared life — the southern tribes have a word,
+mauri, and they are not wrong to use it. The Share is the engineering of that thread.
+
+Done lightly, it is a teaching tool. A partner that did not stand in the fight still
+receives the experience of it along the link — the lesson without the danger. Hang
+the device between trainer and a second partner and the second partner grows from
+battles it never entered. That is the version they want to sell. That is the version
+that is safe.
+
+That is not the version that interests me, and it is not, I am now certain, the
+version Aurora was given.`},
+
+'door-both-ways':{name:'door-both-ways.txt',app:'notes',glyph:'📄',style:'lab',thread:'C',
+ body:`The Share is not a teaching tool. It is a door. Doors swing both ways.
+
+Experience can flow to a partner. It can also flow FROM a person — and the link does
+not care which direction is "supposed." Push the gain too hard, hold the channel open
+too long, and you are not copying experience anymore. You are MOVING it. And what moves
+out does not always move back.
+
+Memory is experience that stayed. I can no longer pretend I don't know what that means
+for a healthy woman who sat in a chair for twenty minutes, wired to a partner, told to
+open the channel as wide as it would go "for a clean reading."
+
+Somewhere there is a Pokémon carrying twenty minutes of my sister that she will never
+get back unless I take it out and put it where it belongs. If that is even possible.
+I will make it possible.`},
+
+'loose-ends':{name:'loose-ends.txt',app:'notes',glyph:'📄',style:'lab',thread:'C',
+ body:`THREADS I CAN STILL PULL:
+
+1. The prototype. The early field unit — not the polished demo, the ugly first one
+   that ran too hot — was never logged back into inventory. Last I can place it: a
+   storage cage at ████████, signed out and never returned. If anyone still has a unit
+   that can run the channel in REVERSE, it is that one.
+
+2. The technician. "No longer with the program" — because he WALKED. He saw something
+   in an early session that frightened him out of a career. I have a name and a region.
+   A man who quit in protest will talk, if the right person asks the right way. He may
+   be the only honest witness left.
+
+3. The carrier. If a subject's experience went somewhere, it went into a PARTNER. Find
+   the partner Pokémon from Aurora's trial and you find what she lost — "still carrying
+   something that isn't its own," if the early notes are right. It was never returned to
+   the wild or to records. Someone kept it. Find who.
+
+Three threads. Any one of them is a door. I have stopped being afraid of doors.`},
+
+'requisition-draft':{name:'requisition-draft.txt',app:'notes',glyph:'📄',style:'lab',thread:null,
+ body:`DRAFT — equipment requisition (do not send until H. signs)
+  - shielded coupling cable, 2x (the last set degraded under sustained load)
+  - ether-flux dampener, 1x — NON-NEGOTIABLE, I will not run an open channel
+    again without one, I don't care what it costs the budget
+  - replacement emitter, calibration-grade
+  - coffee, industrial quantity, charge to "consumables"`},
+
+'redacted-enc':{name:'[redacted].enc',app:'enc',glyph:'🔒',style:null,thread:null},
+
+/* ---- Work cover (dull camouflage) ---- */
+'grant-form':{name:'grant-renewal-7c.txt',app:'notes',glyph:'📄',style:'lab',thread:null,
+ body:`STARHAVEN OUTREACH — GRANT RENEWAL FORM 7-C (carried over; do not lose)
+
+Line 3 (annual disbursement) does not reconcile with line 11 (declared spend) by a
+margin of ████. Per H., do not query it. The margin is "the house's contribution
+in kind." I have written "in kind" in a box on a form four times this year and I no
+longer know what it means.
+
+Signatures pending. Filed for the auditor who will never come this far out.`},
+
+'expense-report':{name:'expenses-q3.txt',app:'notes',glyph:'📄',style:'lab',thread:null,
+ body:`Q3 expenses (personal, not the lab's):
+  - lamp oil ……………… ████
+  - boat freight (books) … ████
+  - A.'s care — monthly … ████   <-- this line is the only honest number on the page
+  - ether surcharge (disputed, see note) … ████
+  - tea ………………………… more than I will admit`},
+
+'meeting-notes':{name:'notes-from-the-house.txt',app:'notes',glyph:'📄',style:'plain',thread:null,
+ body:`Met H. in the library, the long table by the cold fireplace. She wanted to know
+how the work progresses and I told her what I tell her: slowly, and safely, which is
+the only safe speed. She accepts this from me in a way she accepts it from no one else.
+She asked after my sister. She always asks after my sister. I have never decided whether
+that is kindness or leverage, and in this house the two wear the same coat.`},
+
+/* ---- Personal ---- */
+'recipe':{name:'grandmothers-bread.txt',app:'notes',glyph:'📄',style:'plain',thread:null,
+ body:`Grandmother's bread — the one A. and I could both make blind.
+Flour, salt, water, the old starter (feed it or it sulks). Knead until it stops
+arguing. Prove it twice. Slash a cross in the top "so the loaf can breathe."
+
+I make it here sometimes. It comes out wrong at this altitude or maybe it always
+came out wrong and the rightness was the kitchen and the two of us and the noise.`},
+
+'wishlist':{name:'someday.txt',app:'notes',glyph:'📄',style:'plain',thread:null,
+ body:`SOMEDAY (a list I keep so I remember there is an after):
+  - a small house that is mine and draws ordinary power
+  - a garden that the salt does not kill
+  - to take A. to the coast where we grew up, and have her remember it, even once
+  - to be a person who did not have to do any of this
+  - to read a book for no reason`},
+
+/* ---- IMAGES (Image Viewer) — svg keys defined in IMAGES below ---- */
+'coast-survey':{name:'coast-survey.img',app:'image',glyph:'🖼',thread:'A',img:'coast'},
+'gate':{name:'gate.img',app:'image',glyph:'🖼',thread:'A',img:'gate'},
+'lintel':{name:'lintel.img',app:'image',glyph:'🖼',thread:'A',img:'lintel'},
+'two-of-us':{name:'two-of-us.img',app:'image',glyph:'🖼',thread:'B',img:'sisters'},
+'aurora-field':{name:'aurora-field.img',app:'image',glyph:'🖼',thread:'B',img:'reeds'},
+'manor-library':{name:'manor-library.img',app:'image',glyph:'🖼',thread:'A',img:'library'},
+'tower-from-below':{name:'tower-from-below.img',app:'image',glyph:'🖼',thread:'A',img:'tower'},
+'gulls':{name:'gulls.img',app:'image',glyph:'🖼',thread:null,img:'gulls'},
+'tea-rings':{name:'tea-rings.img',app:'image',glyph:'🖼',thread:null,img:'tea'},
+
+/* ---- Trash ---- */
+'resignation-draft':{name:'resignation-draft(2).txt',app:'notes',glyph:'🗑',style:'lab',thread:'X',trash:true,
+ body:`Dr. ████████, Director —
+
+Please accept this as my notice. I came to this work for a reason that had nothing
+to do with the work, and I have done things in its name that the reason does not
+
+[the draft ends here. it was never finished, and it was never sent. it has been
+dragged to the trash and recovered and dragged back more than once — the file's
+revision count is in the forties.]`},
+
+'birthday-A-draft':{name:'birthday-A-draft.txt',app:'notes',glyph:'🗑',style:'grief',thread:'X',trash:true,
+ body:`Happy birthday, A. You won't read this and you wouldn't know it was from me, so I
+can write the true version: I am sorry. I am the reason you were in that chair. I'm
+the one who told you the trial was harmless. I read you the flyer over the phone and
+I laughed about the money.
+
+I will spend whatever is left of me putting it right.
+
+[deleted — never sent — recovered — deleted again]`},
+
+'discarded-photo':{name:'untitled-deleted.img',app:'image',glyph:'🗑',thread:null,img:'sisters',trash:true,half:true},
+};
+
+/* co-user mutation file: appears in Aurora folder mid-session */
+const COUSER_FILE = {
+ id:'couser-note', name:'open-this.txt', app:'notes', glyph:'📄', style:'plain', thread:null, ghost:true,
+ body:`(this file was not here a moment ago)
+
+the dataset you couldn't find is not lost. it was moved. ask who had reason to move it.
+
+— left open on the desktop. no signature.`
+};
+
+/* ============================================================
+   MAIL  —  personal inbox + archived work mail (The Pine Cache)
+   ============================================================ */
+const MAIL = {
+  inbox: [
+    {id:'m-couser', from:'████@████.sec', to:'amelia.pine@home.net', subj:'(no subject)', date:'just now', unread:true, ghost:true, mono:true,
+     body:`Are you signed into the personal machine right now? The house log shows the account active and you told me you'd stay off it from inside these walls.
+
+If this is you, reply.
+
+If this is you, you'd reply.
+
+████`},
+    {id:'m-carers', from:'amelia.pine@home.net', to:'████@████.net', subj:'Re: Visiting hours / this month’s arrangement', date:'9 days ago', unread:true, thread:'B',
+     body:`Thank you for the photograph. She looks well. She looks like herself, which is the cruelty of it — nothing on the outside tells you anything is gone.
+
+The arrangement is covered through the year; you'll see the transfer as before, same reference. If she asks for me, tell her a sister is coming. Don't use my name — it slides off her and I'd rather she keep the warm idea of "a sister" than watch a stranger's name fail to stick again.
+
+I am close to something. I know I always say that. This time it has a shape.
+
+— A.`},
+    {id:'m-overdue', from:'circulation@████.lib', to:'amelia.pine@home.net', subj:'OVERDUE: 3 items', date:'2 weeks ago', unread:false, mono:true,
+     body:`Our records show the following items are overdue. Please return them to the circulation desk to avoid further charges.
+
+  · On the Attunement of Bonded Creatures — vol. II
+  · Coastal Survey of the Northern Libra Reach
+  · ████████████████  (record sealed)
+
+This is an automated notice from a Blackthorn-administered collection.`},
+    {id:'m-utility', from:'noreply@coast-ether.████', to:'amelia.pine@home.net', subj:'Your enquiry ████-4471 has been received', date:'3 weeks ago', unread:false, mono:true,
+     body:`Thank you for contacting Coast Ether & Power. Your enquiry is important to us. A representative will respond within 30 business days.
+
+This is an automated message. Do not reply.`},
+  ],
+  archive: [
+    {id:'a1', subj:'New trainers’ progress', date:'work archive · thread 1', unread:false, thread:'cache',
+     msgs:[
+      {from:'a.pine@starhaven.lib',to:'prof.yucca@librauniversity.lib',body:`Professor Yucca,
+
+Hope the term's treating you gently. I heard you sent a new group out with their starters this season — I like to keep half an eye on the promising ones for the institute's outreach files. Joey, Hiro, Poltymus, Rixso, if I have the names right. Any word back from them?
+
+Warmly,
+Amelia`},
+      {from:'prof.yucca@librauniversity.lib',to:'a.pine@starhaven.lib',body:`Amelia! Good to hear from you. They've been busy — first badge already, and they've taken to poking around the old ruins out past the forest. Joey was full of some story about an orb they turned up. You know how new trainers are about anything that glows. Lovely group, genuinely.
+
+— Yucca`},
+      {from:'a.pine@starhaven.lib',to:'prof.yucca@librauniversity.lib',body:`An orb! The things that wash out of those ruins. If Joey says anything more about where it came from, I'd love the detail for the outreach write-up — the institute eats up that kind of local-history color. No rush.
+
+A.`},
+     ]},
+    {id:'a2', subj:'— (the Orb, and the tree)', date:'work archive · thread 2', unread:false, thread:'cache',
+     msgs:[
+      {from:'a.pine@starhaven.lib',to:'████@████.sec',body:`The university source confirms it independently. One of the new trainers is carrying it, and they don't know what they have. They found it in the ruins past the forest — the sky-serpent site, I'm nearly certain.
+
+This is the one we've been waiting on. Advise.`},
+      {from:'████@████.sec',to:'a.pine@starhaven.lib',body:`Confirmed receipt. Do not move on the carrier. Do not spook them. They are doing our surveying for us — let them keep walking into rooms we can't open ourselves.
+
+Mark the tree. We follow.
+MB`},
+      {from:'a.pine@starhaven.lib',to:'████@████.sec',body:`Tree's marked. They went down and came back up changed — something's different about the site now, and about them. I'll have the location package to you within the day.
+
+We have what we needed. The rest is patience.`},
+     ]},
+    {id:'a3', subj:'Nomenclature — final reminder (P-1)', date:'work archive · thread 3', unread:false, thread:'cache',
+     msgs:[
+      {from:'a.pine@starhaven.lib',to:'proteus-team@sitealpha.sec',body:`Team,
+
+Effective now, the subject is P-1 in every document, log, and verbal reference. Not its species. Not its old designation. I will not repeat why this matters; those of you cleared for the full picture already understand, and those of you who aren't don't need to.
+
+Notes encrypted and filed by end of shift. No discussion outside the secure bay.
+
+Dr. Pine`},
+      {from:'r.singh@sitealpha.sec',to:'a.pine@starhaven.lib',body:`Dr. Pine — P-1 held a transformed state past twenty-four hours this cycle. Structural integrity clean throughout. If we can isolate the marker responsible for the duration, the replication applications are… I'll keep the adjectives out of the log. You'll want to see the sequencing.
+
+— Singh`},
+      {from:'a.pine@starhaven.lib',to:'r.singh@sitealpha.sec',body:`Excellent work. Send me the sequencing under separate cover. And Singh — the duration result does not leave the bay. Not even to Bellini's office without my say. Especially not there.
+
+A.`},
+     ]},
+    {id:'a4', subj:'Operation debrief / Anomalies / Containment', date:'work archive · thread 4', unread:false, thread:'cache',
+     msgs:[
+      {from:'████@████.sec',to:'a.pine@starhaven.lib',body:`Pine,
+
+The data acquisition was clean — too clean. Site security was bypassed with a fluency our analysts can't account for. I'll be direct: did you put one of your Proteus assets through that wall?
+
+Initiative is valued. Unauthorized assets are not. Answer plainly.
+MB`},
+      {from:'████@████.sec',to:'a.pine@starhaven.lib',body:`Amelia.
+
+The night-cycle footage from the breach has movement patterns that don't resolve to any body on your team roster. If P-1 — or anything derived from it — was on that floor, I need to know inside the hour. The exposure here is not yours alone.
+
+MB`},
+      {from:'████@████.sec',to:'a.pine@starhaven.lib',body:`There is unaccounted genetic material at the breach site. If P-1 was used and did not fully revert, we are past discussion.
+
+Initiate containment. Erase the trace. Your commitment is not in question; your judgment this cycle is. We settle the consequences once the floor is clean.
+MB
+
+[no reply from a.pine was ever sent in this thread]`},
+     ]},
+    {id:'a5', subj:'A candidate (Maxine Blaze)', date:'work archive · thread 5', unread:false, thread:'cache',
+     msgs:[
+      {from:'a.pine@starhaven.lib',to:'████@████.sec',body:`There's a trainer worth your attention — Maxine Blaze. Aridune-born, came through the refugee corridor as a child, made herself into a Federation competitor on nothing but will. Strong, angry in the useful way, and entirely without illusions about who emptied her homeland.
+
+She doesn't know the half of why the desert burned. When she learns it was a program and not a misfortune, I think she comes to us on her own feet.`},
+      {from:'████@████.sec',to:'a.pine@starhaven.lib',body:`Approved to develop. But the approach is everything — you don't hand someone like that a pamphlet. You let her find the thread and pull it herself. Position the truth where she'll trip over it. The desert did our recruiting; we just open the door.
+
+Keep her clear of the Veerulent specifics until she's committed. The field-test details are not a recruitment tool. They're a liability until she's one of us.
+MB`},
+     ]},
+    {id:'a6', subj:'The door-work', date:'work archive · thread 6', unread:false, thread:'cache',
+     msgs:[
+      {from:'s.r.@████.sec',to:'a.pine@starhaven.lib',body:`Dr. Pine,
+
+Progress on the corruption project is real but slow, and slow is the only safe speed. The influence does not "transfer" so much as it is invited — the subject has to be opened, and the opening does not close on its own afterward. We are learning the closing. It is harder than the opening by an order I did not expect.
+
+The Twilight practitioners up north know things we don't, and won't share them. I'd give a great deal for one of their people on staff. Failing that, I'll keep paying for what washes down from the Depths.
+
+One more thing, and I want it on a record only you and I read: the phenomenon is not ours alone. I've made contact with a group operating out of Orre — yes, that far, the other side of the world. They've been engineering corrupted Pokémon for years by their own method, a "closing of the heart's door." Cruder than what the Depths produce here, but they have volume, and a man named Ein who has written down more about the process than anyone on our side dares to. The distance is the whole appeal — what we trade with Orre never touches a Federation wire.
+S.R.`},
+      {from:'a.pine@starhaven.lib',to:'s.r.@████.sec',body:`Understood, and agreed on the pace. MB wants results; I keep telling MB that this is not a thing one hurries without making a monster nobody commands. The orb work and the door-work should not touch — keep your subjects far from anything resonant until we know what proximity does.
+
+The Orre channel is sanctioned — quietly. Take what Ein's people have learned and improve on it; do not let them learn what we know in return. They think the corruption is a technique. We know better. Keep that asymmetry.
+
+"E" will be passing through your area. Give him what he needs and keep him on a short tether. You know what he is.
+A.`},
+      {from:'s.r.@████.sec',to:'a.pine@starhaven.lib',body:`"E" is the last thing my project needs near it. But I know better than to refuse. I'll keep the corridor clear and the cameras off.
+S.R.`},
+     ]},
+    {id:'a7', subj:'— (the Spear, and "E")', date:'work archive · thread 7', unread:false, thread:'cache',
+     msgs:[
+      {from:'████@████.sec',to:'a.pine@starhaven.lib; s.r.@████.sec',body:`"E" recovered the object. That was the mission and the mission is complete, so I will say the rest once: he nearly cost us four trainers doing it, and those four trainers are the surveyors we cannot replace. The carrier party walked away — barely — and "E" considered that a generosity on his part.
+
+He is an instrument with a will of its own. Useful. Expensive. Watch him.
+MB`},
+      {from:'a.pine@starhaven.lib',to:'████@████.sec',body:`The object is what we thought it was, then. That makes two. I won't write the word for it even here.
+
+And yes — "E" nearly broke the very people doing our digging for us. If he touches the carrier party again before they've opened the last rooms for us, the cost isn't his to spend. Make that clear to him in whatever language he respects.
+A.`},
+     ]},
+    {id:'a8', subj:'burn it', date:'work archive · thread 8 · last', unread:false, thread:'cache',
+     msgs:[
+      {from:'a.pine@starhaven.lib',to:'████@████.sec; s.r.@████.sec',body:`Someone is in the system who is not one of ours. Not Federation security — I know their footprint, this isn't it. Whoever it is went straight for the Chimera forwards and the breach logs, the two things I am most exposed on.
+
+At least one specimen is loose at the lower site and not on any manifest. That is not a coincidence with the intrusion. Something is happening that none of us authored.
+
+I am going dark. Erase your side. Do not contact this address again — if you're reading mail to it after today, it isn't me reading the replies.
+A.`},
+      {from:'████@████.sec',to:'a.pine@starhaven.lib',body:`Acknowledged. Go.
+
+You did the work. Disappear well.
+MB`},
+     ]},
+  ],
+};
+
+/* ============================================================
+   FILESYSTEM TREE  (folder -> ordered list of file ids)
+   ============================================================ */
+const TREE = {
+  'House'        : {glyph:'🏚', files:['tower-study','to-the-caretaker','coast-survey','gate','lintel','ether-bill-dispute','groceries-promontory']},
+  'Photos'       : {glyph:'🖼', files:['two-of-us','aurora-field','manor-library','tower-from-below','gulls','tea-rings']},
+  'Aurora'       : {glyph:'📁', files:['she-asked-again','timeline','records-wall','redacted-trial','playlist-for-her']},
+  'Research'     : {glyph:'📁', files:['redacted-enc'], sub:{
+        'shared-exp':{glyph:'📁', files:['share-principle','door-both-ways','loose-ends','requisition-draft']}
+     }},
+  'Work'         : {glyph:'📁', files:['grant-form','expense-report','meeting-notes']},
+  'Personal'     : {glyph:'📁', files:['recipe','wishlist']},
+};
+
+/* ============================================================
+   SVG MOCK-PHOTOGRAPHS  (diegetic-stylized, not realistic)
+   ============================================================ */
+const IMAGES = {
+coast:{cap:'the house.', svg:`<svg viewBox='0 0 480 320'>
+  <defs><linearGradient id='sea' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#1a2630'/><stop offset='1' stop-color='#0c151c'/></linearGradient></defs>
+  <rect width='480' height='320' fill='#1c1a14'/><rect width='480' height='320' fill='url(#sea)' opacity='.5'/>
+  <path d='M0 120 Q120 110 200 150 T 300 200 Q360 220 480 210 L480 320 L0 320 Z' fill='#10171d'/>
+  <path d='M200 150 L260 168 L300 200 L250 215 L200 195 Z' fill='#2a261c' stroke='#3a3528' stroke-width='1'/>
+  <text x='40' y='90' fill='#6a6452' font-size='11' font-family='monospace' font-style='italic'>Silverpeak foothills</text>
+  <path d='M70 100 L120 130 L160 150' stroke='#4a4636' stroke-width='1' fill='none'/>
+  <line x1='380' y1='40' x2='380' y2='300' stroke='#5a5440' stroke-width='1.2' stroke-dasharray='6 5'/>
+  <text x='388' y='60' fill='#6a6452' font-size='9' font-family='monospace'>Florinex</text>
+  <text x='250' y='235' fill='#cbb36a' font-size='11' font-family='monospace'>the house</text>
+  <text x='298' y='196' fill='#ffd24d' font-size='16'>✦</text>
+  <text x='30' y='305' fill='#55503f' font-size='9' font-family='monospace'>NORTHERN LIBRA COAST — survey, weathered</text>
+</svg>`},
+gate:{cap:'', svg:`<svg viewBox='0 0 480 320'>
+  <rect width='480' height='320' fill='#15130f'/>
+  <rect width='480' height='320' fill='#0c0b08' opacity='.4'/>
+  <g opacity='.5'><path d='M40 320 Q80 180 60 90' stroke='#23281c' stroke-width='14' fill='none'/><path d='M420 320 Q380 200 410 110' stroke='#23281c' stroke-width='16' fill='none'/></g>
+  <g stroke='#2e2a20' stroke-width='5'>
+    <line x1='120' y1='40' x2='120' y2='300'/><line x1='200' y1='40' x2='200' y2='300'/>
+    <line x1='280' y1='40' x2='280' y2='300'/><line x1='360' y1='40' x2='360' y2='300'/>
+    <line x1='110' y1='60' x2='370' y2='52'/><line x1='110' y1='300' x2='370' y2='300'/>
+  </g>
+  <g transform='translate(240,170)' stroke='#3a3526' stroke-width='3' fill='none'>
+    <circle r='44' stroke='#332f22'/>
+    <path d='M-30 25 Q-8 5 0 -34 Q8 5 30 25' stroke='#4a4430'/>
+    <path d='M-20 12 l-10 -4 M-8 -6 l-12 -2 M8 -6 l12 -2 M20 12 l10 -4' stroke='#4a4430'/>
+    <text x='-9' y='-30' font-size='22' fill='#cbb36a' stroke='none'>✦</text>
+  </g>
+  <rect x='0' y='250' width='480' height='70' fill='#0a0907' opacity='.6'/>
+</svg>`},
+lintel:{cap:'every door in this family says something true and means something else.', svg:`<svg viewBox='0 0 480 320'>
+  <rect width='480' height='320' fill='#100e0a'/>
+  <polygon points='150,0 330,0 300,320 180,320' fill='#1a160f'/>
+  <rect x='180' y='150' width='120' height='170' fill='#0d0b07'/>
+  <rect x='180' y='150' width='120' height='12' fill='#241f15'/>
+  <rect x='160' y='120' width='160' height='34' fill='#26211695'/>
+  <text x='240' y='143' text-anchor='middle' fill='#9c8b58' font-size='12' font-family='serif' letter-spacing='1.5'>KNOWLEDGE ILLUMINATES</text>
+  <text x='240' y='112' text-anchor='middle' fill='#9c8b58' font-size='12' font-family='serif' letter-spacing='2'>THE PATH</text>
+  <polygon points='300,0 480,80 420,320 300,320' fill='#000' opacity='.55'/>
+  <polygon points='150,0 60,60 90,320 200,320' fill='#000' opacity='.35'/>
+  <rect x='305' y='10' width='40' height='300' fill='#d8c98a' opacity='.06' transform='skewX(-8)'/>
+</svg>`},
+sisters:{cap:'Amelia & Aurora — before either of us knew anything.', svg:`<svg viewBox='0 0 480 320'>
+  <defs><linearGradient id='sun' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#d9cB9f'/><stop offset='1' stop-color='#b9a173'/></linearGradient></defs>
+  <rect width='480' height='320' fill='#e6dcc2'/><rect width='480' height='320' fill='url(#sun)' opacity='.5'/>
+  <rect x='0' y='200' width='480' height='120' fill='#9c8c6a'/>
+  <rect x='0' y='196' width='480' height='10' fill='#7a6c50'/>
+  <g fill='#5c5240'><rect x='120' y='196' width='8' height='124'/><rect x='250' y='196' width='8' height='124'/><rect x='360' y='196' width='8' height='124'/></g>
+  <rect x='0' y='130' width='480' height='70' fill='#a9c0c4' opacity='.7'/>
+  <!-- older -->
+  <g transform='translate(190,120)'><ellipse cx='0' cy='-2' rx='20' ry='23' fill='#2c2620'/><rect x='-16' y='18' width='32' height='70' rx='10' fill='#4a4036'/></g>
+  <!-- younger, mid-laugh, holding round thing -->
+  <g transform='translate(245,135)'><ellipse cx='0' cy='-2' rx='17' ry='19' fill='#5a4a36'/><rect x='-14' y='15' width='28' height='60' rx='9' fill='#7a5d44'/><circle cx='0' cy='40' r='9' fill='#cbb36a' stroke='#9c8650'/></g>
+  <rect x='0' y='300' width='480' height='20' fill='#efe6cf'/>
+  <text x='14' y='314' fill='#7a6c50' font-size='10' font-family='cursive'>Amelia &amp; Aurora — before either of us knew anything</text>
+</svg>`},
+reeds:{cap:'A. doing her actual job.', svg:`<svg viewBox='0 0 480 320'>
+  <rect width='480' height='320' fill='#1f2a1c'/>
+  <rect x='0' y='180' width='480' height='140' fill='#16271f'/>
+  <g stroke='#3c5236' stroke-width='3' fill='none' opacity='.9'>
+    <path d='M40 320 Q44 200 36 150'/><path d='M70 320 Q66 210 74 160'/><path d='M410 320 Q414 190 406 140'/><path d='M440 320 Q436 210 444 170'/>
+  </g>
+  <g transform='translate(220,150)'><ellipse cx='0' cy='-4' rx='16' ry='18' fill='#caa97e'/><rect x='-13' y='12' width='26' height='62' rx='8' fill='#6d7a4a'/><rect x='10' y='30' width='20' height='14' rx='2' fill='#d9cB9f'/></g>
+  <g fill='#3a6a78'><ellipse cx='200' cy='240' rx='11' ry='7'/><ellipse cx='250' cy='255' rx='10' ry='6'/><ellipse cx='225' cy='275' rx='12' ry='7'/></g>
+  <g stroke='#4c7c8a' stroke-width='2' fill='none' opacity='.5'><path d='M180 250 q20 -10 40 0'/><path d='M230 270 q20 -8 40 2'/></g>
+  <rect x='0' y='300' width='480' height='20' fill='#101a14' opacity='.7'/>
+</svg>`},
+library:{cap:'', svg:`<svg viewBox='0 0 480 320'>
+  <rect width='480' height='320' fill='#15120d'/>
+  <g fill='#241d14'><rect x='10' y='20' width='90' height='300'/><rect x='380' y='20' width='90' height='300'/></g>
+  <g stroke='#0d0a07' stroke-width='2'>
+    <line x1='10' y1='70' x2='100' y2='70'/><line x1='10' y1='120' x2='100' y2='120'/><line x1='10' y1='170' x2='100' y2='170'/><line x1='10' y1='220' x2='100' y2='220'/><line x1='10' y1='270' x2='100' y2='270'/>
+    <line x1='380' y1='70' x2='470' y2='70'/><line x1='380' y1='120' x2='470' y2='120'/><line x1='380' y1='170' x2='470' y2='170'/><line x1='380' y1='220' x2='470' y2='220'/><line x1='380' y1='270' x2='470' y2='270'/>
+  </g>
+  <!-- arched windows, mismatched panes -->
+  <g>
+    <path d='M150 300 L150 90 Q180 50 210 90 L210 300 Z' fill='#3a4a52' opacity='.85'/>
+    <path d='M270 300 L270 90 Q300 50 330 90 L330 300 Z' fill='#46535a' opacity='.85'/>
+    <g stroke='#15120d' stroke-width='3'>
+      <line x1='180' y1='60' x2='180' y2='300'/><line x1='150' y1='150' x2='210' y2='150'/><line x1='150' y1='220' x2='210' y2='220'/>
+      <line x1='300' y1='60' x2='300' y2='300'/><line x1='270' y1='150' x2='330' y2='150'/><line x1='270' y1='220' x2='330' y2='220'/>
+    </g>
+    <rect x='150' y='150' width='30' height='70' fill='#5a6a60' opacity='.6'/>
+    <rect x='300' y='90' width='30' height='60' fill='#6a7468' opacity='.5'/>
+  </g>
+  <polygon points='180,60 210,300 150,300' fill='#d8c98a' opacity='.05'/>
+  <g stroke='#1a140d' stroke-width='2'><line x1='100' y1='300' x2='380' y2='300'/></g>
+  <path d='M120 300 L150 60' stroke='#3a3022' stroke-width='2' fill='none' opacity='.5'/>
+</svg>`},
+tower:{cap:'', svg:`<svg viewBox='0 0 480 320'>
+  <rect width='480' height='320' fill='#23272b'/><rect width='480' height='200' fill='#2b3035'/>
+  <rect x='190' y='90' width='100' height='230' fill='#1a1712'/>
+  <polygon points='180,90 300,90 240,30' fill='#2e5a4e'/>
+  <polygon points='210,40 270,40 240,18' fill='#367060'/>
+  <rect x='232' y='14' width='16' height='10' fill='#3a3328'/>
+  <g fill='#0d0b08'>
+    <rect x='210' y='110' width='22' height='30' rx='3'/><rect x='248' y='110' width='22' height='30' rx='3'/>
+    <rect x='210' y='160' width='22' height='30' rx='3'/>
+    <rect x='248' y='160' width='22' height='30' rx='3'/>
+    <rect x='210' y='210' width='22' height='30' rx='3'/><rect x='248' y='210' width='22' height='30' rx='3'/>
+  </g>
+  <rect x='248' y='160' width='22' height='30' rx='3' fill='#caa24a'/>
+  <rect x='248' y='160' width='22' height='30' rx='3' fill='#ffd87a' opacity='.5'/>
+  <ellipse cx='259' cy='175' rx='40' ry='28' fill='#ffd87a' opacity='.08'/>
+</svg>`},
+gulls:{cap:'I have too much time and a window.', svg:`<svg viewBox='0 0 480 320'>
+  <rect width='480' height='320' fill='#3a4248'/><rect width='480' height='180' fill='#454d53'/>
+  <rect x='0' y='210' width='480' height='14' fill='#5a5048'/>
+  <g fill='#e6e2da' stroke='#9a948a'>
+    <g transform='translate(60,194)'><ellipse rx='10' ry='6'/><circle cx='-8' cy='-6' r='4'/></g>
+    <g transform='translate(130,194)'><ellipse rx='10' ry='6'/><circle cx='-8' cy='-6' r='4'/></g>
+    <g transform='translate(200,194)'><ellipse rx='10' ry='6'/><circle cx='-8' cy='-6' r='4'/></g>
+    <g transform='translate(270,194)'><ellipse rx='10' ry='6'/><circle cx='-8' cy='-6' r='4'/></g>
+    <g transform='translate(340,194)'><ellipse rx='10' ry='6'/><circle cx='-8' cy='-6' r='4'/></g>
+    <g transform='translate(408,193)'><ellipse rx='10' ry='6' fill='#fff'/><circle cx='-8' cy='-6' r='4' fill='#fff'/></g>
+  </g>
+  <text x='14' y='250' fill='#cfcabf' font-size='11' font-family='monospace'>no. 17 of 17</text>
+</svg>`},
+tea:{cap:'the only star chart in this tower I made myself.', svg:`<svg viewBox='0 0 480 320'>
+  <rect width='480' height='320' fill='#3a2c1e'/>
+  <rect width='480' height='320' fill='#2e2418' opacity='.5'/>
+  <g fill='#241a10'><rect x='40' y='60' width='120' height='150' transform='rotate(-4 100 135)'/><rect x='60' y='40' width='120' height='150' transform='rotate(3 120 115)'/></g>
+  <g fill='none' stroke='#5a3f28' stroke-width='3' opacity='.8'>
+    <circle cx='300' cy='120' r='26'/><circle cx='340' cy='160' r='30'/><circle cx='290' cy='190' r='22'/><circle cx='360' cy='110' r='18'/><circle cx='320' cy='150' r='34'/>
+  </g>
+  <g fill='#caa24a'><circle cx='300' cy='120' r='2'/><circle cx='340' cy='160' r='2'/><circle cx='290' cy='190' r='2'/><circle cx='360' cy='110' r='2'/></g>
+  <ellipse cx='150' cy='250' rx='24' ry='8' fill='#1a1209'/><ellipse cx='150' cy='246' rx='24' ry='8' fill='none' stroke='#5a3f28' stroke-width='3'/>
+</svg>`},
+};
+
+/* ============================================================
+   MUSIC
+   ============================================================ */
+const TRACKS = [
+  {n:'Salt Glass — instrumental'},
+  {n:'The Long Way Down the Promontory'},
+  {n:'Reeds (A.’s)', special:true},
+  {n:'Static off the Water'},
+  {n:'Five Flights of Cold Stone'},
+];
+
+/* ============================================================
+   DESKTOP APP DEFINITIONS
+   ============================================================ */
+const APPS = {
+  files   :{title:'Files',         glyph:'🗂'},
+  mail    :{title:'Mail',          glyph:'✉'},
+  image   :{title:'Image Viewer',  glyph:'🖼'},
+  notes   :{title:'Notes',         glyph:'📝'},
+  music   :{title:'Music',         glyph:'♪'},
+  ether   :{title:'Ether Monitor', glyph:'◆'},
+  trash   :{title:'Trash',         glyph:'🗑'},
+  settings:{title:'Settings',      glyph:'⚙'},
+};
+const DESKTOP_ICONS = ['files','mail','image','notes','music','ether','trash','settings'];
+
+/* ============================================================
+   RUNTIME STATE
+   ============================================================ */
+let WINS = {};          // winId -> {el,app,...}
+let winSeq = 0, zTop = 100;
+let focusedWin = null;
+let suspicion = 0;      // hidden meter
+let etherSpike = false;
+let sharedExpOpen = false;
+let musicPlaying = -1;  // track index or -1
+let coUserPaused = false;
+let sessionStart = 0;
+let openImageWin = null;
+
+const FREQ = {rare:42000, normal:26000, frequent:15000}[GM_CONFIG.eventFrequency] || 26000;
+
+/* ============================================================
+   BOOT / LOGIN
+   ============================================================ */
+function setLoginSub(){
+  const sub = document.getElementById('loginSub');
+  if(STATE.lastLoginAt){
+    sub.textContent = 'Last login: '+STATE.lastLoginAt+' — from this device';
+  }else{
+    sub.textContent = 'Last login: 9 days ago, 02:14 — from this device';
+  }
+}
+setLoginSub();
+
+const BOOT_SEQ = [
+  'lumen kernel 8.4 … ok',
+  'mounting ether bus … ok',
+  'ether draw: nominal',
+  'restoring session for: A. PINE',
+  STATE.loginCount>0 ? 'changes detected from another user — sync queued' : 'profile clean',
+  'ready.'
+];
+
+function bootIn(){
+  const btn=document.getElementById('loginBtn'); btn.disabled=true; btn.style.opacity=.4;
+  const line=document.getElementById('bootLine');
+  let i=0;
+  (function step(){
+    if(i<BOOT_SEQ.length){ line.textContent='› '+BOOT_SEQ[i]; i++; setTimeout(step, 360); }
+    else setTimeout(enterDesktop, 480);
+  })();
+}
+
+function enterDesktop(){
+  document.getElementById('login').style.display='none';
+  document.getElementById('desktop').style.display='block';
+  document.getElementById('taskbar').style.display='flex';
+
+  STATE.loginCount++;
+  STATE.lastLoginAt = clockStr()+' today';
+  suspicion = GM_CONFIG.startingTier * 34;
+  sessionStart = perfNow();
+
+  renderIcons();
+  startClock();
+  applyWallpaper();
+  refreshTrayUsers();
+
+  // returning-visit cold open
+  if(STATE.loginCount>1){
+    const changed = (STATE.mutations.length || Object.keys(STATE.fired).length) ? 3 : 0;
+    setTimeout(()=>toast('Sync', `Files changed since your last session: ${changed||'—'}.`, false), 1400);
+  }
+  // re-surface prior co-user mutations so a return visit advances, not repeats
+  if(STATE.mutations.includes('couser-note')){ /* file re-added in folder render */ }
+
+  persist();
+  startCoUserLoop();
+}
+
+/* ============================================================
+   DESKTOP ICONS
+   ============================================================ */
+function renderIcons(){
+  const box=document.getElementById('icons'); box.innerHTML='';
+  DESKTOP_ICONS.forEach(app=>{
+    const d=document.createElement('div'); d.className='dicon'; d.dataset.app=app;
+    if(app==='mail' && hasUnreadGhostMail()) d.classList.add('alert');
+    d.innerHTML=`<span class="gl">${APPS[app].glyph}</span><span class="lb">${APPS[app].title}</span>`;
+    d.ondblclick=()=>openApp(app);
+    d.onclick=(e)=>{ document.querySelectorAll('.dicon').forEach(x=>x.classList.remove('sel')); d.classList.add('sel'); };
+    box.appendChild(d);
+  });
+}
+function hasUnreadGhostMail(){ return MAIL.inbox.some(m=>m.ghost && m._arrived && m.unread); }
+
+/* ============================================================
+   WINDOW MANAGER
+   ============================================================ */
+function openApp(app, payload){
+  // singletons for most apps; image/notes can stack but we reuse by content
+  if(app!=='notes' && app!=='image'){
+    const ex=Object.values(WINS).find(w=>w.app===app);
+    if(ex){ focusWin(ex.id); if(payload) ex.refresh&&ex.refresh(payload); return ex.id; }
+  }
+  const id='w'+(++winSeq);
+  const el=document.createElement('div'); el.className='win'; el.dataset.id=id;
+  const W=appDefaultSize(app);
+  const offset=(Object.keys(WINS).length%6)*26;
+  el.style.width=W.w+'px'; el.style.height=W.h+'px';
+  el.style.left=Math.min(120+offset, window.innerWidth-W.w-20)+'px';
+  el.style.top=Math.max(20, 60+offset)+'px';
+  el.style.zIndex=(++zTop);
+  el.innerHTML=`
+    <div class="titlebar">
+      <span class="tb-glyph">${APPS[app].glyph}</span>
+      <span class="tb-title" id="${id}-title">${APPS[app].title}</span>
+      <div class="tb-btns">
+        <button class="tb-btn tb-min" title="Minimize"></button>
+        <button class="tb-btn tb-close" title="Close"></button>
+      </div>
     </div>
+    <div class="win-body" id="${id}-body"></div>
+    <div class="resize-h"></div>`;
+  document.getElementById('desktop').appendChild(el);
+  const rec={id,app,el,payload};
+  WINS[id]=rec;
+  // wiring
+  el.querySelector('.tb-min').onclick=(e)=>{e.stopPropagation();minimizeWin(id);};
+  el.querySelector('.tb-close').onclick=(e)=>{e.stopPropagation();closeWin(id);};
+  el.onmousedown=()=>focusWin(id);
+  makeDraggable(el, el.querySelector('.titlebar'), id);
+  makeResizable(el, el.querySelector('.resize-h'));
+  // body
+  renderApp(rec, payload);
+  focusWin(id);
+  syncTaskbar();
+  return id;
+}
+function appDefaultSize(app){
+  const map={files:{w:620,h:430},mail:{w:680,h:470},image:{w:560,h:480},notes:{w:560,h:480},
+    music:{w:360,h:420},ether:{w:380,h:400},trash:{w:560,h:420},settings:{w:480,h:440},im:{w:360,h:440}};
+  let s=map[app]||{w:520,h:400};
+  return {w:Math.min(s.w, window.innerWidth-30), h:Math.min(s.h, window.innerHeight-70)};
+}
+function focusWin(id){
+  const w=WINS[id]; if(!w) return;
+  w.el.style.display='flex';
+  w.minimized=false;
+  if(focusedWin && WINS[focusedWin]) WINS[focusedWin].el.classList.remove('focused');
+  w.el.classList.add('focused'); w.el.style.zIndex=(++zTop);
+  focusedWin=id; syncTaskbar();
+}
+function minimizeWin(id){ const w=WINS[id]; if(!w)return; w.el.style.display='none'; w.minimized=true; if(focusedWin===id)focusedWin=null; w.el.classList.remove('focused'); syncTaskbar(); }
+function closeWin(id){
+  const w=WINS[id]; if(!w)return;
+  if(w.app==='image' && openImageWin===id) openImageWin=null;
+  if(w.onClose) w.onClose();
+  w.el.remove(); delete WINS[id];
+  if(focusedWin===id)focusedWin=null;
+  syncTaskbar();
+}
+function makeDraggable(el, handle, id){
+  let sx,sy,ox,oy,drag=false;
+  handle.onmousedown=(e)=>{ if(e.target.classList.contains('tb-btn'))return; drag=true; focusWin(id);
+    sx=e.clientX; sy=e.clientY; ox=el.offsetLeft; oy=el.offsetTop; e.preventDefault(); };
+  document.addEventListener('mousemove',(e)=>{ if(!drag)return;
+    let nx=ox+(e.clientX-sx), ny=oy+(e.clientY-sy);
+    nx=Math.max(-el.offsetWidth+80, Math.min(window.innerWidth-60, nx));
+    ny=Math.max(0, Math.min(window.innerHeight-80, ny));
+    el.style.left=nx+'px'; el.style.top=ny+'px'; });
+  document.addEventListener('mouseup',()=>drag=false);
+  // touch
+  handle.addEventListener('touchstart',(e)=>{ if(e.target.classList.contains('tb-btn'))return; drag=true; focusWin(id);
+    const t=e.touches[0]; sx=t.clientX; sy=t.clientY; ox=el.offsetLeft; oy=el.offsetTop; },{passive:true});
+  document.addEventListener('touchmove',(e)=>{ if(!drag)return; const t=e.touches[0];
+    el.style.left=(ox+(t.clientX-sx))+'px'; el.style.top=Math.max(0,oy+(t.clientY-sy))+'px'; },{passive:true});
+  document.addEventListener('touchend',()=>drag=false);
+}
+function makeResizable(el, handle){
+  let sx,sy,ow,oh,rz=false;
+  handle.onmousedown=(e)=>{ rz=true; sx=e.clientX; sy=e.clientY; ow=el.offsetWidth; oh=el.offsetHeight; e.preventDefault(); e.stopPropagation(); };
+  document.addEventListener('mousemove',(e)=>{ if(!rz)return;
+    el.style.width=Math.max(280, ow+(e.clientX-sx))+'px';
+    el.style.height=Math.max(170, oh+(e.clientY-sy))+'px'; });
+  document.addEventListener('mouseup',()=>rz=false);
+}
 
-    <script>
-        const MAIN_PASSWORD = 'testurion';
-        const projects = [
-            { id: 'chimera', name: 'Project Chimera', password: '7X4R-9Y2B-??3Z-1W8P' },
-            { id: 'proteus', name: 'Project Proteus', password: 'P-1' },
-            { id: 'gof', name: 'Project GoF', password: '7X4R-9Y2B-??3Z-1W8P' }
-        ];
-        const documents = {
-            chimera: [
-                { id: 1, title: 'Project Hydra', filename: 'project-hydra.txt' },
-                { id: 2, title: 'Hydling Report', filename: 'hydling.txt' },
-                { id: 3, title: 'Ancient Text', filename: 'ancient.txt' },
-                { id: 4, title: 'E-Mail Correspondance', filename: 'chimera-emails.txt' },
-                { id: 5, title: 'Combat Test Log', filename: 'chimera-combat-log.txt' },
-                { id: 6, title: 'Conduit Mental Assessment', filename: 'chimera-mental-assessment.txt' },
-                { id: 7, title: 'Incident Report', filename: 'chimera-incident-report.txt' },
-                { id: 8, title: 'Funding Request', filename: 'funding-request.txt' },
-                { id: 9, title: 'Ethical Concerns', filename: 'chimera-ethical-concerns.txt' },
-            ],
-            proteus: [
-                { id: 1, title: 'Proteus Overview', filename: 'proteus.txt' },
-                { id: 2, title: 'Proteus Incident Log', filename: 'proteus-incident.txt' },
-            ],
-            gof: [
-                { id: 1, title: 'GoF Overview', filename: 'gof-1.txt' },
-                { id: 2, title: 'GoF Incident Logs', filename: 'gof-2.txt' },
-                { id: 3, title: 'GoF Secret E-Mails', filename: 'gof-3.txt' },
-                { id: 4, title: 'GoF Stable Form Achieved', filename: 'gof-4.txt' },
-            ]
-        };
-        const emails = [
-            { id: 1, title: 'Proteus Team - Updates', filename: 'pine-proteus.txt' },
-            { id: 2, title: 'MB - Vespair Lair', filename: 'pine-mb1.txt' },
-            { id: 3, title: 'Scepter - Next steps', filename: 'pine-tc.txt' },
-            { id: 4, title: 'Yucca - New trainers', filename: 'pine-yucca.txt' },
-            { id: 5, title: 'MB - RE: Next steps', filename: 'pine-mb2.txt' },
-            { id: 6, title: 'Orre - Shadow Research', filename: 'pine-orre.txt' },
-            { id: 7, title: 'MB - Maxine', filename: 'pine-mb3.txt' },
-            { id: 8, title: 'MB - WTF!?', filename: 'pine-incident.txt' },
-            { id: 9, title: 'Scepter - !CRITICAL!', filename: 'pine-final.txt' },
-        ];
+/* ============================================================
+   TASKBAR
+   ============================================================ */
+function syncTaskbar(){
+  const box=document.getElementById('tbTasks'); box.innerHTML='';
+  Object.values(WINS).forEach(w=>{
+    const b=document.createElement('div');
+    b.className='tbtn'+(focusedWin===w.id?' active':'');
+    b.innerHTML=`<span>${APPS[w.app].glyph}</span><span>${w.titleText||APPS[w.app].title}</span>`;
+    b.onclick=()=>{ if(w.minimized||focusedWin!==w.id) focusWin(w.id); else minimizeWin(w.id); };
+    box.appendChild(b);
+  });
+}
+function setWinTitle(id,t){ const w=WINS[id]; if(!w)return; w.titleText=t; const el=document.getElementById(id+'-title'); if(el)el.textContent=t; syncTaskbar(); }
 
-        let currentProject = null;
+let clockTimer=null;
+function clockStr(){ const d=new Date(); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
+function startClock(){ const c=document.getElementById('trayClock'); const t=()=>c.textContent=clockStr(); t(); clockTimer=setInterval(t,15000); }
+function refreshTrayUsers(){
+  const el=document.getElementById('trayUsers'), txt=document.getElementById('trayUsersTxt');
+  if(suspicion>=30){ el.classList.add('two'); txt.textContent='2 users signed in'; }
+  else{ el.classList.remove('two'); txt.textContent='1 user signed in'; }
+}
 
-        function login() {
-            const username = document.getElementById('usernameInput').value.trim();
-            const password = document.getElementById('passwordInput').value;
-            
-            if (username === '') {
-                document.getElementById('loginError').textContent = 'Please enter a username.';
-                document.getElementById('loginError').classList.remove('hidden');
-                return;
-            }
-            
-            if (password === MAIN_PASSWORD) {
-                showWelcomeScreen();
-            } else {
-                document.getElementById('loginError').textContent = 'Incorrect password. Access denied.';
-                document.getElementById('loginError').classList.remove('hidden');
-            }
-        }
+/* ============================================================
+   APP RENDERERS
+   ============================================================ */
+function renderApp(rec, payload){
+  const body=document.getElementById(rec.id+'-body');
+  switch(rec.app){
+    case 'files':    renderFiles(rec,body); break;
+    case 'mail':     renderMail(rec,body); break;
+    case 'image':    renderImage(rec,body,payload); break;
+    case 'notes':    renderNote(rec,body,payload); break;
+    case 'music':    renderMusic(rec,body); break;
+    case 'ether':    renderEther(rec,body); break;
+    case 'trash':    renderTrash(rec,body); break;
+    case 'settings': renderSettings(rec,body); break;
+    case 'im':       renderIM(rec,body); break;
+  }
+}
 
-        function showWelcomeScreen() {
-            document.getElementById('loginScreen').classList.add('hidden');
-            document.getElementById('welcomeScreen').classList.remove('hidden');
-            document.addEventListener('keydown', proceedToProjectMenu);
-            document.getElementById('welcomeScreen').addEventListener('click', proceedToProjectMenu);
-            document.getElementById('welcomeScreen').addEventListener('touchstart', proceedToProjectMenu);
-        }
+/* ---------- FILES ---------- */
+function renderFiles(rec, body){
+  rec.cwd = rec.cwd || [];          // path array
+  const draw=()=>{
+    const {node,label,files,folders}=resolvePath(rec.cwd);
+    // shared-exp ether tracking
+    sharedExpOpen = (rec.cwd.join('/')==='Research/shared-exp');
+    if(sharedExpOpen) triggerEtherSpike(); else maybeClearSpike();
 
-        function proceedToProjectMenu(event) {
-            if (event.type === 'touchstart') {
-                event.preventDefault();
-            }
-            
-            document.removeEventListener('keydown', proceedToProjectMenu);
-            document.getElementById('welcomeScreen').removeEventListener('click', proceedToProjectMenu);
-            document.getElementById('welcomeScreen').removeEventListener('touchstart', proceedToProjectMenu);
-            
-            document.getElementById('welcomeScreen').classList.add('hidden');
-            showProjectMenu();
-        }
+    let side='';
+    Object.keys(TREE).forEach(k=>{
+      const active = rec.cwd[0]===k ? 'active':'';
+      side+=`<div class="side-item ${active}" data-root="${k}"><span>${TREE[k].glyph}</span>${k}</div>`;
+    });
+    const crumb = ['~'].concat(rec.cwd).map((s,i)=> i===0?`<span>${s}</span>`:`<span class="seg">/ ${s}</span>`).join(' ');
 
-        function showProjectMenu() {
-            document.getElementById('projectMenu').classList.remove('hidden');
-            const projectList = document.getElementById('projectList');
-            projectList.innerHTML = '';
-            projects.forEach(project => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a href="#" onclick="showProjectLogin('${project.id}')">${project.name}</a>`;
-                projectList.appendChild(li);
-            });
-        }
+    let items='';
+    folders.forEach(f=>{ items+=`<div class="fitem folder" data-folder="${f}"><span class="fg">📁</span><span class="fn">${f}</span></div>`; });
+    files.forEach(fid=>{
+      const f=fileById(fid); if(!f) return;
+      const unread = !STATE.read[fid] ? 'unread':'';
+      const added = f.ghost ? 'justadded':'';
+      items+=`<div class="fitem ${unread} ${added}" data-file="${fid}"><span class="fg">${f.glyph}</span><span class="fn">${escapeHtml(f.name)}</span></div>`;
+    });
+    if(!folders.length && !files.length) items=`<div class="files-empty">empty folder</div>`;
 
-        function showProjectLogin(projectId) {
-            currentProject = projects.find(p => p.id === projectId);
-            document.getElementById('projectMenu').classList.add('hidden');
-            document.getElementById('projectLoginScreen').classList.remove('hidden');
-            document.getElementById('projectLoginTitle').textContent = `Access ${currentProject.name}`;
-            document.getElementById('projectPasswordInput').value = '';
-            document.getElementById('projectLoginError').classList.add('hidden');
-        }
+    body.innerHTML=`<div class="files">
+      <div class="files-side">${side}</div>
+      <div class="files-main">
+        <div class="files-crumb">${crumb}</div>
+        <div class="files-list">${items}</div>
+      </div></div>`;
 
-        function loginProject() {
-            const password = document.getElementById('projectPasswordInput').value;
-            if (password === currentProject.password) {
-                showDocumentMenu();
-            } else {
-                document.getElementById('projectLoginError').textContent = 'Incorrect project password. Access denied.';
-                document.getElementById('projectLoginError').classList.remove('hidden');
-            }
-        }
+    body.querySelectorAll('.side-item').forEach(e=> e.onclick=()=>{ rec.cwd=[e.dataset.root]; draw(); });
+    body.querySelectorAll('[data-folder]').forEach(e=> e.ondblclick=()=>{ rec.cwd=rec.cwd.concat(e.dataset.folder); draw(); });
+    body.querySelectorAll('[data-folder]').forEach(e=> e.onclick=()=>highlight(e));
+    body.querySelectorAll('[data-file]').forEach(e=> e.ondblclick=()=>openFile(e.dataset.file));
+    body.querySelectorAll('[data-file]').forEach(e=> e.onclick=()=>highlight(e));
+    setWinTitle(rec.id, 'Files — '+(rec.cwd.length?('~/'+rec.cwd.join('/')) : '~'));
+  };
+  rec.refresh=draw;
+  rec.onClose=()=>{ if(sharedExpOpen){ sharedExpOpen=false; maybeClearSpike(); } };
+  draw();
+}
+function highlight(e){ e.parentElement.querySelectorAll('.fitem').forEach(x=>x.style.background=''); e.style.background='rgba(255,165,0,.12)'; }
+function resolvePath(path){
+  if(!path.length) return {files:[],folders:Object.keys(TREE),label:'~'};
+  let node=TREE[path[0]]; let folders=[]; let files=node?node.files.slice():[];
+  if(node&&node.sub) folders=Object.keys(node.sub);
+  for(let i=1;i<path.length;i++){ node=node.sub[path[i]]; files=node?node.files.slice():[]; folders=node&&node.sub?Object.keys(node.sub):[]; }
+  // inject co-user ghost file into Aurora if mutation fired
+  if(path.join('/')==='Aurora' && STATE.mutations.includes('couser-note')) files=files.concat('couser-note');
+  return {node,files,folders,label:path.join('/')};
+}
+function fileById(id){ if(id==='couser-note')return COUSER_FILE; return FILES[id]?Object.assign({id},FILES[id]):null; }
 
-        function showDocumentMenu() {
-            document.getElementById('projectLoginScreen').classList.add('hidden');
-            document.getElementById('documentMenu').classList.remove('hidden');
-            document.getElementById('documentMenuTitle').textContent = currentProject.name + ' Documents';
-            const documentList = document.getElementById('documentList');
-            documentList.innerHTML = '';
-            documents[currentProject.id].forEach(doc => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a href="#" onclick="viewDocument('${currentProject.id}', ${doc.id})">${doc.title}</a>`;
-                documentList.appendChild(li);
-            });
-        }
+function openFile(id){
+  const f=fileById(id); if(!f) return;
+  if(!f.trash){ markRead(id); }
+  if(f.app==='image'){ openImageAt(f.img, f.name); }
+  else if(f.app==='enc'){ openEnc(f); }
+  else { openApp('notes', id); }
+}
+function markRead(id){ if(!STATE.read[id]){ STATE.read[id]=true; persist(); checkThreads(); bumpSuspicion(6); } }
 
-        function viewDocument(projectId, docId) {
-            const doc = documents[projectId].find(d => d.id === docId);
-            if (doc) {
-                fetch(doc.filename)
-                    .then(response => response.text())
-                    .then(content => {
-                        document.getElementById('documentMenu').classList.add('hidden');
-                        document.getElementById('documentViewer').classList.remove('hidden');
-                        document.getElementById('documentTitle').textContent = doc.title;
-                        document.getElementById('documentContent').textContent = content;
-                    })
-                    .catch(error => {
-                        console.error('Error loading document:', error);
-                        alert('Error loading document. Please try again.');
-                    });
-            }
-        }
+/* ---------- NOTES ---------- */
+function renderNote(rec, body, id){
+  const f=fileById(id); if(!f){ body.innerHTML='<div class="reader plain">file not found.</div>'; return; }
+  rec.fileId=id; rec.titleText=f.name;
+  const cls = f.style==='grief'?'grief': f.style==='lab'?'lab':'plain';
+  let html='';
+  if(f.style==='lab'){
+    const lines=f.body.split('\n');
+    const head=lines[0];
+    html=`<div class="reader lab"><div class="meta-strip">notes · ${escapeHtml(f.name)}</div><div class="docnote">${redactHtml(f.body)}</div></div>`;
+  } else if(f.style==='grief'){
+    const paras=f.body.split('\n\n').map(p=>`<p>${redactHtml(p)}</p>`).join('');
+    html=`<div class="reader grief"><div class="meta-strip" style="font-family:var(--mono)">journal · ${escapeHtml(f.name)}</div>${paras}</div>`;
+  } else {
+    html=`<div class="reader plain"><div class="meta-strip">${escapeHtml(f.name)}</div><div class="docnote">${redactHtml(f.body)}</div></div>`;
+  }
+  body.innerHTML=html;
+  setWinTitle(rec.id, 'Notes — '+f.name);
+}
 
-        function showEmailMenu() {
-            document.getElementById('projectMenu').classList.add('hidden');
-            document.getElementById('emailMenu').classList.remove('hidden');
-            const emailList = document.getElementById('emailList');
-            emailList.innerHTML = '';
-            emails.forEach(email => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a href="#" onclick="viewEmail(${email.id})">${email.title}</a>`;
-                emailList.appendChild(li);
-            });
-        }
+/* ---------- ENC dialog ---------- */
+function openEnc(f){
+  const lastAttempt = GM_CONFIG.coUserIdentityHints ? 'H. BLACKTHORN' : '████';
+  if(GM_CONFIG.unlockEncFiles){
+    toast('Archive', 'Decryption key accepted (GM override). Archive contents are GM-supplied.', false);
+    return;
+  }
+  const id=openApp('notes', null);
+  const rec=WINS[id]; const body=document.getElementById(id+'-body');
+  setWinTitle(id, 'Encrypted Archive');
+  body.innerHTML=`<div class="reader lab" style="text-align:center;padding-top:50px">
+    <div class="h" style="color:var(--orange)">LUMEN OS — ENCRYPTED ARCHIVE</div>
+    <div style="color:var(--dim);line-height:2;margin-top:18px">
+      ${escapeHtml(f.name)}<br>
+      <span style="color:var(--faint)">shared-experience trial // subject: PINE, A. // sponsor: ████████</span><br><br>
+      This archive is sealed.<br>
+      Decryption key not present on this device.<br><br>
+      <span style="color:var(--orange-dim)">Last access attempt: ${lastAttempt} — FAILED (not you).</span>
+    </div></div>`;
+  bumpSuspicion(10);
+}
 
-        function viewEmail(emailId) {
-            const email = emails.find(e => e.id === emailId);
-            if (email) {
-                fetch(email.filename)
-                    .then(response => response.text())
-                    .then(content => {
-                        document.getElementById('emailMenu').classList.add('hidden');
-                        document.getElementById('emailViewer').classList.remove('hidden');
-                        document.getElementById('emailTitle').textContent = email.title;
-                        document.getElementById('emailContent').textContent = content;
-                    })
-                    .catch(error => {
-                        console.error('Error loading email:', error);
-                        alert('Error loading email. Please try again.');
-                    });
-            }
-        }
+/* ---------- IMAGE VIEWER ---------- */
+const IMAGE_ORDER=['sisters','reeds','library','tower','coast','gate','lintel','gulls','tea'];
+function openImageAt(imgKey, fname){
+  let id=openImageWin;
+  if(id && WINS[id]){ focusWin(id); WINS[id].imgKey=imgKey; renderImage(WINS[id], document.getElementById(id+'-body')); }
+  else{ id=openApp('image'); WINS[id].imgKey=imgKey; renderImage(WINS[id], document.getElementById(id+'-body')); openImageWin=id; }
+}
+function renderImage(rec, body, payload){
+  if(!rec.imgKey) rec.imgKey='sisters';
+  openImageWin=rec.id;
+  const draw=()=>{
+    const key=rec.imgKey; const im=IMAGES[key];
+    const idx=IMAGE_ORDER.indexOf(key);
+    let thumbs=IMAGE_ORDER.map(k=>`<div class="iv-thumb ${k===key?'active':''}" data-k="${k}">${IMAGES[k].svg}</div>`).join('');
+    body.innerHTML=`<div class="iv">
+      <div class="iv-bar">
+        <button class="iv-nav" data-d="-1">‹</button>
+        <span class="iv-count">${idx+1} / ${IMAGE_ORDER.length}</span>
+        <button class="iv-nav" data-d="1">›</button>
+      </div>
+      <div class="iv-stage">${im.svg}</div>
+      <div class="iv-cap">${im.cap?escapeHtml(im.cap):'&nbsp;'}</div>
+      <div class="iv-thumbs">${thumbs}</div>
+    </div>`;
+    body.querySelectorAll('.iv-nav').forEach(b=> b.onclick=()=>{ let n=(idx+parseInt(b.dataset.d)+IMAGE_ORDER.length)%IMAGE_ORDER.length; rec.imgKey=IMAGE_ORDER[n]; markImageRead(IMAGE_ORDER[n]); draw(); });
+    body.querySelectorAll('.iv-thumb').forEach(t=> t.onclick=()=>{ rec.imgKey=t.dataset.k; markImageRead(t.dataset.k); draw(); });
+    setWinTitle(rec.id, 'Image Viewer — '+imgFilename(key));
+  };
+  rec.refresh=draw; rec.onClose=()=>{ if(openImageWin===rec.id) openImageWin=null; };
+  markImageRead(rec.imgKey);
+  draw();
+}
+function imgFilename(key){ const id=Object.keys(FILES).find(k=>FILES[k].img===key && !FILES[k].trash); return id?FILES[id].name:'image'; }
+function markImageRead(key){ const id=Object.keys(FILES).find(k=>FILES[k].img===key && !FILES[k].trash); if(id) markRead(id); }
 
-        function backToEmails() {
-            document.getElementById('emailViewer').classList.add('hidden');
-            showEmailMenu();
-        }
+/* ---------- MAIL ---------- */
+function renderMail(rec, body){
+  rec.folder=rec.folder||'inbox'; rec.sel=rec.sel||null;
+  const draw=()=>{
+    const list = rec.folder==='inbox' ? MAIL.inbox.filter(m=>!m.ghost || m._arrived) : MAIL.archive;
+    const unreadCt = MAIL.inbox.filter(m=>(!m.ghost||m._arrived)&&m.unread).length;
+    let rows = list.map(m=>{
+      const active=rec.sel===m.id?'active':'';
+      const unread=m.unread?'unread':'';
+      const from = m.from || (m.msgs?m.msgs[0].from:'');
+      return `<div class="mrow ${active} ${unread}" data-id="${m.id}">
+        <div class="mfrom">${escapeHtml(rec.folder==='inbox'?from:'work · cache')}</div>
+        <div class="msubj">${escapeHtml(m.subj)}</div>
+        <div class="mdate">${escapeHtml(m.date||'')}</div></div>`;
+    }).join('');
+    if(!list.length) rows=`<div class="mail-empty">empty</div>`;
 
-        function backToProjects() {
-            document.getElementById('projectLoginScreen').classList.add('hidden');
-            document.getElementById('documentMenu').classList.add('hidden');
-            document.getElementById('emailMenu').classList.add('hidden');
-            showProjectMenu();
-        }
+    let read=`<div class="mail-empty">select a message</div>`;
+    if(rec.sel){
+      const m=list.find(x=>x.id===rec.sel);
+      if(m) read=renderMailBody(m);
+    }
+    body.innerHTML=`<div class="mail">
+      <div class="mail-side">
+        <div class="mail-folder ${rec.folder==='inbox'?'active':''}" data-f="inbox">Inbox <span class="ct">${unreadCt||''}</span></div>
+        <div class="mail-folder ${rec.folder==='archive'?'active':''}" data-f="archive">Archive (work)</div>
+        <div class="mail-folder" style="cursor:default;color:var(--faint)">Drafts</div>
+        <div class="mail-folder" style="cursor:default;color:var(--faint)">Sent</div>
+      </div>
+      <div class="mail-list">${rows}</div>
+      <div class="mail-read">${read}</div>
+    </div>`;
+    body.querySelectorAll('.mail-folder[data-f]').forEach(e=> e.onclick=()=>{ rec.folder=e.dataset.f; rec.sel=null; draw(); });
+    body.querySelectorAll('.mrow').forEach(e=> e.onclick=()=>{ rec.sel=e.dataset.id; const m=list.find(x=>x.id===rec.sel); if(m&&m.unread){m.unread=false; bumpSuspicion(5);} draw(); });
+    setWinTitle(rec.id,'Mail — '+(rec.folder==='inbox'?'Inbox':'Archive'));
+  };
+  rec.refresh=draw; draw();
+}
+function renderMailBody(m){
+  if(m.msgs){ // threaded cache email
+    const body=m.msgs.map(x=>`<div class="thread-msg">
+      <div class="th"><b>From:</b> ${escapeHtml(x.from)}<br><b>To:</b> ${escapeHtml(x.to)}</div>
+      <div class="body mono">${redactHtml(x.body)}</div></div>`).join('');
+    return `<div class="mh"><div class="s">${escapeHtml(m.subj)}</div><div class="kv">${m.msgs.length} messages · archived work correspondence</div></div>${body}`;
+  }
+  const cls = m.mono?'body mono':'body';
+  return `<div class="mh"><div class="s">${escapeHtml(m.subj)}</div>
+    <div class="kv"><b>From</b> ${escapeHtml(m.from)}</div>
+    <div class="kv"><b>To</b> ${escapeHtml(m.to)}</div>
+    <div class="kv"><b>Date</b> ${escapeHtml(m.date)}</div></div>
+    <div class="${cls}">${redactHtml(m.body)}</div>`;
+}
 
-        function backToDocuments() {
-            document.getElementById('documentViewer').classList.add('hidden');
-            showDocumentMenu();
-        }
+/* ---------- MUSIC ---------- */
+function renderMusic(rec, body){
+  const draw=()=>{
+    let rows=TRACKS.map((t,i)=>`<div class="track ${i===musicPlaying?'playing':''} ${t.special?'special':''}" data-i="${i}">
+      <span class="num">${i+1}</span><span class="nm">${escapeHtml(t.n)}</span>
+      <span class="eq"><i></i><i></i><i></i></span></div>`).join('');
+    const foot = musicPlaying<0 ? 'nothing playing' :
+      (coUserPaused && TRACKS[musicPlaying].special ? 'someone else has stopped moving. they are listening too.' :
+       'now playing · '+TRACKS[musicPlaying].n);
+    body.innerHTML=`<div class="music">
+      <div class="music-head"><div class="pl">for the tower</div><div class="sub">5 tracks · played in an empty observatory</div></div>
+      <div class="tracks">${rows}</div>
+      <div class="music-foot">${escapeHtml(foot)}</div></div>`;
+    body.querySelectorAll('.track').forEach(e=> e.onclick=()=>{ const i=parseInt(e.dataset.i); playTrack(i===musicPlaying?-1:i); });
+  };
+  rec.refresh=draw; draw();
+}
+function playTrack(i){
+  musicPlaying=i;
+  // Aurora's track during a co-user event makes the co-user pause
+  if(i>=0 && TRACKS[i].special && suspicion>=30){
+    coUserPaused=true;
+    setTimeout(()=>{ coUserPaused=false; refreshMusic(); }, 12000);
+  }
+  refreshMusic();
+}
+function refreshMusic(){ const w=Object.values(WINS).find(w=>w.app==='music'); if(w&&w.refresh)w.refresh(); }
 
-        function logout() {
-            document.getElementById('projectMenu').classList.add('hidden');
-            document.getElementById('projectLoginScreen').classList.add('hidden');
-            document.getElementById('documentMenu').classList.add('hidden');
-            document.getElementById('documentViewer').classList.add('hidden');
-            document.getElementById('welcomeScreen').classList.add('hidden');
-            document.getElementById('emailMenu').classList.add('hidden');
-            document.getElementById('emailViewer').classList.add('hidden');
-            document.getElementById('loginScreen').classList.remove('hidden');
-            document.getElementById('usernameInput').value = '';
-            document.getElementById('passwordInput').value = '';
-            document.getElementById('loginError').classList.add('hidden');
-            currentProject = null;
-        }
-    </script>
+/* ---------- ETHER MONITOR ---------- */
+let etherLog=[];
+function renderEther(rec, body){
+  const draw=()=>{
+    const anom = etherSpike && GM_CONFIG.showEtherSpikes;
+    const logHtml = etherLog.slice(-30).reverse().map(l=>`<div class="${l.anom?'anom':''}"><span class="t">${l.t}</span> — ${l.msg}</div>`).join('') || '<span class="t">— monitor idle —</span>';
+    body.innerHTML=`<div class="ether">
+      <div class="ether-read">ETHER DRAW
+        <div class="ether-val ${anom?'anom':'nominal'}">${anom?'ANOMALOUS — no source on this circuit':'nominal'}</div></div>
+      <div class="ether-graph"><svg viewBox="0 0 380 70" preserveAspectRatio="none"><polyline fill="none" stroke="${anom?'#ffa500':'#54d6e0'}" stroke-width="1.5" points="${etherWave(anom)}"/></svg></div>
+      <div class="ether-log">${logHtml}</div></div>`;
+  };
+  rec.refresh=draw; draw();
+}
+function etherWave(anom){ let p=''; for(let x=0;x<=380;x+=10){ const base=35; const amp=anom?(18+Math.sin(x/7)*10):5; const y=base+Math.sin(x/(anom?9:22))*amp - (anom?Math.sin(x/4)*6:0); p+=x+','+y.toFixed(1)+' '; } return p; }
+function refreshEther(){ const w=Object.values(WINS).find(w=>w.app==='ether'); if(w&&w.refresh)w.refresh(); refreshTray(); }
+function refreshTray(){ const t=document.getElementById('trayEther'), txt=document.getElementById('trayEtherTxt'); if(etherSpike){t.classList.add('anom');txt.textContent='ether: ANOMALOUS';} else {t.classList.remove('anom');txt.textContent='ether: nominal';} }
+function triggerEtherSpike(){ if(!GM_CONFIG.showEtherSpikes||etherSpike)return; etherSpike=true; etherLog.push({t:clockStr(),anom:true,msg:'resonance spike — strongest with /Research/shared-exp open. no source on this circuit.'}); refreshEther(); }
+function maybeClearSpike(){ if(etherSpike){ etherSpike=false; etherLog.push({t:clockStr(),anom:false,msg:'draw returned to nominal.'}); refreshEther(); } }
+
+/* ---------- TRASH ---------- */
+function renderTrash(rec, body){
+  const trashIds=Object.keys(FILES).filter(k=>FILES[k].trash);
+  const draw=()=>{
+    let items=trashIds.map(id=>{
+      const f=FILES[id];
+      const rec2 = STATE.trashRecovered[id]?'':'';
+      return `<div class="fitem" data-file="${id}"><span class="fg">${f.half?'🖼':'🗑'}</span><span class="fn">${escapeHtml(f.name)}</span></div>`;
+    }).join('');
+    body.innerHTML=`<div class="trash-banner">Items here were deleted. Double-click to recover and read. Some were deleted, recovered, and deleted again.</div>
+      <div class="files-list" style="padding:14px">${items}</div>`;
+    body.querySelectorAll('[data-file]').forEach(e=> e.ondblclick=()=>{ const id=e.dataset.file; STATE.trashRecovered[id]=true; persist(); const f=FILES[id];
+      if(f.app==='image'){ openHalfImage(f); } else { markRead(id); openApp('notes', id); } bumpSuspicion(8); });
+  };
+  rec.refresh=draw; draw();
+}
+function openHalfImage(f){
+  const id=openApp('image'); const rec=WINS[id]; rec.imgKey=f.img; const body=document.getElementById(id+'-body');
+  renderImage(rec,body);
+  // overlay "half deleted" feel
+  const stage=body.querySelector('.iv-stage');
+  if(stage){ const ov=document.createElement('div'); ov.style.cssText='position:absolute;inset:18px;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.25) 8px,rgba(0,0,0,.25) 16px);pointer-events:none'; stage.appendChild(ov); }
+  const cap=body.querySelector('.iv-cap'); if(cap) cap.textContent='recovered — file partially overwritten';
+}
+
+/* ---------- SETTINGS ---------- */
+function renderSettings(rec, body){
+  const draw=()=>{
+    const wp=STATE.wallpaper||'default';
+    const sessions = suspicion>=30 ? 2:1;
+    body.innerHTML=`<div class="settings">
+      <h3>Settings</h3>
+      <div class="set-row"><div><div class="lab">Wallpaper</div><div class="desc">the desktop background</div></div>
+        <div class="wp-opts">
+          <div class="wp-opt wp-default ${wp==='default'?'sel':''}" data-wp="default"></div>
+          <div class="wp-opt wp-sis ${wp==='sisters'?'sel':''}" data-wp="sisters" title="the two of us"></div>
+        </div></div>
+      <div class="set-row"><div><div class="lab">Active sessions</div><div class="desc">accounts currently signed into this machine</div></div>
+        <div class="set-users"><span class="n">${sessions}</span> ${sessions===2?'sessions — one is not this device':'session'}</div></div>
+      <div class="set-row"><div><div class="lab">Audio</div><div class="desc">room hum, key clicks, co-user chime</div></div>
+        <div class="set-users" style="color:var(--faint)">off</div></div>
+      <div class="set-row"><div><div class="lab">Device</div><div class="desc">Shiman consumer workstation · ether-powered</div></div>
+        <div class="set-users" style="color:var(--faint)">Lumen OS 8.4</div></div>
+      <div class="set-row" style="border:none"><div><div class="lab">Account</div><div class="desc">signed in as</div></div>
+        <div class="set-users" style="color:var(--orange)">A. PINE</div></div>
+    </div>`;
+    body.querySelectorAll('.wp-opt').forEach(e=> e.onclick=()=>{ STATE.wallpaper=e.dataset.wp; persist(); applyWallpaper(); draw(); });
+  };
+  rec.refresh=draw; draw();
+}
+function applyWallpaper(){ const d=document.getElementById('desktop'); if(STATE.wallpaper==='sisters') d.classList.add('wp-sisters'); else d.classList.remove('wp-sisters'); }
+
+/* ============================================================
+   CO-USER SYSTEM  (suspicion meter -> tiered events)
+   ============================================================ */
+let coUserTimer=null;
+function startCoUserLoop(){
+  if(coUserTimer) clearInterval(coUserTimer);
+  // time-based drip + event scheduler
+  coUserTimer=setInterval(()=>{
+    bumpSuspicion(3);          // ambient time tick
+    maybeFireEvent();
+  }, FREQ);
+  // a first subtle tick comes a little after login
+  setTimeout(()=>{ if(suspicion<30) bumpSuspicion(28); maybeFireEvent(); }, FREQ*0.6);
+}
+function bumpSuspicion(n){
+  suspicion=Math.min(100, suspicion+n);
+  refreshTrayUsers();
+}
+function currentTier(){ if(suspicion>=75)return 3; if(suspicion>=50)return 2; if(suspicion>=25)return 1; return 0; }
+
+function maybeFireEvent(){
+  const tier=currentTier();
+  if(tier>=1) tryFire(TIER1);
+  if(tier>=2) tryFire(TIER2);
+  if(tier>=3) tryFire(TIER3);
+}
+function tryFire(pool){
+  if(coUserPaused) return;            // Aurora's track stills the co-user
+  const next=pool.find(ev=>!STATE.fired[ev.id]);
+  if(next){ STATE.fired[next.id]=true; persist(); next.run(); }
+}
+
+/* ---- TIER 1 (subtle) ---- */
+const TIER1=[
+  {id:'t1-users', run:()=>{ refreshTrayUsers(); toast('Session', 'A second session is now active on this account.', false); }},
+  {id:'t1-lastactive', run:()=>{ toast('Activity', 'Account last active: just now — not from this device.', false); }},
+  {id:'t1-music', run:()=>{ // music starts/stops on its own once
+      if(musicPlaying<0){ playTrack(0); toast('Music', 'A track started playing on its own.', false); }
+      else { playTrack(-1); toast('Music', 'The music stopped on its own.', false); }
+  }},
+];
+/* ---- TIER 2 (noticeable) ---- */
+const TIER2=[
+  {id:'t2-file', run:()=>{ // +1 file appears in Aurora
+      if(!STATE.mutations.includes('couser-note')){ STATE.mutations.push('couser-note'); persist(); }
+      refreshFiles();
+      toast('Files', 'A file you didn’t create appeared in ~/Aurora.', false);
+  }},
+  {id:'t2-imageflick', run:()=>{ // co-user is looking at the Aurora photos too
+      openImageAt('sisters');
+      toast('Image Viewer', 'The viewer opened a photo by itself.', false);
+  }},
+  {id:'t2-mail', run:()=>{ // real-time co-user mail
+      const m=MAIL.inbox.find(x=>x.id==='m-couser'); if(m){ m._arrived=true; m.unread=true; }
+      renderIcons(); refreshMail();
+      toast('Mail', 'New message: “Are you on the personal box right now?”', false);
+  }},
+];
+/* ---- TIER 3 (direct, non-hostile) ---- */
+const TIER3=[
+  {id:'t3-im', run:()=>{ openIM(); }},
+  {id:'t3-halfdelete', run:()=>{ halfDeleteEvent(); }},
+  {id:'t3-capstone', run:()=>{ capstoneEvent(); }},
+];
+
+function refreshFiles(){ Object.values(WINS).filter(w=>w.app==='files'&&w.refresh).forEach(w=>w.refresh()); }
+function refreshMail(){ Object.values(WINS).filter(w=>w.app==='mail'&&w.refresh).forEach(w=>w.refresh()); }
+
+/* ---- Tier-3: half-delete a document, then stop ---- */
+function halfDeleteEvent(){
+  // find an open notes window, or the Aurora records file conceptually
+  let w=Object.values(WINS).find(x=>x.app==='notes' && x.fileId && FILES[x.fileId] && FILES[x.fileId].style==='lab');
+  toast('Files', 'A document began deleting itself, then stopped.', false);
+  if(w){
+    const body=document.getElementById(w.id+'-body');
+    const doc=body.querySelector('.docnote');
+    if(doc){
+      const full=doc.textContent; let cut=Math.floor(full.length*0.55);
+      let i=full.length;
+      const tick=()=>{ if(i>cut){ i-=Math.max(2,Math.floor(full.length/60)); doc.textContent=full.slice(0,i); requestAnimationFrame(tick); }
+        else { doc.innerHTML=full.slice(0,i)+'<span style="color:var(--danger)"> ███ [deletion interrupted — recovered] ███</span>'; } };
+      tick();
+    }
+  }
+}
+
+/* ---- Tier-3: IM window ---- */
+function openIM(){
+  const who = GM_CONFIG.coUserIdentityHints ? 'H.' : '████';
+  APPS.im={title:'Message — '+who, glyph:'💬'};
+  const id=openApp('im'); WINS[id].who=who;
+  toast('Message', who+' is typing to you…', false);
+}
+const IM_SCRIPT=[
+  {who:'them', text:'You’re on the personal machine.'},
+  {who:'them', text:'You said you’d stay off it from inside the house.'},
+];
+const IM_FOLLOWUP=[
+  'It’s late. Is everything all right?',
+  'You’re reading her folders again, aren’t you.',
+  'Answer me. It only takes a word.',
+];
+function renderIM(rec, body){
+  rec.imLog = rec.imLog || STATE.imLog.slice();
+  if(!rec.imLog.length){ rec.imLog = IM_SCRIPT.slice(); }
+  rec.fu = rec.fu||0;
+  const draw=()=>{
+    const log=rec.imLog.map(m=>`<div class="im-msg ${m.who}">${escapeHtml(m.text)}</div>`).join('');
+    const canned = GM_CONFIG.imInteractive ? `
+      <div class="im-canned">
+        <button data-c="It’s me. Couldn’t sleep.">“It’s me. Couldn’t sleep.”</button>
+        <button data-c="Who is this?">“Who is this?”</button>
+        <button data-c="Just finishing something. Go to bed.">“Go to bed.”</button>
+      </div>
+      <div class="im-input"><input id="${rec.id}-imin" placeholder="reply as Amelia…" autocomplete="off"><button id="${rec.id}-imsend">Send</button></div>`
+      : `<div class="im-canned" style="color:var(--faint);font-style:italic;padding:14px">— this session, the messages do not stop, and you cannot answer. (GM: imInteractive off) —</div>`;
+    body.innerHTML=`<div class="im"><div class="im-head">encrypted channel · <span class="who">${escapeHtml(rec.who||'████')}</span> · assumes you are Amelia</div>
+      <div class="im-log" id="${rec.id}-imlog">${log}</div>${canned}</div>`;
+    const lg=document.getElementById(rec.id+'-imlog'); if(lg)lg.scrollTop=lg.scrollHeight;
+    if(GM_CONFIG.imInteractive){
+      body.querySelectorAll('.im-canned button').forEach(b=> b.onclick=()=>imReply(rec, b.dataset.c));
+      const inp=document.getElementById(rec.id+'-imin'), snd=document.getElementById(rec.id+'-imsend');
+      if(snd)snd.onclick=()=>{ if(inp.value.trim()){ imReply(rec, inp.value.trim()); inp.value=''; } };
+      if(inp)inp.onkeydown=(e)=>{ if(e.key==='Enter'&&inp.value.trim()){ imReply(rec, inp.value.trim()); inp.value=''; } };
+    }
+  };
+  rec.refresh=draw; draw();
+}
+function imReply(rec, text){
+  rec.imLog.push({who:'me', text});
+  // cover flag: a careless answer breaks cover
+  if(/who is this/i.test(text)){ STATE.coverIntact=false; }
+  STATE.imLog=rec.imLog.slice(); persist();
+  rec.refresh();
+  // typing indicator then a followup
+  setTimeout(()=>{
+    rec.imLog.push({who:'them',text:'…'}); rec.refresh();
+    setTimeout(()=>{
+      rec.imLog.pop();
+      const fu = IM_FOLLOWUP[rec.fu++ % IM_FOLLOWUP.length];
+      rec.imLog.push({who:'them', text: STATE.coverIntact?fu:'who is this. this isn’t her.'});
+      STATE.imLog=rec.imLog.slice(); persist();
+      rec.refresh();
+    }, 1400);
+  }, 700);
+}
+
+/* ---- Tier-3 capstone: "who is this" types into a notes window, then 1 user ---- */
+function capstoneEvent(){
+  let w=Object.values(WINS).find(x=>x.app==='notes');
+  const finish=()=>{ suspicion=20; refreshTrayUsers(); toast('Session', 'The second session ended. 1 user signed in.', false); };
+  if(!w){ // open one to host the beat
+    const id=openApp('notes', 'she-asked-again'); w=WINS[id];
+  }
+  const body=document.getElementById(w.id+'-body');
+  const reader=body.querySelector('.reader');
+  if(reader){
+    const cap=document.createElement('div');
+    cap.style.cssText='margin-top:30px;border-top:1px solid var(--line);padding-top:18px;font-family:var(--mono);color:var(--orange);font-size:15px';
+    reader.appendChild(cap);
+    const target='who is this';
+    let i=0;
+    const tick=()=>{ if(i<=target.length){ cap.textContent=target.slice(0,i)+'▋'; i++; setTimeout(tick, 180); } else { cap.textContent=target; setTimeout(finish, 1400); } };
+    setTimeout(tick, 600);
+  } else finish();
+}
+
+/* ---- ghost cursor flicker (ambient) ---- */
+function ghostCursorBlip(){
+  const g=document.getElementById('ghostCursor');
+  const x=120+Math.floor(Math.abs(Math.sin(perfNow()))*(window.innerWidth-260));
+  const y=120+Math.floor(Math.abs(Math.cos(perfNow()))*(window.innerHeight-260));
+  g.style.left=x+'px'; g.style.top=y+'px'; g.style.opacity=1;
+  setTimeout(()=>g.style.opacity=0, 900);
+}
+
+/* ============================================================
+   THREAD ASSEMBLY (GM-facing console confirmation)
+   ============================================================ */
+function checkThreads(){
+  const r=STATE.read;
+  const A = ['coast-survey','gate','lintel','tower-study','manor-library'].filter(x=>r[x]).length>=2;
+  const B = r['she-asked-again'] && (r['timeline']||r['records-wall']||r['two-of-us']);
+  const C = r['share-principle'] && r['door-both-ways'];
+  if(A && !STATE._a){ STATE._a=true; console.log('%c[THREAD A — LOCATION] assembled: the players can place Amelia at Blackthorn Manor.','color:#ffa500'); }
+  if(B && !STATE._b){ STATE._b=true; console.log('%c[THREAD B — AURORA] assembled: the amnesiac sister landed.','color:#ffa500'); }
+  if(C && !STATE._c){ STATE._c=true; console.log('%c[THREAD C — EXP. SHARE] assembled: side-quest leads are live.','color:#ffa500'); }
+}
+
+/* ============================================================
+   TOASTS
+   ============================================================ */
+function toast(tag, msg, ether){
+  const box=document.getElementById('toasts');
+  const t=document.createElement('div'); t.className='toast'+(ether?' ether':'');
+  t.innerHTML=`<div class="tt">${escapeHtml(tag)}</div>${escapeHtml(msg)}`;
+  t.onclick=()=>t.remove();
+  box.appendChild(t);
+  ghostCursorBlip();
+  setTimeout(()=>{ t.style.transition='opacity .4s'; t.style.opacity=0; setTimeout(()=>t.remove(),400); }, 6500);
+}
+
+/* ============================================================
+   LOGOUT / SHUTDOWN
+   ============================================================ */
+function logout(){
+  persist();
+  const sd=document.getElementById('shutdown'); sd.style.display='flex';
+  document.getElementById('shutdownMsg').textContent='Signing out, A. Pine…';
+  document.getElementById('shutdownSub').textContent = (STATE.mutations.length||Object.keys(STATE.fired).length)
+    ? 'Some changes were made by another user. Sync on next login.' : '';
+  if(coUserTimer)clearInterval(coUserTimer); if(clockTimer)clearInterval(clockTimer);
+  setTimeout(()=>{ location.reload(); }, 2600);
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function escapeHtml(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function redactHtml(s){ return escapeHtml(s).replace(/█+/g, m=>`<span class="redact">${m}</span>`); }
+function perfNow(){ try{ return performance.now(); }catch(e){ return 0; } }
+
+/* keyboard: Esc closes focused window */
+document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'&&focusedWin) closeWin(focusedWin); });
+</script>
 </body>
 </html>
