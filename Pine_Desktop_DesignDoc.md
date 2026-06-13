@@ -165,3 +165,28 @@ Build a believable machine. **Camouflage ratio:** for every plot file, 2–3 mun
 ```
 **Source-of-truth cross-refs for the builder:** `The_Pine_Cache.md` (prior correspondence & tone), `Blackthorn_Manor.md` (every manor visual detail used in Thread A), `House_Blackthorn.md` (Helena, the motto, the tower study, the west wing). Keep all faction names and `.fed/.lib/.sec/.net` domain conventions consistent with those files.
 ```
+
+---
+
+## 10. BUILD ADDENDUM — what the current `index.html` actually does
+
+The live build (`index.html`) has grown past this brief. Where the two disagree, the build is current. Differences and additions worth a GM's notice:
+
+- **Photos are real image files.** The nine Image-Viewer photos and the wallpaper prints load from `images/` (Firefly-generated, composited). The original SVG mock-photos remain in code as automatic fallbacks if the folder is absent. Generation/compositing prompts are in `Image_Generation_Prompts.md`.
+
+- **Wallpaper.** Three options in Settings: **the two of us** (the sisters dock photo — the default, per the Character Bible's "keeps the photographs as her wallpaper"), **the walk down** (the seagulls photo), and **Lumen** (stock abstract). The co-user can change it back to the sisters mid-session (a Tier-2 event).
+
+- **The IM is now choice-only, not free-text, and is a branching tree.** The player can no longer type — they pick from 2–3 canned replies per node, and the conversation forks extensively (the co-user reads as **Helena / "H."**, the manor co-user). Key branches: a *cover-crack* path (answer wrong and the channel closes, `coverIntact=false`, the second session drops); a passable *passphrase* check — H. asks for "the thing you say when I worry," and **"Slowly, and safely"** (from `notes-from-the-house.txt`) is the correct de-escalating answer; and several lore-leaking branches (the Federation auditors, "E."/Nero's movements, the west wing, the surveyor party). Parenthesised options like *(say nothing)* are silent choices. The tree persists and resumes mid-conversation across logins. `imInteractive:false` still falls back to an un-answerable scroll.
+
+- **Mail has four folders.** Inbox, **Drafts**, **Sent**, Archive(work). Drafts holds the unsent letter to the protester technician (the carrier-quest witness) and two abandoned drafts; Sent holds her side of the carer correspondence plus mundane logistics. A Tier-3 co-user event **appends a line to the technician draft in real time** ("leave him alone. he has paid enough.") — H. knows who that letter is to.
+
+- **Ether Monitor is animated and interactive.** Live dual-waveform (a calm cyan house draw; a violet "second draw — not this device" line appears once suspicion rises). A **TRACE CIRCUIT** button runs a sweep and logs results: the first trace exposes the **west wing's unmetered 9.8u draw** (the ether-bill mystery, now load-bearing — something runs over there); a later trace, once the co-user is active, reveals **a second console on the account reading the same files.** Ambient log ticks run on a timer.
+
+- **New app — Browse.** A small web explorer with a start page of bookmarks and six visitable "sites," each diegetic and lore-flavoured: Coast Ether & Power (enquiry ████-4471 still OPEN), Libra University (Yucca's cohort; Pine "on extended leave"), Starhaven Biolabs (the "report mail that seems unlike a colleague" notice), the **Promontory Noticeboard** (villagers gossiping about the tower lights — the richest Thread-A reinforcement), the Coast Herald (the desert corridor, the estate audits), and Reedside Continuing Care (Aurora's facility — the aviary, the "kind visitor," a family portal that logs your sign-in attempt). Browsing history persists; a Tier-2 co-user event injects **ghost history entries** (a visit to Reedside and an attempt at a `████.sec/ledger` address that won't resolve).
+
+- **More co-user (second-session) events,** spread across all three tiers: the ether circuit gaining a second draw signature; the co-user playing Aurora's track; ghost browsing history; the wallpaper being changed back; the draft line appended; and a failed decryption spike on the sealed `redacted-trial.enc` from the other console.
+
+- **Login goes fullscreen** (best-effort `requestFullscreen` on sign-in).
+
+These extend the same design spine — calm archive exploration, ambient dread, the co-user as presence-not-threat. Nothing here introduces a fail state.
+```

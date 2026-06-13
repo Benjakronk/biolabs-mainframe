@@ -205,9 +205,13 @@ Memory is experience that stayed. I can no longer pretend I don't know what that
 for a healthy woman who sat in a chair for twenty minutes, wired to a partner, told to
 open the channel as wide as it would go "for a clean reading."
 
-Somewhere there is a Pokémon carrying twenty minutes of my sister that she will never
-get back unless I take it out and put it where it belongs. If that is even possible.
-I will make it possible.
+And a channel opened that far does not close on its own. The session was twenty
+minutes. The door stayed open for three weeks. The "tired," the headaches, the names
+going soft at the edges — that was the draining, and nobody watching knew to shut it.
+
+Somewhere there is a Pokémon carrying my sister — not twenty minutes of her, the
+whole record of her — that she will never get back unless I take it out and put it
+where it belongs. If that is even possible. I will make it possible.
 ```
 
 ### ⭑ `loose-ends.txt` — Notes app — *explicit side-quest hooks*

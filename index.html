@@ -41,9 +41,10 @@ body{
   position:fixed;inset:0;z-index:9000;
   display:flex;align-items:center;justify-content:center;flex-direction:column;
   background:
-    radial-gradient(1200px 600px at 70% -10%, rgba(154,123,255,.10), transparent 60%),
-    radial-gradient(900px 500px at 10% 110%, rgba(84,214,224,.08), transparent 60%),
-    linear-gradient(160deg,#0e0e10,#16161a 60%,#0e0e10);
+    radial-gradient(1200px 600px at 70% -10%, rgba(154,123,255,.15), transparent 60%),
+    radial-gradient(900px 500px at 10% 110%, rgba(84,214,224,.12), transparent 60%),
+    radial-gradient(700px 400px at 50% 105%, rgba(255,165,0,.05), transparent 60%),
+    linear-gradient(160deg,#0f0e13,#16161c 60%,#0e0e12);
 }
 .login-card{width:340px;text-align:center}
 .login-avatar{
@@ -72,16 +73,17 @@ body{
 #desktop{
   position:fixed;inset:0;z-index:1;display:none;
   background:
-    radial-gradient(1400px 700px at 78% -15%, rgba(154,123,255,.08), transparent 55%),
-    radial-gradient(1100px 600px at -5% 115%, rgba(84,214,224,.07), transparent 55%),
-    linear-gradient(165deg,#101013,#17171b 55%,#0d0d10);
+    radial-gradient(1400px 700px at 78% -15%, rgba(154,123,255,.16), transparent 55%),
+    radial-gradient(1100px 600px at -5% 115%, rgba(84,214,224,.13), transparent 55%),
+    radial-gradient(900px 500px at 35% 115%, rgba(255,165,0,.07), transparent 60%),
+    linear-gradient(165deg,#13121a,#181722 55%,#0e0d13);
   overflow:hidden;
 }
-#desktop.wp-sisters{
-  background:
-    linear-gradient(rgba(13,13,16,.72),rgba(13,13,16,.86)),
-    radial-gradient(900px 500px at 50% 30%, rgba(255,165,0,.06), transparent 60%),
-    linear-gradient(165deg,#14110d,#16161b 55%,#0d0d10);
+#wallpaper{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+#wallpaper svg{position:absolute;inset:0;width:100%;height:100%}
+#wallpaper::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,10,14,.16),rgba(10,10,14,.26) 65%,rgba(8,8,11,.52));
 }
 
 /* desktop icons */
@@ -90,10 +92,10 @@ body{
   width:84px;padding:9px 6px;border-radius:8px;text-align:center;cursor:pointer;
   color:var(--txt);transition:.12s;border:1px solid transparent;
 }
-.dicon:hover{background:rgba(255,255,255,.04);border-color:var(--line)}
-.dicon.sel{background:rgba(255,165,0,.10);border-color:var(--orange-dim)}
-.dicon .gl{font-size:26px;line-height:1;display:block;margin-bottom:6px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
-.dicon .lb{font-size:10.5px;color:var(--dim);letter-spacing:.01em;word-break:break-word}
+.dicon:hover{background:rgba(14,14,18,.45);border-color:var(--line)}
+.dicon.sel{background:rgba(255,165,0,.12);border-color:var(--orange-dim)}
+.dicon .gl{font-size:26px;line-height:1;display:block;margin-bottom:6px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.7))}
+.dicon .lb{font-size:10.5px;color:#c9c6c0;letter-spacing:.01em;word-break:break-word;text-shadow:0 1px 3px rgba(0,0,0,.85)}
 .dicon.alert .gl{animation:pulseOrange 1.6s ease-in-out infinite}
 @keyframes pulseOrange{0%,100%{filter:drop-shadow(0 0 0 rgba(255,165,0,0))}50%{filter:drop-shadow(0 0 8px rgba(255,165,0,.7))}}
 
@@ -192,7 +194,8 @@ body{
 /* ===================== IMAGE VIEWER ===================== */
 .iv{display:flex;flex-direction:column;height:100%;background:#0c0c0e}
 .iv-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px;overflow:hidden;position:relative}
-.iv-stage svg{max-width:100%;max-height:100%;border-radius:4px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.iv-stage svg,.iv-stage img{max-width:100%;max-height:100%;border-radius:4px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.iv-stage img{object-fit:contain}
 .iv-cap{padding:10px 16px;border-top:1px solid var(--line);background:#141416;font-family:var(--serif);font-style:italic;font-size:13px;color:var(--dim);text-align:center;min-height:20px}
 .iv-bar{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid var(--line);background:var(--bg2)}
 .iv-nav{background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:5px;width:26px;height:24px;cursor:pointer;font-size:13px}
@@ -203,6 +206,7 @@ body{
 .iv-thumb.active{opacity:1;border-color:var(--orange)}
 .iv-thumb:hover{opacity:1}
 .iv-thumb svg{width:100%;height:100%}
+.iv-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* ===================== MUSIC ===================== */
 .music{padding:0;height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,#16161a,#101012)}
@@ -234,6 +238,48 @@ body{
 .ether-log{flex:1;overflow:auto;font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:8px;padding:10px;background:#101113;line-height:1.8}
 .ether-log .anom{color:var(--orange)}
 .ether-log .t{color:var(--faint)}
+.ether-legend{position:absolute;right:8px;top:5px;font-size:9.5px;color:var(--dim);font-family:var(--mono)}
+.ether-btn{background:transparent;border:1px solid var(--line);color:var(--ether);border-radius:6px;padding:9px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+.ether-btn:hover{border-color:var(--ether);box-shadow:0 0 14px rgba(84,214,224,.15)}
+.ether-btn[disabled]{opacity:.4;cursor:default;box-shadow:none}
+.ether-sweep{height:3px;border-radius:2px;background:#1a1c20;overflow:hidden;visibility:hidden}
+.ether-sweep i{display:block;height:100%;width:0;background:var(--ether);transition:width 2.6s linear}
+
+/* ===================== BROWSE (web explorer) ===================== */
+.web{display:flex;flex-direction:column;height:100%;background:#0f0f12}
+.web-bar{display:flex;gap:7px;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--bg2);align-items:center;position:relative}
+.web-btn{background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:5px;width:28px;height:26px;cursor:pointer;font-size:13px}
+.web-btn:hover{color:var(--orange);border-color:var(--orange-dim)}
+.web-addr{flex:1;background:#0e0e10;border:1px solid var(--line);border-radius:5px;color:var(--txt);font-family:var(--mono);font-size:11px;padding:6px 10px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.web-addr:hover{border-color:var(--orange-dim)}
+.web-menu{position:absolute;top:40px;left:80px;right:10px;background:#1b1b20;border:1px solid var(--line);border-radius:7px;z-index:10;box-shadow:0 14px 30px rgba(0,0,0,.5);overflow:hidden}
+.web-menu div{padding:8px 12px;font-size:11px;color:var(--dim);cursor:pointer;font-family:var(--mono)}
+.web-menu div:hover{background:var(--bg3);color:var(--orange)}
+.web-page{flex:1;overflow:auto}
+.site{padding:26px 30px 40px;font-size:12.5px;line-height:1.6;font-family:var(--sans);color:#cdccc8;max-width:680px;margin:0 auto}
+.site-head{font-family:var(--mono);font-size:15px;letter-spacing:.12em;color:var(--acc,#fff);border-bottom:2px solid var(--acc,#444);padding-bottom:10px;margin-bottom:18px}
+.site-head span{display:block;font-size:10px;color:var(--faint);letter-spacing:.04em;margin-top:4px}
+.site h4{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--acc,#aaa);margin:20px 0 8px;text-transform:uppercase}
+.site .item{border-bottom:1px solid #232227;padding:9px 0}
+.site .item b{color:#e0ded8;font-weight:500}
+.site .item .sf{font-size:11px;color:var(--dim);margin-top:3px}
+.site .pin{background:#211d14;border:1px solid #3a3322;border-radius:6px;padding:10px 12px;margin:10px 0;font-family:var(--serif);font-size:13px;color:#d6cdb8;transform:rotate(-.4deg)}
+.site .pin:nth-child(odd){transform:rotate(.5deg)}
+.site .statusbox{border:1px solid var(--line);border-radius:7px;padding:12px;background:#121316;font-family:var(--mono);font-size:11.5px;line-height:1.8}
+.site .err{color:var(--danger);font-family:var(--mono);text-align:center;margin-top:80px;font-size:13px;line-height:2}
+.site .sbtn{display:inline-block;border:1px solid var(--acc,#666);color:var(--acc,#ccc);border-radius:6px;padding:8px 16px;cursor:pointer;font-family:var(--mono);font-size:11px;margin-top:8px}
+.site .sbtn:hover{background:rgba(255,255,255,.04)}
+.web-logo{font-family:var(--mono);letter-spacing:.3em;color:var(--orange);text-align:center;font-size:18px;margin:30px 0 26px}
+.web-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:26px}
+.web-tile{background:#1a1a1f;border:1px solid var(--line);border-radius:8px;padding:14px;cursor:pointer;transition:.12s}
+.web-tile:hover{background:var(--bg3);transform:translateY(-1px)}
+.web-tile b{display:block;font-size:12px;color:var(--txt);margin-bottom:4px}
+.web-tile span{font-size:10px;color:var(--faint);font-family:var(--mono)}
+.web-h2{font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;margin-bottom:8px}
+.web-hist{display:flex;justify-content:space-between;gap:10px;padding:7px 4px;border-bottom:1px solid #232328;font-family:var(--mono);font-size:11px;color:var(--dim);cursor:pointer}
+.web-hist:hover{color:var(--orange)}
+.web-hist .t{color:var(--faint);font-size:10px;white-space:nowrap}
+.web-hist.ghost .t{color:var(--orange)}
 
 /* ===================== SETTINGS ===================== */
 .settings{padding:24px 28px;font-size:12.5px;max-width:520px}
@@ -244,8 +290,9 @@ body{
 .wp-opts{display:flex;gap:10px;margin-top:4px}
 .wp-opt{width:64px;height:40px;border-radius:5px;border:1px solid var(--line);cursor:pointer}
 .wp-opt.sel{border-color:var(--orange);box-shadow:0 0 0 2px rgba(255,165,0,.2)}
-.wp-default{background:linear-gradient(165deg,#17171b,#0d0d10)}
-.wp-sis{background:linear-gradient(165deg,#241c12,#0d0d10)}
+.wp-lumen{background:linear-gradient(165deg,#1d1a2a,#181722 55%,#0e0d13)}
+.wp-sis{background:linear-gradient(165deg,#cdbd92 0%,#a98f63 45%,#5c5240)}
+.wp-gull{background:linear-gradient(180deg,#7e8a92,#4a545c 60%,#5a5048)}
 .set-users{font-family:var(--mono);font-size:11px}
 .set-users .n{color:var(--orange)}
 
@@ -261,13 +308,11 @@ body{
 .im-msg.them{background:#26262b;color:#dcd9d3;align-self:flex-start;border-bottom-left-radius:3px}
 .im-msg.me{background:var(--orange-dim);color:#161106;align-self:flex-end;border-bottom-right-radius:3px}
 .im-msg.typing{color:var(--faint);font-style:italic}
-.im-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
-.im-input input{flex:1;background:#0e0e10;border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:12px;outline:none}
-.im-input input:focus{border-color:var(--orange-dim)}
-.im-input button{background:var(--orange-dim);color:#161106;border:none;border-radius:6px;padding:0 14px;cursor:pointer;font-family:var(--mono);font-size:12px}
-.im-canned{display:flex;flex-wrap:wrap;gap:6px;padding:0 10px 10px}
-.im-canned button{background:#222226;border:1px solid var(--line);color:var(--dim);border-radius:14px;padding:5px 11px;font-size:10.5px;cursor:pointer;font-family:var(--mono)}
-.im-canned button:hover{color:var(--orange);border-color:var(--orange-dim)}
+.im-msg.sys{align-self:center;background:transparent;color:var(--faint);font-style:italic;font-size:11px}
+.im-canned{display:flex;flex-direction:column;gap:6px;padding:10px;border-top:1px solid var(--line);max-height:40%;overflow:auto}
+.im-canned button{background:#222226;border:1px solid var(--line);color:var(--dim);border-radius:14px;padding:7px 13px;font-size:11px;cursor:pointer;font-family:var(--mono);text-align:left;line-height:1.4}
+.im-canned button:hover{color:var(--orange);border-color:var(--orange-dim);background:#26262c}
+.im-end{padding:14px;text-align:center;color:var(--faint);font-style:italic;font-size:11px;border-top:1px solid var(--line)}
 
 /* ===================== TASKBAR ===================== */
 #taskbar{
@@ -337,6 +382,7 @@ body{
 
 <!-- ===================== DESKTOP ===================== -->
 <div id="desktop">
+  <div id="wallpaper"></div>
   <div id="icons"></div>
 </div>
 
@@ -407,6 +453,11 @@ const DEFAULT_STATE = {
   coverIntact  : true,
   lastLoginAt  : null,
   trashRecovered: {},
+  wallpaper    : 'sisters',   // she keeps the photographs as her wallpaper
+  imNode       : null,        // current node in the IM conversation tree
+  imEnded      : false,
+  webHistory   : [],          // {url,t,ghost?}
+  traceCount   : 0,           // ether circuit traces run
 };
 let STATE = (function(){
   if(GM_CONFIG.resetState){ const s=structuredCloneSafe(DEFAULT_STATE); Store.write(s); return s; }
@@ -556,9 +607,13 @@ Memory is experience that stayed. I can no longer pretend I don't know what that
 for a healthy woman who sat in a chair for twenty minutes, wired to a partner, told to
 open the channel as wide as it would go "for a clean reading."
 
-Somewhere there is a Pokémon carrying twenty minutes of my sister that she will never
-get back unless I take it out and put it where it belongs. If that is even possible.
-I will make it possible.`},
+And a channel opened that far does not close on its own. The session was twenty
+minutes. The door stayed open for three weeks. The "tired," the headaches, the names
+going soft at the edges — that was the draining, and nobody watching knew to shut it.
+
+Somewhere there is a Pokémon carrying my sister — not twenty minutes of her, the
+whole record of her — that she will never get back unless I take it out and put it
+where it belongs. If that is even possible. I will make it possible.`},
 
 'loose-ends':{name:'loose-ends.txt',app:'notes',glyph:'📄',style:'lab',thread:'C',
  body:`THREADS I CAN STILL PULL:
@@ -638,6 +693,7 @@ came out wrong and the rightness was the kitchen and the two of us and the noise
 'gate':{name:'gate.img',app:'image',glyph:'🖼',thread:'A',img:'gate'},
 'lintel':{name:'lintel.img',app:'image',glyph:'🖼',thread:'A',img:'lintel'},
 'two-of-us':{name:'two-of-us.img',app:'image',glyph:'🖼',thread:'B',img:'sisters'},
+'memories':{name:'memories.img',app:'image',glyph:'🖼',thread:'B',img:'memories'},
 'aurora-field':{name:'aurora-field.img',app:'image',glyph:'🖼',thread:'B',img:'reeds'},
 'manor-library':{name:'manor-library.img',app:'image',glyph:'🖼',thread:'A',img:'library'},
 'tower-from-below':{name:'tower-from-below.img',app:'image',glyph:'🖼',thread:'A',img:'tower'},
@@ -691,14 +747,16 @@ If this is you, reply.
 If this is you, you'd reply.
 
 ████`},
-    {id:'m-carers', from:'amelia.pine@home.net', to:'████@████.net', subj:'Re: Visiting hours / this month’s arrangement', date:'9 days ago', unread:true, thread:'B',
-     body:`Thank you for the photograph. She looks well. She looks like herself, which is the cruelty of it — nothing on the outside tells you anything is gone.
+    {id:'m-carers-in', from:'duty@reedside-care.████', to:'amelia.pine@home.net', subj:'Re: this month’s arrangement', date:'10 days ago', unread:true, thread:'B',
+     body:`The transfer arrived, thank you — receipted under the usual reference.
 
-The arrangement is covered through the year; you'll see the transfer as before, same reference. If she asks for me, tell her a sister is coming. Don't use my name — it slides off her and I'd rather she keep the warm idea of "a sister" than watch a stranger's name fail to stick again.
+She has had a good week. She sat with the new aviary a long time on Tuesday and the birds took to her at once; the staff have started calling her the bird-whisperer. We took a photograph of her by the window, attached.
 
-I am close to something. I know I always say that. This time it has a shape.
+She asked the duty nurse when "the kind visitor" was coming. We did not know what to tell her.
 
-— A.`},
+— Reedside, duty desk
+
+[1 attachment — photo.img — this client cannot display attachments]`},
     {id:'m-overdue', from:'circulation@████.lib', to:'amelia.pine@home.net', subj:'OVERDUE: 3 items', date:'2 weeks ago', unread:false, mono:true,
      body:`Our records show the following items are overdue. Please return them to the circulation desk to avoid further charges.
 
@@ -711,6 +769,52 @@ This is an automated notice from a Blackthorn-administered collection.`},
      body:`Thank you for contacting Coast Ether & Power. Your enquiry is important to us. A representative will respond within 30 business days.
 
 This is an automated message. Do not reply.`},
+  ],
+  drafts: [
+    {id:'d-tech', from:'amelia.pine@home.net', to:'████ ████ (no address)', subj:'(no subject)', date:'draft · 14 revisions · last edited 11 weeks ago',
+     body:`Mr. ████,
+
+You don't know me. Years ago you worked as a technician on a study you walked out of, and I believe you walked because you saw what it could do. I believe you kept something when you went.
+
+I am not writing for the program, or for anyone. My sister sat in one of your chairs. Twenty minutes. You may even remember her — she would have been kind to you. Everyone says she was kind to
+
+[the draft breaks off here. it has never been sent.]`},
+    {id:'d-reply', from:'amelia.pine@home.net', to:'████@████.sec', subj:'Re: (no subject)', date:'draft · unsaved',
+     body:`It's me. I couldn't sleep. I wanted to hear
+
+[discarded]`},
+    {id:'d-care', from:'amelia.pine@home.net', to:'duty@reedside-care.████', subj:'Re: this month’s arrangement', date:'draft · 10 days ago',
+     body:`Could you take another by the window? She always liked the morning side of a room. And if the birds are really letting her hold them now, photograph that — she used to
+
+[draft]`},
+  ],
+  sent: [
+    {id:'s-carers', from:'amelia.pine@home.net', to:'duty@reedside-care.████', subj:'Re: this month’s arrangement', date:'9 days ago', thread:'B',
+     body:`Thank you for the photograph. She looks well. She looks like herself, which is the cruelty of it — nothing on the outside tells you anything is gone.
+
+The arrangement is covered through the year; you'll see the transfer as before, same reference. If she asks for me, tell her a sister is coming. Don't use my name — it slides off her and I'd rather she keep the warm idea of "a sister" than watch a stranger's name fail to stick again.
+
+I am close to something. I know I always say that. This time it has a shape.
+
+— A.`},
+    {id:'s-utility', from:'amelia.pine@home.net', to:'enquiries@coast-ether.████', subj:'Enquiry ████-4471 — THIRD attempt', date:'3 weeks ago', mono:true,
+     body:`To whom it may concern (a phrase I now use loosely):
+
+A house with two permanent occupants and a mothballed wing should not draw peak industrial load. Either your meter is wrong, or something on this hill runs all night that appears on no bill and no floor plan I have been shown. I would very much like to know which.
+
+Send a representative. I will even feed them.
+
+— A. Pine`},
+    {id:'s-goods', from:'amelia.pine@home.net', to:'orders@harbourstores.████', subj:'Delivery — the promontory house', date:'1 month ago',
+     body:`Do you deliver to the old house at the end of the promontory road? I will pay double for the trip, and triple in winter.
+
+(p.s. — whatever your boy says he heard about the place, it is just me up here. Mostly.)`},
+    {id:'s-house', from:'amelia.pine@home.net', to:'████@████.sec', subj:'—', date:'2 months ago', mono:true,
+     body:`The tower room is fine. The keys work, the caretaker reports my hours anyway, and I have stopped asking about the west wing.
+
+If you want to be useful, get its draw off my account. I read meters for a living once. Don't insult me twice.
+
+A.`},
   ],
   archive: [
     {id:'a1', subj:'New trainers’ progress', date:'work archive · thread 1', unread:false, thread:'cache',
@@ -750,10 +854,10 @@ Effective now, the subject is P-1 in every document, log, and verbal reference. 
 Notes encrypted and filed by end of shift. No discussion outside the secure bay.
 
 Dr. Pine`},
-      {from:'r.singh@sitealpha.sec',to:'a.pine@starhaven.lib',body:`Dr. Pine — P-1 held a transformed state past twenty-four hours this cycle. Structural integrity clean throughout. If we can isolate the marker responsible for the duration, the replication applications are… I'll keep the adjectives out of the log. You'll want to see the sequencing.
+      {from:'r.galceran@sitealpha.sec',to:'a.pine@starhaven.lib',body:`Dr. Pine — P-1 held a transformed state past twenty-four hours this cycle. Structural integrity clean throughout. If we can isolate the marker responsible for the duration, the replication applications are… I'll keep the adjectives out of the log. You'll want to see the sequencing.
 
-— Singh`},
-      {from:'a.pine@starhaven.lib',to:'r.singh@sitealpha.sec',body:`Excellent work. Send me the sequencing under separate cover. And Singh — the duration result does not leave the bay. Not even to Bellini's office without my say. Especially not there.
+— Galceran`},
+      {from:'a.pine@starhaven.lib',to:'r.galceran@sitealpha.sec',body:`Excellent work. Send me the sequencing under separate cover. And Galceran — the duration result does not leave the bay. Not even to Bellini's office without my say. Especially not there.
 
 A.`},
      ]},
@@ -838,7 +942,7 @@ MB`},
    ============================================================ */
 const TREE = {
   'House'        : {glyph:'🏚', files:['tower-study','to-the-caretaker','coast-survey','gate','lintel','ether-bill-dispute','groceries-promontory']},
-  'Photos'       : {glyph:'🖼', files:['two-of-us','aurora-field','manor-library','tower-from-below','gulls','tea-rings']},
+  'Photos'       : {glyph:'🖼', files:['two-of-us','memories','aurora-field','manor-library','tower-from-below','gulls','tea-rings']},
   'Aurora'       : {glyph:'📁', files:['she-asked-again','timeline','records-wall','redacted-trial','playlist-for-her']},
   'Research'     : {glyph:'📁', files:['redacted-enc'], sub:{
         'shared-exp':{glyph:'📁', files:['share-principle','door-both-ways','loose-ends','requisition-draft']}
@@ -851,7 +955,7 @@ const TREE = {
    SVG MOCK-PHOTOGRAPHS  (diegetic-stylized, not realistic)
    ============================================================ */
 const IMAGES = {
-coast:{cap:'the house.', svg:`<svg viewBox='0 0 480 320'>
+coast:{cap:'the survey sheet for this coast. I marked nothing on it. some addresses should not be written down.', photo:'images/sea%20chart.jpg', svg:`<svg viewBox='0 0 480 320'>
   <defs><linearGradient id='sea' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#1a2630'/><stop offset='1' stop-color='#0c151c'/></linearGradient></defs>
   <rect width='480' height='320' fill='#1c1a14'/><rect width='480' height='320' fill='url(#sea)' opacity='.5'/>
   <path d='M0 120 Q120 110 200 150 T 300 200 Q360 220 480 210 L480 320 L0 320 Z' fill='#10171d'/>
@@ -864,7 +968,7 @@ coast:{cap:'the house.', svg:`<svg viewBox='0 0 480 320'>
   <text x='298' y='196' fill='#ffd24d' font-size='16'>✦</text>
   <text x='30' y='305' fill='#55503f' font-size='9' font-family='monospace'>NORTHERN LIBRA COAST — survey, weathered</text>
 </svg>`},
-gate:{cap:'', svg:`<svg viewBox='0 0 480 320'>
+gate:{cap:'', photo:'images/manor%20gate.jpg', svg:`<svg viewBox='0 0 480 320'>
   <rect width='480' height='320' fill='#15130f'/>
   <rect width='480' height='320' fill='#0c0b08' opacity='.4'/>
   <g opacity='.5'><path d='M40 320 Q80 180 60 90' stroke='#23281c' stroke-width='14' fill='none'/><path d='M420 320 Q380 200 410 110' stroke='#23281c' stroke-width='16' fill='none'/></g>
@@ -881,7 +985,7 @@ gate:{cap:'', svg:`<svg viewBox='0 0 480 320'>
   </g>
   <rect x='0' y='250' width='480' height='70' fill='#0a0907' opacity='.6'/>
 </svg>`},
-lintel:{cap:'every door in this family says something true and means something else.', svg:`<svg viewBox='0 0 480 320'>
+lintel:{cap:'scientia viam illuminat — knowledge illuminates the path. every door in this family says something true and means something else.', photo:'images/manor%20door.jpg', svg:`<svg viewBox='0 0 480 320'>
   <rect width='480' height='320' fill='#100e0a'/>
   <polygon points='150,0 330,0 300,320 180,320' fill='#1a160f'/>
   <rect x='180' y='150' width='120' height='170' fill='#0d0b07'/>
@@ -893,7 +997,7 @@ lintel:{cap:'every door in this family says something true and means something e
   <polygon points='150,0 60,60 90,320 200,320' fill='#000' opacity='.35'/>
   <rect x='305' y='10' width='40' height='300' fill='#d8c98a' opacity='.06' transform='skewX(-8)'/>
 </svg>`},
-sisters:{cap:'Amelia & Aurora — before either of us knew anything.', svg:`<svg viewBox='0 0 480 320'>
+sisters:{cap:'Amelia & Aurora — before either of us knew anything.', photo:'images/two%20of%20us.jpg', svg:`<svg viewBox='0 0 480 320'>
   <defs><linearGradient id='sun' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#d9cB9f'/><stop offset='1' stop-color='#b9a173'/></linearGradient></defs>
   <rect width='480' height='320' fill='#e6dcc2'/><rect width='480' height='320' fill='url(#sun)' opacity='.5'/>
   <rect x='0' y='200' width='480' height='120' fill='#9c8c6a'/>
@@ -907,7 +1011,21 @@ sisters:{cap:'Amelia & Aurora — before either of us knew anything.', svg:`<svg
   <rect x='0' y='300' width='480' height='20' fill='#efe6cf'/>
   <text x='14' y='314' fill='#7a6c50' font-size='10' font-family='cursive'>Amelia &amp; Aurora — before either of us knew anything</text>
 </svg>`},
-reeds:{cap:'A. doing her actual job.', svg:`<svg viewBox='0 0 480 320'>
+memories:{cap:'the old garden, the summer she taught the little ones to fetch. she is laughing at something just out of frame. I think it was me.', photo:'images/memories.jpg', svg:`<svg viewBox='0 0 480 320'>
+  <defs><linearGradient id='mem-sky' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#a9c8d4'/><stop offset='1' stop-color='#cfe0d2'/></linearGradient></defs>
+  <rect width='480' height='320' fill='url(#mem-sky)'/>
+  <rect x='0' y='150' width='480' height='170' fill='#8fae6a'/>
+  <rect x='0' y='146' width='480' height='10' fill='#6f8c4e'/>
+  <g stroke='#5c7a3e' stroke-width='6' fill='none' opacity='.5'><path d='M30 150 V40'/><path d='M70 150 V36'/><path d='M110 150 V44'/></g>
+  <rect x='0' y='60' width='480' height='90' fill='#3f5a36' opacity='.45'/>
+  <g transform='translate(250,170)'><ellipse cx='0' cy='-6' rx='20' ry='22' fill='#caa97e'/><path d='M-22 -18 Q0 -40 22 -18 L18 6 Q0 14 -18 6 Z' fill='#c2442f'/><rect x='-16' y='14' width='32' height='60' rx='9' fill='#6a85b8'/></g>
+  <g fill='#f0c84a' stroke='#caa024'><circle cx='180' cy='220' r='16'/><circle cx='330' cy='225' r='15'/></g>
+  <ellipse cx='110' cy='250' rx='22' ry='20' fill='#c64a3a'/>
+  <rect x='0' y='302' width='480' height='18' fill='#efe6cf'/>
+  <text x='14' y='315' fill='#7a6c50' font-size='10' font-family='cursive'>the garden — the good summer</text>
+</svg>`},
+
+reeds:{cap:'A. doing her actual job.', photo:'images/aurora%20field.jpg', svg:`<svg viewBox='0 0 480 320'>
   <rect width='480' height='320' fill='#1f2a1c'/>
   <rect x='0' y='180' width='480' height='140' fill='#16271f'/>
   <g stroke='#3c5236' stroke-width='3' fill='none' opacity='.9'>
@@ -918,7 +1036,7 @@ reeds:{cap:'A. doing her actual job.', svg:`<svg viewBox='0 0 480 320'>
   <g stroke='#4c7c8a' stroke-width='2' fill='none' opacity='.5'><path d='M180 250 q20 -10 40 0'/><path d='M230 270 q20 -8 40 2'/></g>
   <rect x='0' y='300' width='480' height='20' fill='#101a14' opacity='.7'/>
 </svg>`},
-library:{cap:'', svg:`<svg viewBox='0 0 480 320'>
+library:{cap:'from the house’s own records — the library back when the shelves were still full. nobody photographs the gaps.', photo:'images/grand%20library.jpg', svg:`<svg viewBox='0 0 480 320'>
   <rect width='480' height='320' fill='#15120d'/>
   <g fill='#241d14'><rect x='10' y='20' width='90' height='300'/><rect x='380' y='20' width='90' height='300'/></g>
   <g stroke='#0d0a07' stroke-width='2'>
@@ -940,7 +1058,7 @@ library:{cap:'', svg:`<svg viewBox='0 0 480 320'>
   <g stroke='#1a140d' stroke-width='2'><line x1='100' y1='300' x2='380' y2='300'/></g>
   <path d='M120 300 L150 60' stroke='#3a3022' stroke-width='2' fill='none' opacity='.5'/>
 </svg>`},
-tower:{cap:'', svg:`<svg viewBox='0 0 480 320'>
+tower:{cap:'from the water, coming back from the village. the lit window is mine.', photo:'images/the%20tower.jpg', svg:`<svg viewBox='0 0 480 320'>
   <rect width='480' height='320' fill='#23272b'/><rect width='480' height='200' fill='#2b3035'/>
   <rect x='190' y='90' width='100' height='230' fill='#1a1712'/>
   <polygon points='180,90 300,90 240,30' fill='#2e5a4e'/>
@@ -956,7 +1074,7 @@ tower:{cap:'', svg:`<svg viewBox='0 0 480 320'>
   <rect x='248' y='160' width='22' height='30' rx='3' fill='#ffd87a' opacity='.5'/>
   <ellipse cx='259' cy='175' rx='40' ry='28' fill='#ffd87a' opacity='.08'/>
 </svg>`},
-gulls:{cap:'I have too much time and a window.', svg:`<svg viewBox='0 0 480 320'>
+gulls:{cap:'the walk down the promontory. they hold the rail and judge me, single file, the whole way.', photo:'images/seagulls.jpg', svg:`<svg viewBox='0 0 480 320'>
   <rect width='480' height='320' fill='#3a4248'/><rect width='480' height='180' fill='#454d53'/>
   <rect x='0' y='210' width='480' height='14' fill='#5a5048'/>
   <g fill='#e6e2da' stroke='#9a948a'>
@@ -969,7 +1087,7 @@ gulls:{cap:'I have too much time and a window.', svg:`<svg viewBox='0 0 480 320'
   </g>
   <text x='14' y='250' fill='#cfcabf' font-size='11' font-family='monospace'>no. 17 of 17</text>
 </svg>`},
-tea:{cap:'the only star chart in this tower I made myself.', svg:`<svg viewBox='0 0 480 320'>
+tea:{cap:'the only star chart in this tower I made myself.', photo:'images/tea%20stains.jpg', svg:`<svg viewBox='0 0 480 320'>
   <rect width='480' height='320' fill='#3a2c1e'/>
   <rect width='480' height='320' fill='#2e2418' opacity='.5'/>
   <g fill='#241a10'><rect x='40' y='60' width='120' height='150' transform='rotate(-4 100 135)'/><rect x='60' y='40' width='120' height='150' transform='rotate(3 120 115)'/></g>
@@ -979,6 +1097,73 @@ tea:{cap:'the only star chart in this tower I made myself.', svg:`<svg viewBox='
   <g fill='#caa24a'><circle cx='300' cy='120' r='2'/><circle cx='340' cy='160' r='2'/><circle cx='290' cy='190' r='2'/><circle cx='360' cy='110' r='2'/></g>
   <ellipse cx='150' cy='250' rx='24' ry='8' fill='#1a1209'/><ellipse cx='150' cy='246' rx='24' ry='8' fill='none' stroke='#5a3f28' stroke-width='3'/>
 </svg>`},
+};
+
+/* ============================================================
+   WALLPAPERS  (full-bleed SVG scenes behind the icons)
+   'sisters' — the dock photo, kept as her wallpaper (Character Bible)
+   'gulls'   — the seagulls photo, full-bleed (legacy 'coast' maps here)
+   'lumen'   — the OS's stock abstract (plain CSS gradient)
+   ============================================================ */
+const WALLPAPERS = {
+sisters:{label:'the two of us', svg:`<svg viewBox='0 0 1280 800' preserveAspectRatio='xMidYMid slice'>
+  <defs>
+    <linearGradient id='wp-desk' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#1b1511'/><stop offset='1' stop-color='#0d0b09'/></linearGradient>
+    <radialGradient id='wp-lamp' cx='.58' cy='.32' r='.6'><stop offset='0' stop-color='#ffb84d' stop-opacity='.14'/><stop offset='1' stop-color='#ffb84d' stop-opacity='0'/></radialGradient>
+    <linearGradient id='wp-sun' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#d9cb9f'/><stop offset='1' stop-color='#b9a173'/></linearGradient>
+    <filter id='wp-shadow' x='-25%' y='-25%' width='150%' height='150%'><feDropShadow dx='0' dy='12' stdDeviation='16' flood-color='#000' flood-opacity='.55'/></filter>
+  </defs>
+  <rect width='1280' height='800' fill='url(#wp-desk)'/>
+  <rect width='1280' height='800' fill='url(#wp-lamp)'/>
+  <!-- the river photo, tucked behind -->
+  <g transform='translate(880,430) rotate(4.5) scale(.72)' filter='url(#wp-shadow)'>
+    <rect x='-260' y='-190' width='520' height='380' fill='#e8dfc8'/>
+    <g transform='translate(-240,-170)'>
+      <rect width='480' height='320' fill='#1f2a1c'/>
+      <rect x='0' y='180' width='480' height='140' fill='#16271f'/>
+      <g stroke='#3c5236' stroke-width='3' fill='none' opacity='.9'>
+        <path d='M40 320 Q44 200 36 150'/><path d='M70 320 Q66 210 74 160'/><path d='M410 320 Q414 190 406 140'/><path d='M440 320 Q436 210 444 170'/>
+      </g>
+      <g transform='translate(220,150)'><ellipse cx='0' cy='-4' rx='16' ry='18' fill='#caa97e'/><rect x='-13' y='12' width='26' height='62' rx='8' fill='#6d7a4a'/><rect x='10' y='30' width='20' height='14' rx='2' fill='#d9cb9f'/></g>
+      <g fill='#3a6a78'><ellipse cx='200' cy='240' rx='11' ry='7'/><ellipse cx='250' cy='255' rx='10' ry='6'/><ellipse cx='225' cy='275' rx='12' ry='7'/></g>
+      <image href='images/aurora%20field.jpg' x='0' y='0' width='480' height='320' preserveAspectRatio='xMidYMid slice'/>
+    </g>
+    <text x='0' y='176' text-anchor='middle' fill='#8a7a5c' font-size='15' font-family='cursive'>A. doing her actual job</text>
+  </g>
+  <!-- the dock photo, front -->
+  <g transform='translate(590,380) rotate(-2.5)' filter='url(#wp-shadow)'>
+    <rect x='-260' y='-190' width='520' height='380' fill='#efe6cf'/>
+    <g transform='translate(-240,-170)'>
+      <rect width='480' height='320' fill='#e6dcc2'/><rect width='480' height='320' fill='url(#wp-sun)' opacity='.5'/>
+      <rect x='0' y='130' width='480' height='70' fill='#a9c0c4' opacity='.7'/>
+      <rect x='0' y='200' width='480' height='120' fill='#9c8c6a'/>
+      <rect x='0' y='196' width='480' height='10' fill='#7a6c50'/>
+      <g fill='#5c5240'><rect x='120' y='196' width='8' height='124'/><rect x='250' y='196' width='8' height='124'/><rect x='360' y='196' width='8' height='124'/></g>
+      <g transform='translate(190,120)'><ellipse cx='0' cy='-2' rx='20' ry='23' fill='#2c2620'/><rect x='-16' y='18' width='32' height='70' rx='10' fill='#4a4036'/></g>
+      <g transform='translate(245,135)'><ellipse cx='0' cy='-2' rx='17' ry='19' fill='#5a4a36'/><rect x='-14' y='15' width='28' height='60' rx='9' fill='#7a5d44'/><circle cx='0' cy='40' r='9' fill='#cbb36a' stroke='#9c8650'/></g>
+    </g>
+    <text x='0' y='178' text-anchor='middle' fill='#7a6c50' font-size='14' font-family='cursive'>Amelia &amp; Aurora — before either of us knew anything</text>
+    <image href='images/two%20of%20us.jpg' x='-260' y='-190' width='520' height='380' preserveAspectRatio='xMidYMid slice'/>
+  </g>
+</svg>`},
+gulls:{label:'the walk down', svg:`<svg viewBox='0 0 1448 1086' preserveAspectRatio='xMidYMid slice'>
+  <defs>
+    <radialGradient id='wp-vig2' cx='.5' cy='.42' r='.85'><stop offset='.55' stop-color='#000' stop-opacity='0'/><stop offset='1' stop-color='#000' stop-opacity='.55'/></radialGradient>
+  </defs>
+  <rect width='1448' height='1086' fill='#454d53'/>
+  <rect y='560' width='1448' height='526' fill='#3a4248'/>
+  <rect y='700' width='1448' height='30' fill='#5a5048'/>
+  <g fill='#e6e2da' stroke='#9a948a' stroke-width='3'>
+    <g transform='translate(220,672)'><ellipse rx='30' ry='18'/><circle cx='-24' cy='-18' r='12'/></g>
+    <g transform='translate(480,672)'><ellipse rx='30' ry='18'/><circle cx='-24' cy='-18' r='12'/></g>
+    <g transform='translate(740,672)'><ellipse rx='30' ry='18'/><circle cx='-24' cy='-18' r='12'/></g>
+    <g transform='translate(1000,672)'><ellipse rx='30' ry='18'/><circle cx='-24' cy='-18' r='12'/></g>
+    <g transform='translate(1250,670)'><ellipse rx='30' ry='18'/><circle cx='-24' cy='-18' r='12'/></g>
+  </g>
+  <image href='images/seagulls.jpg' x='0' y='0' width='1448' height='1086' preserveAspectRatio='xMidYMid slice'/>
+  <rect width='1448' height='1086' fill='url(#wp-vig2)'/>
+</svg>`},
+lumen:{label:'Lumen', svg:''},
 };
 
 /* ============================================================
@@ -998,6 +1183,7 @@ const TRACKS = [
 const APPS = {
   files   :{title:'Files',         glyph:'🗂'},
   mail    :{title:'Mail',          glyph:'✉'},
+  web     :{title:'Browse',        glyph:'🌐'},
   image   :{title:'Image Viewer',  glyph:'🖼'},
   notes   :{title:'Notes',         glyph:'📝'},
   music   :{title:'Music',         glyph:'♪'},
@@ -1005,7 +1191,7 @@ const APPS = {
   trash   :{title:'Trash',         glyph:'🗑'},
   settings:{title:'Settings',      glyph:'⚙'},
 };
-const DESKTOP_ICONS = ['files','mail','image','notes','music','ether','trash','settings'];
+const DESKTOP_ICONS = ['files','mail','web','image','notes','music','ether','trash','settings'];
 
 /* ============================================================
    RUNTIME STATE
@@ -1046,6 +1232,8 @@ const BOOT_SEQ = [
 ];
 
 function bootIn(){
+  try{ const fs=document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen;
+       if(fs){ const p=fs.call(document.documentElement); if(p&&p.catch)p.catch(()=>{}); } }catch(e){}
   const btn=document.getElementById('loginBtn'); btn.disabled=true; btn.style.opacity=.4;
   const line=document.getElementById('bootLine');
   let i=0;
@@ -1143,7 +1331,7 @@ function openApp(app, payload){
 }
 function appDefaultSize(app){
   const map={files:{w:620,h:430},mail:{w:680,h:470},image:{w:560,h:480},notes:{w:560,h:480},
-    music:{w:360,h:420},ether:{w:380,h:400},trash:{w:560,h:420},settings:{w:480,h:440},im:{w:360,h:440}};
+    music:{w:360,h:420},ether:{w:390,h:470},trash:{w:560,h:420},settings:{w:480,h:440},im:{w:380,h:480},web:{w:740,h:520}};
   let s=map[app]||{w:520,h:400};
   return {w:Math.min(s.w, window.innerWidth-30), h:Math.min(s.h, window.innerHeight-70)};
 }
@@ -1222,6 +1410,7 @@ function renderApp(rec, payload){
   switch(rec.app){
     case 'files':    renderFiles(rec,body); break;
     case 'mail':     renderMail(rec,body); break;
+    case 'web':      renderWeb(rec,body); break;
     case 'image':    renderImage(rec,body,payload); break;
     case 'notes':    renderNote(rec,body,payload); break;
     case 'music':    renderMusic(rec,body); break;
@@ -1340,7 +1529,7 @@ function openEnc(f){
 }
 
 /* ---------- IMAGE VIEWER ---------- */
-const IMAGE_ORDER=['sisters','reeds','library','tower','coast','gate','lintel','gulls','tea'];
+const IMAGE_ORDER=['sisters','memories','reeds','library','tower','coast','gate','lintel','gulls','tea'];
 function openImageAt(imgKey, fname){
   let id=openImageWin;
   if(id && WINS[id]){ focusWin(id); WINS[id].imgKey=imgKey; renderImage(WINS[id], document.getElementById(id+'-body')); }
@@ -1352,17 +1541,22 @@ function renderImage(rec, body, payload){
   const draw=()=>{
     const key=rec.imgKey; const im=IMAGES[key];
     const idx=IMAGE_ORDER.indexOf(key);
-    let thumbs=IMAGE_ORDER.map(k=>`<div class="iv-thumb ${k===key?'active':''}" data-k="${k}">${IMAGES[k].svg}</div>`).join('');
+    const art=(k)=>{ const t=IMAGES[k]; return t.photo?`<img src="${t.photo}" alt="" loading="lazy">`:t.svg; };
+    let thumbs=IMAGE_ORDER.map(k=>`<div class="iv-thumb ${k===key?'active':''}" data-k="${k}">${art(k)}</div>`).join('');
     body.innerHTML=`<div class="iv">
       <div class="iv-bar">
         <button class="iv-nav" data-d="-1">‹</button>
         <span class="iv-count">${idx+1} / ${IMAGE_ORDER.length}</span>
         <button class="iv-nav" data-d="1">›</button>
       </div>
-      <div class="iv-stage">${im.svg}</div>
+      <div class="iv-stage">${art(key)}</div>
       <div class="iv-cap">${im.cap?escapeHtml(im.cap):'&nbsp;'}</div>
       <div class="iv-thumbs">${thumbs}</div>
     </div>`;
+    // photo file missing -> fall back to the vector mock
+    body.querySelectorAll('.iv-stage img, .iv-thumb img').forEach(img=>{
+      img.onerror=()=>{ const host=img.closest('.iv-thumb'); const k=host?host.dataset.k:key; img.outerHTML=IMAGES[k].svg; };
+    });
     body.querySelectorAll('.iv-nav').forEach(b=> b.onclick=()=>{ let n=(idx+parseInt(b.dataset.d)+IMAGE_ORDER.length)%IMAGE_ORDER.length; rec.imgKey=IMAGE_ORDER[n]; markImageRead(IMAGE_ORDER[n]); draw(); });
     body.querySelectorAll('.iv-thumb').forEach(t=> t.onclick=()=>{ rec.imgKey=t.dataset.k; markImageRead(t.dataset.k); draw(); });
     setWinTitle(rec.id, 'Image Viewer — '+imgFilename(key));
@@ -1375,17 +1569,20 @@ function imgFilename(key){ const id=Object.keys(FILES).find(k=>FILES[k].img===ke
 function markImageRead(key){ const id=Object.keys(FILES).find(k=>FILES[k].img===key && !FILES[k].trash); if(id) markRead(id); }
 
 /* ---------- MAIL ---------- */
+const MAIL_FOLDERS=[['inbox','Inbox'],['drafts','Drafts'],['sent','Sent'],['archive','Archive (work)']];
 function renderMail(rec, body){
   rec.folder=rec.folder||'inbox'; rec.sel=rec.sel||null;
   const draw=()=>{
-    const list = rec.folder==='inbox' ? MAIL.inbox.filter(m=>!m.ghost || m._arrived) : MAIL.archive;
+    const list = rec.folder==='inbox' ? MAIL.inbox.filter(m=>!m.ghost || m._arrived) : (MAIL[rec.folder]||[]);
     const unreadCt = MAIL.inbox.filter(m=>(!m.ghost||m._arrived)&&m.unread).length;
     let rows = list.map(m=>{
       const active=rec.sel===m.id?'active':'';
       const unread=m.unread?'unread':'';
-      const from = m.from || (m.msgs?m.msgs[0].from:'');
+      const fromLine = rec.folder==='archive' ? 'work · cache'
+                     : rec.folder==='inbox'   ? (m.from||'')
+                     : 'to: '+(m.to||'');
       return `<div class="mrow ${active} ${unread}" data-id="${m.id}">
-        <div class="mfrom">${escapeHtml(rec.folder==='inbox'?from:'work · cache')}</div>
+        <div class="mfrom">${escapeHtml(fromLine)}</div>
         <div class="msubj">${escapeHtml(m.subj)}</div>
         <div class="mdate">${escapeHtml(m.date||'')}</div></div>`;
     }).join('');
@@ -1394,25 +1591,24 @@ function renderMail(rec, body){
     let read=`<div class="mail-empty">select a message</div>`;
     if(rec.sel){
       const m=list.find(x=>x.id===rec.sel);
-      if(m) read=renderMailBody(m);
+      if(m) read=renderMailBody(m, rec.folder);
     }
+    const folders=MAIL_FOLDERS.map(([f,label])=>{
+      const ct = f==='inbox' ? (unreadCt||'') : '';
+      return `<div class="mail-folder ${rec.folder===f?'active':''}" data-f="${f}">${label} <span class="ct">${ct}</span></div>`;
+    }).join('');
     body.innerHTML=`<div class="mail">
-      <div class="mail-side">
-        <div class="mail-folder ${rec.folder==='inbox'?'active':''}" data-f="inbox">Inbox <span class="ct">${unreadCt||''}</span></div>
-        <div class="mail-folder ${rec.folder==='archive'?'active':''}" data-f="archive">Archive (work)</div>
-        <div class="mail-folder" style="cursor:default;color:var(--faint)">Drafts</div>
-        <div class="mail-folder" style="cursor:default;color:var(--faint)">Sent</div>
-      </div>
+      <div class="mail-side">${folders}</div>
       <div class="mail-list">${rows}</div>
       <div class="mail-read">${read}</div>
     </div>`;
     body.querySelectorAll('.mail-folder[data-f]').forEach(e=> e.onclick=()=>{ rec.folder=e.dataset.f; rec.sel=null; draw(); });
     body.querySelectorAll('.mrow').forEach(e=> e.onclick=()=>{ rec.sel=e.dataset.id; const m=list.find(x=>x.id===rec.sel); if(m&&m.unread){m.unread=false; bumpSuspicion(5);} draw(); });
-    setWinTitle(rec.id,'Mail — '+(rec.folder==='inbox'?'Inbox':'Archive'));
+    setWinTitle(rec.id,'Mail — '+(MAIL_FOLDERS.find(x=>x[0]===rec.folder)||['','Mail'])[1]);
   };
   rec.refresh=draw; draw();
 }
-function renderMailBody(m){
+function renderMailBody(m, folder){
   if(m.msgs){ // threaded cache email
     const body=m.msgs.map(x=>`<div class="thread-msg">
       <div class="th"><b>From:</b> ${escapeHtml(x.from)}<br><b>To:</b> ${escapeHtml(x.to)}</div>
@@ -1420,12 +1616,137 @@ function renderMailBody(m){
     return `<div class="mh"><div class="s">${escapeHtml(m.subj)}</div><div class="kv">${m.msgs.length} messages · archived work correspondence</div></div>${body}`;
   }
   const cls = m.mono?'body mono':'body';
+  let bodyTxt = m.body;
+  let extra = '';
+  if(m.id==='d-tech' && STATE.mutations.includes('draft-edited')){
+    extra = `<div class="body mono" style="margin-top:26px;border-top:1px solid var(--line);padding-top:14px;color:var(--orange)">— line appended to this draft just now, from the other session: —
+
+leave him alone. he has paid enough.</div>`;
+  }
+  const banner = folder==='drafts' ? `<div class="kv" style="color:var(--orange-dim)">DRAFT — never sent</div>` : '';
   return `<div class="mh"><div class="s">${escapeHtml(m.subj)}</div>
+    ${banner}
     <div class="kv"><b>From</b> ${escapeHtml(m.from)}</div>
     <div class="kv"><b>To</b> ${escapeHtml(m.to)}</div>
     <div class="kv"><b>Date</b> ${escapeHtml(m.date)}</div></div>
-    <div class="${cls}">${redactHtml(m.body)}</div>`;
+    <div class="${cls}">${redactHtml(bodyTxt)}</div>${extra}`;
 }
+
+/* ---------- BROWSE (web explorer) ---------- */
+const WEB_BOOKMARKS=[
+  ['coast-ether.net','Coast Ether & Power','#54d6e0'],
+  ['librauniversity.lib','Libra University','#d8b66a'],
+  ['starhaven.lib','Starhaven Biolabs','#5ee8b0'],
+  ['promontory-board.net','Promontory Noticeboard','#caa24a'],
+  ['coast-herald.net','The Coast Herald','#ff8a5c'],
+  ['reedside-care.net','Reedside Continuing Care','#9fd89a'],
+];
+const SITES={
+'lumen://start':()=>{
+  const tiles=WEB_BOOKMARKS.map(([u,n,c])=>`<div class="web-tile" data-go="${u}" style="border-top:3px solid ${c}"><b>${escapeHtml(n)}</b><span>${u}</span></div>`).join('');
+  const hist=(STATE.webHistory||[]).slice(-7).reverse().map(h=>
+    `<div class="web-hist ${h.ghost?'ghost':''}" data-go="${escapeHtml(h.url)}"><span>${escapeHtml(h.url)}</span><span class="t">${escapeHtml(h.t)}${h.ghost?' — not this device':''}</span></div>`).join('')
+    || '<div class="web-hist" style="cursor:default;color:var(--faint)">no history</div>';
+  return `<div class="site"><div class="web-logo">◆ LUMEN BROWSE</div>
+    <div class="web-tiles">${tiles}</div>
+    <div class="web-h2">history</div>${hist}</div>`;
+},
+'coast-ether.net':()=>`<div class="site" style="--acc:#54d6e0">
+  <div class="site-head">COAST ETHER &amp; POWER<span>reliable as the tide*&nbsp;&nbsp;(*the tide is not contractually binding)</span></div>
+  <h4>Service notices</h4>
+  <div class="item"><b>Promontory road feeder — scheduled maintenance deferred.</b><div class="sf">Crews cannot reach the headland in the current swell. Affected customers: 1.</div></div>
+  <div class="item"><b>Unmetered-draw audits, north Coast region.</b><div class="sf">Postponed indefinitely pending staffing. Customers reporting irregular meter readings are thanked for their continued patience.</div></div>
+  <h4>Enquiry status</h4>
+  <div class="statusbox">reference ████-4471 — <span style="color:var(--orange)">OPEN</span><br>
+  opened: 437 days ago<br>status: under review<br>assigned: pending assignment<br>
+  expected resolution: <span class="redact">████</span></div>
+  <div class="sf" style="margin-top:8px;color:var(--faint)">Your enquiry is important to us.</div>
+</div>`,
+'librauniversity.lib':()=>`<div class="site" style="--acc:#d8b66a">
+  <div class="site-head">LIBRA UNIVERSITY<span>astria campus · public bulletin</span></div>
+  <h4>News</h4>
+  <div class="item"><b>New trainer cohort sets out.</b><div class="sf">Professor Yucca’s office reports strong early results from this season’s group — first badges already logged. “Lovely group, genuinely,” the professor was quoted.</div></div>
+  <div class="item"><b>University to assist Federation survey of the forest ruins.</b><div class="sf">Field access remains restricted. Students are reminded that anything that glows should be reported, not pocketed.</div></div>
+  <div class="item"><b>Library hours reduced in the old wing.</b><div class="sf">The Blackthorn-sponsored wing closes at dusk until further notice, owing to maintenance below stairs.</div></div>
+  <h4>Staff directory (excerpt)</h4>
+  <div class="statusbox">PINE, A. — research staff, Starhaven outreach<br>status: <span style="color:var(--orange)">on extended leave</span> — correspondence held at the institute</div>
+</div>`,
+'starhaven.lib':()=>`<div class="site" style="--acc:#5ee8b0">
+  <div class="site-head">STARHAVEN BIOLABS<span>the medical-research institute of libra university</span></div>
+  <h4>Outreach</h4>
+  <div class="item"><b>Community files programme.</b><div class="sf">The institute keeps half an eye on promising new trainers for its outreach files. Nominations welcome via your professor.</div></div>
+  <div class="item"><b>The institute thanks its partners.</b><div class="sf">Continuing gratitude to our private benefactors, whose contributions are made, as ever, in kind.</div></div>
+  <h4>Notice</h4>
+  <div class="statusbox" style="border-color:#3a3322">workstation access audit in progress following a network incident.<br><br>
+  if you receive mail from a colleague’s address that seems unlike them, do not reply. report it to the duty officer.</div>
+</div>`,
+'promontory-board.net':()=>`<div class="site" style="--acc:#caa24a">
+  <div class="site-head">PROMONTORY NOTICEBOARD<span>the village, the harbour, and everything the gulls haven’t taken</span></div>
+  <div class="pin">BOAT: Tuesdays and Fridays, swell permitting. The swell rarely permits. — harbourmaster</div>
+  <div class="pin">NO DELIVERIES PAST THE GATE. Stop asking. We don’t care what you’ll pay. — harbour stores</div>
+  <div class="pin">Stop feeding the gulls. They remember faces now. They remember MINE. — R.</div>
+  <div class="pin">Lights in the old tower again this week — third time this month. The house has been empty twenty years. Whoever’s renting it: mind the road after dark, the ruts eat axles. And maybe leave a lamp off once in a while, some of us sleep facing the headland.</div>
+  <div class="pin">Found: one glove (left). Claim at the shop. You know who you are. You bought ear plugs.</div>
+</div>`,
+'coast-herald.net':()=>`<div class="site" style="--acc:#ff8a5c">
+  <div class="site-head">THE COAST HERALD<span>evening edition · libra coast</span></div>
+  <div class="item"><b>TEN YEARS ON: the desert corridor.</b><div class="sf">Where did everyone go? A special report on the refugee crossings, the children who arrived alone, and the questions the Federation has stopped answering.</div></div>
+  <div class="item"><b>Survey teams active again at the forest ruins.</b><div class="sf">League officials describe the renewed activity as routine. Local trainers describe it as “four kids and an orb story.”</div></div>
+  <div class="item"><b>Estate audits reach the north coast.</b><div class="sf">Two Federation auditors have been working the old houses along the headland. The old houses are not answering their gates.</div></div>
+  <div class="item"><b>Care-sector funding under review.</b><div class="sf">Long-term residential facilities face another lean year; private arrangements increasingly carry the sector.</div></div>
+</div>`,
+'reedside-care.net':()=>`<div class="site" style="--acc:#9fd89a">
+  <div class="site-head">REEDSIDE CONTINUING CARE<span>our residents live gently, in the present</span></div>
+  <h4>Visiting</h4>
+  <div class="item"><b>Hours:</b><div class="sf">Mornings by arrangement; afternoons open. We find our residents are most themselves in morning light.</div></div>
+  <div class="item"><b>The aviary opened this spring.</b><div class="sf">Already a favourite. Several residents have shown a remarkable, wordless way with the birds.</div></div>
+  <h4>Family portal</h4>
+  <div class="statusbox" id="reedside-portal">Secure sign-in for arrangements, photographs, and visit records.<br>
+  <span class="sbtn" data-portal="1">SIGN IN</span></div>
+</div>`,
+'████.sec/ledger':()=>`<div class="site"><div class="err">NO ROUTE<br><span style="font-size:11px;color:var(--faint)">this address does not resolve on civilian routing.<br>your attempt has been noted by the carrier.</span></div></div>`,
+};
+function renderWeb(rec, body){
+  rec.url=rec.url||'lumen://start'; rec.stack=rec.stack||[]; rec.menu=false;
+  const draw=()=>{
+    const page = SITES[rec.url] ? SITES[rec.url]()
+      : `<div class="site"><div class="err">PAGE NOT FOUND<br><span style="font-size:11px;color:var(--faint)">${escapeHtml(rec.url)} — the address book is small out here.</span></div></div>`;
+    const menu = rec.menu ? `<div class="web-menu">${['lumen://start'].concat(WEB_BOOKMARKS.map(b=>b[0])).map(u=>`<div data-go="${u}">${u}</div>`).join('')}</div>` : '';
+    body.innerHTML=`<div class="web">
+      <div class="web-bar">
+        <button class="web-btn" data-act="back" title="Back">‹</button>
+        <button class="web-btn" data-act="home" title="Start page">⌂</button>
+        <div class="web-addr" title="saved addresses">${escapeHtml(rec.url)}</div>
+        ${menu}
+      </div>
+      <div class="web-page">${page}</div>
+    </div>`;
+    body.querySelector('[data-act="back"]').onclick=()=>{ if(rec.stack.length){ rec.url=rec.stack.pop(); rec.menu=false; draw(); } };
+    body.querySelector('[data-act="home"]').onclick=()=>webGo(rec,'lumen://start');
+    body.querySelector('.web-addr').onclick=()=>{ rec.menu=!rec.menu; draw(); };
+    body.querySelectorAll('[data-go]').forEach(e=> e.onclick=()=>webGo(rec, e.dataset.go));
+    const portal=body.querySelector('[data-portal]');
+    if(portal) portal.onclick=()=>{
+      const box=body.querySelector('#reedside-portal');
+      if(box) box.innerHTML='portal unavailable — please contact the duty desk.<br><span style="color:var(--faint)">(your sign-in attempt was logged)</span>';
+      bumpSuspicion(6);
+    };
+    setWinTitle(rec.id, 'Browse — '+rec.url);
+  };
+  rec.refresh=draw; draw();
+}
+function webGo(rec, url){
+  if(url===rec.url){ rec.menu=false; rec.refresh(); return; }
+  rec.stack.push(rec.url); rec.url=url; rec.menu=false;
+  if(url!=='lumen://start'){
+    STATE.webHistory=(STATE.webHistory||[]);
+    STATE.webHistory.push({url, t:clockStr()});
+    if(!STATE.read['web:'+url]){ STATE.read['web:'+url]=true; bumpSuspicion(4); }
+    persist();
+  }
+  rec.refresh();
+}
+function refreshWeb(){ Object.values(WINS).filter(w=>w.app==='web'&&w.refresh).forEach(w=>w.refresh()); }
 
 /* ---------- MUSIC ---------- */
 function renderMusic(rec, body){
@@ -1457,19 +1778,111 @@ function refreshMusic(){ const w=Object.values(WINS).find(w=>w.app==='music'); i
 
 /* ---------- ETHER MONITOR ---------- */
 let etherLog=[];
+let etherT=0;
+const ETHER_AMBIENT=[
+  'draw nominal — 1.2u',
+  'hearth circuit microspike — settled',
+  'tide compensation engaged — nominal',
+  'draw nominal — 1.1u',
+  'salt fouling on the line — within tolerance',
+  'draw nominal — 1.3u',
+];
 function renderEther(rec, body){
-  const draw=()=>{
-    const anom = etherSpike && GM_CONFIG.showEtherSpikes;
-    const logHtml = etherLog.slice(-30).reverse().map(l=>`<div class="${l.anom?'anom':''}"><span class="t">${l.t}</span> — ${l.msg}</div>`).join('') || '<span class="t">— monitor idle —</span>';
-    body.innerHTML=`<div class="ether">
-      <div class="ether-read">ETHER DRAW
-        <div class="ether-val ${anom?'anom':'nominal'}">${anom?'ANOMALOUS — no source on this circuit':'nominal'}</div></div>
-      <div class="ether-graph"><svg viewBox="0 0 380 70" preserveAspectRatio="none"><polyline fill="none" stroke="${anom?'#ffa500':'#54d6e0'}" stroke-width="1.5" points="${etherWave(anom)}"/></svg></div>
-      <div class="ether-log">${logHtml}</div></div>`;
+  body.innerHTML=`<div class="ether">
+    <div class="ether-read">ETHER DRAW
+      <div class="ether-val nominal" id="${rec.id}-eval">nominal</div></div>
+    <div class="ether-graph">
+      <svg viewBox="0 0 380 70" preserveAspectRatio="none">
+        <polyline id="${rec.id}-w2" fill="none" stroke="#9a7bff" stroke-width="1" opacity="0" points=""/>
+        <polyline id="${rec.id}-w1" fill="none" stroke="#54d6e0" stroke-width="1.5" points=""/>
+      </svg>
+      <div class="ether-legend" id="${rec.id}-leg"></div>
+    </div>
+    <button class="ether-btn" id="${rec.id}-trace">TRACE CIRCUIT</button>
+    <div class="ether-sweep" id="${rec.id}-sweep"><i></i></div>
+    <div class="ether-log" id="${rec.id}-log"></div>
+  </div>`;
+  const eVal=document.getElementById(rec.id+'-eval'),
+        w1=document.getElementById(rec.id+'-w1'),
+        w2=document.getElementById(rec.id+'-w2'),
+        leg=document.getElementById(rec.id+'-leg'),
+        logEl=document.getElementById(rec.id+'-log'),
+        traceBtn=document.getElementById(rec.id+'-trace'),
+        sweep=document.getElementById(rec.id+'-sweep');
+  const drawLog=()=>{
+    logEl.innerHTML = etherLog.slice(-40).reverse().map(l=>`<div class="${l.anom?'anom':''}"><span class="t">${l.t}</span> — ${escapeHtml(l.msg)}</div>`).join('')
+      || '<span class="t">— monitor idle —</span>';
   };
-  rec.refresh=draw; draw();
+  let raf;
+  const tick=()=>{
+    etherT+=0.035;
+    const anom = etherSpike && GM_CONFIG.showEtherSpikes;
+    const ghost = suspicion>=25;
+    w1.setAttribute('points', etherWave(etherT, anom?1:0));
+    if(ghost){ w2.setAttribute('opacity','.55'); w2.setAttribute('points', etherWave(etherT*0.8+40, 2)); }
+    else w2.setAttribute('opacity','0');
+    w1.setAttribute('stroke', anom?'#ffa500':'#54d6e0');
+    eVal.textContent = anom?'ANOMALOUS — no source on this circuit':'nominal';
+    eVal.className = 'ether-val '+(anom?'anom':'nominal');
+    leg.innerHTML = ghost?`<span style="color:#9a7bff">▮</span> second draw — not this device`:'';
+    raf=requestAnimationFrame(tick);
+  };
+  tick();
+  let ai=Math.floor(etherT)%ETHER_AMBIENT.length;
+  const amb=setInterval(()=>{ etherLog.push({t:clockStr(),msg:ETHER_AMBIENT[ai++%ETHER_AMBIENT.length]}); drawLog(); }, 11000);
+  rec.onClose=()=>{ cancelAnimationFrame(raf); clearInterval(amb); };
+  traceBtn.onclick=()=>{
+    traceBtn.disabled=true; traceBtn.textContent='TRACING…';
+    sweep.style.visibility='visible';
+    const bar=sweep.querySelector('i'); bar.style.width='0';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>bar.style.width='100%'));
+    etherLog.push({t:clockStr(),msg:'tracing circuit — house loop, both wings…'}); drawLog();
+    setTimeout(()=>{
+      etherTraceResults().forEach(l=>etherLog.push({t:clockStr(),anom:!!l.anom,msg:l.msg}));
+      drawLog();
+      bumpSuspicion(6);
+      sweep.style.visibility='hidden'; bar.style.width='0';
+      traceBtn.disabled=false; traceBtn.textContent='TRACE CIRCUIT';
+    }, 2800);
+  };
+  rec.refresh=drawLog;
+  drawLog();
 }
-function etherWave(anom){ let p=''; for(let x=0;x<=380;x+=10){ const base=35; const amp=anom?(18+Math.sin(x/7)*10):5; const y=base+Math.sin(x/(anom?9:22))*amp - (anom?Math.sin(x/4)*6:0); p+=x+','+y.toFixed(1)+' '; } return p; }
+function etherWave(t, mode){ // 0 calm cyan · 1 anomalous orange · 2 the second draw (console-like stepped pulses)
+  let p='';
+  for(let x=0;x<=380;x+=6){
+    let y = 35 + Math.sin(x/26 + t)*5 + Math.sin(x/9 + t*1.7)*2;
+    if(mode===1) y = 35 + Math.sin(x/9 + t*2.4)*16 + Math.sin(x/3.6 + t*5)*7;
+    if(mode===2) y = 38 + Math.sin(x/21 - t*1.2)*3 - (((x + t*46) % 97) < 7 ? 10 : 0);
+    p += x+','+y.toFixed(1)+' ';
+  }
+  return p;
+}
+function etherTraceResults(){
+  STATE.traceCount=(STATE.traceCount||0)+1; persist();
+  if(STATE.traceCount===1){
+    return [
+      {msg:'trace complete. draws on this account’s circuit:'},
+      {msg:'· tower study (this console) — 0.4u'},
+      {msg:'· kitchens — 0.7u'},
+      {msg:'· library wing — 1.1u'},
+      {anom:true, msg:'· west wing — 9.8u — UNMETERED. no manifest entry.'},
+      {msg:'file reference ████-4471 remains open.'},
+    ];
+  }
+  if(suspicion>=25 && !STATE.fired['trace-second']){
+    STATE.fired['trace-second']=true; persist();
+    return [
+      {msg:'trace complete.'},
+      {anom:true, msg:'a second console is active on this account — library wing, 0.5u.'},
+      {anom:true, msg:'it is reading the same files you are.'},
+    ];
+  }
+  return [
+    {msg:'trace complete. west wing draw unchanged — 9.8u, unmetered.'},
+    {msg:'whatever runs over there has not stopped to sleep either.'},
+  ];
+}
 function refreshEther(){ const w=Object.values(WINS).find(w=>w.app==='ether'); if(w&&w.refresh)w.refresh(); refreshTray(); }
 function refreshTray(){ const t=document.getElementById('trayEther'), txt=document.getElementById('trayEtherTxt'); if(etherSpike){t.classList.add('anom');txt.textContent='ether: ANOMALOUS';} else {t.classList.remove('anom');txt.textContent='ether: nominal';} }
 function triggerEtherSpike(){ if(!GM_CONFIG.showEtherSpikes||etherSpike)return; etherSpike=true; etherLog.push({t:clockStr(),anom:true,msg:'resonance spike — strongest with /Research/shared-exp open. no source on this circuit.'}); refreshEther(); }
@@ -1503,14 +1916,15 @@ function openHalfImage(f){
 /* ---------- SETTINGS ---------- */
 function renderSettings(rec, body){
   const draw=()=>{
-    const wp=STATE.wallpaper||'default';
+    const wp=currentWallpaper();
     const sessions = suspicion>=30 ? 2:1;
     body.innerHTML=`<div class="settings">
       <h3>Settings</h3>
-      <div class="set-row"><div><div class="lab">Wallpaper</div><div class="desc">the desktop background</div></div>
+      <div class="set-row"><div><div class="lab">Wallpaper</div><div class="desc">${escapeHtml(WALLPAPERS[wp].label)}</div></div>
         <div class="wp-opts">
-          <div class="wp-opt wp-default ${wp==='default'?'sel':''}" data-wp="default"></div>
           <div class="wp-opt wp-sis ${wp==='sisters'?'sel':''}" data-wp="sisters" title="the two of us"></div>
+          <div class="wp-opt wp-gull ${wp==='gulls'?'sel':''}" data-wp="gulls" title="the walk down"></div>
+          <div class="wp-opt wp-lumen ${wp==='lumen'?'sel':''}" data-wp="lumen" title="Lumen stock"></div>
         </div></div>
       <div class="set-row"><div><div class="lab">Active sessions</div><div class="desc">accounts currently signed into this machine</div></div>
         <div class="set-users"><span class="n">${sessions}</span> ${sessions===2?'sessions — one is not this device':'session'}</div></div>
@@ -1525,7 +1939,18 @@ function renderSettings(rec, body){
   };
   rec.refresh=draw; draw();
 }
-function applyWallpaper(){ const d=document.getElementById('desktop'); if(STATE.wallpaper==='sisters') d.classList.add('wp-sisters'); else d.classList.remove('wp-sisters'); }
+function currentWallpaper(){ const wp=STATE.wallpaper||'sisters'; return wp==='default'?'lumen' : wp==='coast'?'gulls' : wp; } // 'default'/'coast' = legacy saved values
+function applyWallpaper(){
+  const el=document.getElementById('wallpaper');
+  const wp=WALLPAPERS[currentWallpaper()];
+  el.innerHTML = wp ? wp.svg : '';
+  // photo files absent -> drop the overlays so the vector prints show through
+  el.querySelectorAll('image').forEach(node=>{
+    const probe=new Image();
+    probe.onerror=()=>node.remove();
+    probe.src=node.getAttribute('href');
+  });
+}
 
 /* ============================================================
    CO-USER SYSTEM  (suspicion meter -> tiered events)
@@ -1542,7 +1967,7 @@ function startCoUserLoop(){
   setTimeout(()=>{ if(suspicion<30) bumpSuspicion(28); maybeFireEvent(); }, FREQ*0.6);
 }
 function bumpSuspicion(n){
-  suspicion=Math.min(100, suspicion+n);
+  suspicion=Math.max(0, Math.min(100, suspicion+n));
   refreshTrayUsers();
 }
 function currentTier(){ if(suspicion>=75)return 3; if(suspicion>=50)return 2; if(suspicion>=25)return 1; return 0; }
@@ -1563,6 +1988,11 @@ function tryFire(pool){
 const TIER1=[
   {id:'t1-users', run:()=>{ refreshTrayUsers(); toast('Session', 'A second session is now active on this account.', false); }},
   {id:'t1-lastactive', run:()=>{ toast('Activity', 'Account last active: just now — not from this device.', false); }},
+  {id:'t1-etherdraw', run:()=>{ // the monitor notices the other console
+      etherLog.push({t:clockStr(), anom:true, msg:'a second draw signature appeared on this circuit — pattern matches a console, not an appliance.'});
+      refreshEther();
+      toast('Ether', 'A second draw signature appeared on the circuit.', true);
+  }},
   {id:'t1-music', run:()=>{ // music starts/stops on its own once
       if(musicPlaying<0){ playTrack(0); toast('Music', 'A track started playing on its own.', false); }
       else { playTrack(-1); toast('Music', 'The music stopped on its own.', false); }
@@ -1584,11 +2014,41 @@ const TIER2=[
       renderIcons(); refreshMail();
       toast('Mail', 'New message: “Are you on the personal box right now?”', false);
   }},
+  {id:'t2-music3', run:()=>{ // the co-user plays Aurora's track
+      playTrack(2);
+      toast('Music', 'Track 3 started playing. You didn’t start it.', false);
+  }},
+  {id:'t2-webhistory', run:()=>{ // browsing history that isn't yours
+      STATE.webHistory=(STATE.webHistory||[]);
+      STATE.webHistory.push({url:'reedside-care.net', t:'just now', ghost:true});
+      STATE.webHistory.push({url:'████.sec/ledger', t:'just now', ghost:true});
+      persist(); refreshWeb();
+      toast('Browse', 'Browsing history updated — not from this device.', false);
+  }},
+  {id:'t2-wallpaper', run:()=>{ // the other session has opinions about the wallpaper
+      if(currentWallpaper()!=='sisters'){
+        STATE.wallpaper='sisters'; persist(); applyWallpaper();
+        Object.values(WINS).filter(w=>w.app==='settings'&&w.refresh).forEach(w=>w.refresh());
+        toast('Settings', 'The wallpaper was changed back from the other session.', false);
+      } else {
+        toast('Settings', 'Display settings were opened from the other session, then closed.', false);
+      }
+  }},
 ];
-/* ---- TIER 3 (direct, non-hostile) ---- */
+/* ---- TIER 3 (direct, still non-hostile) ---- */
 const TIER3=[
   {id:'t3-im', run:()=>{ openIM(); }},
   {id:'t3-halfdelete', run:()=>{ halfDeleteEvent(); }},
+  {id:'t3-draftline', run:()=>{ // a line is appended to the technician draft
+      if(!STATE.mutations.includes('draft-edited')){ STATE.mutations.push('draft-edited'); persist(); }
+      refreshMail();
+      toast('Mail', 'A draft was edited just now — not by you.', false);
+  }},
+  {id:'t3-encaccess', run:()=>{ // the other session tries the sealed archive
+      etherLog.push({t:clockStr(), anom:true, msg:'decryption load spike — library wing console. duration: 4s. FAILED.'});
+      refreshEther();
+      toast('Archive', 'redacted-trial.enc — access attempt from the second session: FAILED.', false);
+  }},
   {id:'t3-capstone', run:()=>{ capstoneEvent(); }},
 ];
 
@@ -1613,65 +2073,186 @@ function halfDeleteEvent(){
   }
 }
 
-/* ---- Tier-3: IM window ---- */
+/* ---- Tier-3: IM window (branching conversation — pick a reply; no typing) ---- */
 function openIM(){
   const who = GM_CONFIG.coUserIdentityHints ? 'H.' : '████';
-  APPS.im={title:'Message — '+who, glyph:'💬'};
+  APPS.im={title:'Messages — '+who, glyph:'💬'};
   const id=openApp('im'); WINS[id].who=who;
   toast('Message', who+' is typing to you…', false);
 }
-const IM_SCRIPT=[
-  {who:'them', text:'You’re on the personal machine.'},
-  {who:'them', text:'You said you’d stay off it from inside the house.'},
-];
-const IM_FOLLOWUP=[
-  'It’s late. Is everything all right?',
-  'You’re reading her folders again, aren’t you.',
-  'Answer me. It only takes a word.',
-];
+
+/* Conversation tree. node: {them:[lines], opts:[{t,to}], fx:{sus,cover,drop,knock}}
+   A node without opts ends the conversation (the other side closes the channel).
+   The "type the thing you say when I worry" check is passable: the phrase is in
+   notes-from-the-house.txt ("slowly, and safely"). */
+const IM_TREE={
+start:{them:['You’re on the personal machine.','You said you’d stay off it from inside these walls.'],
+ opts:[{t:'It’s me. Couldn’t sleep.',to:'n1'},
+       {t:'Who is this?',to:'nx'},
+       {t:'(don’t answer)',to:'silent'}]},
+
+n1:{them:['You promised me, Amelia. The house logs everything. If the caretaker reads the ledger before I do, I can’t help you.'],
+ opts:[{t:'I needed her photos. Just for an hour.',to:'n2'},
+       {t:'Logs can be cleaned. You’ve done it before.',to:'n3'},
+       {t:'Then don’t read the ledger.',to:'n4'}]},
+
+n2:{them:['…The photographs again.','You do this every time the work stalls. Is it stalled?'],
+ opts:[{t:'It isn’t stalled. It’s close.',to:'n5'},
+       {t:'Worse than stalled. I needed to remember why.',to:'n6'},
+       {t:'That’s not your business.',to:'n7'}]},
+
+n3:{them:['Once. And it cost me a favour I am still repaying.','What were you doing tonight that is worth a second favour?'],
+ opts:[{t:'Reading my own files.',to:'n7'},
+       {t:'Checking whether anyone else had been in them.',to:'n8'},
+       {t:'Better you don’t know.',to:'n7'}]},
+
+n8:{them:['Why would anyone else be in them.','Amelia. Why would anyone ELSE be in them.'],
+ opts:[{t:'The sealed archive logged a failed access. Not mine. Unless it was yours.',to:'n9'},
+       {t:'Forget I said it.',to:'n10'}]},
+
+n9:{them:['It wasn’t mine.','…I’ll pull the house ledger tonight. Stay off this account until I have read it.'], fx:{sus:10}},
+
+n10:{them:['I never forget the things you ask me to forget. That is our entire arrangement.']},
+
+n5:{them:['Close. You have said “close” for a year.','E. asks after your progress when he passes through. I keep finding kind ways to say “soon.” I am running out of kind ways.'],
+ opts:[{t:'Tell him the truth. Slow is the only safe speed.',to:'n11'},
+       {t:'Keep him away from my work.',to:'n12'},
+       {t:'How often is he here?',to:'n13'}]},
+
+n11:{them:['The truth doesn’t slow him down. It only changes who he hurries.']},
+
+n12:{them:['No one keeps him anywhere. You know what he is.']},
+
+n13:{them:['Less, lately. He goes wherever the digging is. Why — do you miss the company?'],
+ opts:[{t:'No.',to:'n14'},
+       {t:'Where is the digging now?',to:'n15'}]},
+
+n14:{them:['Good. Go to bed, Amelia.']},
+
+n15:{them:['You would know better than I would. Your surveyors are doing it.','…Why are you asking me what you already know?'],
+ opts:[{t:'Testing whether you’d tell me.',to:'n16'},
+       {t:'(say nothing)',to:'n17'}]},
+
+n16:{them:['We don’t test each other. That is also our entire arrangement.'], fx:{sus:8}},
+n17:{them:['Hm.','Whoever you are tonight, you are not making me less worried.'], fx:{sus:14}},
+
+n6:{them:['You haven’t needed reminding since the day you arrived here. What happened?'],
+ opts:[{t:'I played her the song on my last visit. She smiled at me like a polite stranger.',to:'n18'},
+       {t:'Nothing happened. I’m tired.',to:'n7'}]},
+
+n18:{them:['…I’m coming up. The kettle is still warm.'],
+ opts:[{t:'Don’t. I’m fine.',to:'n19'},
+       {t:'All right.',to:'n20'}]},
+
+n19:{them:['You are never fine at two in the morning in her folders.','I’ll leave the tea outside the door.'], fx:{knock:true}},
+n20:{them:['Five minutes.'], fx:{knock:true, drop:true}},
+
+n4:{them:['I read everything. It is why you are still safe in this house, and why the others tolerate the arrangement.'],
+ opts:[{t:'Safe. Is that what I am.',to:'n21'},
+       {t:'Whose arrangement — yours, or theirs?',to:'n22'}]},
+
+n21:{them:['Safer than you would be anywhere else. We both know there is a list of people looking.'],
+ opts:[{t:'Who is looking?',to:'n23'},
+       {t:'Good night.',to:'n24'}]},
+
+n23:{them:['Federation auditors. Two of them, polite letters so far.','And something else that does not write letters. Keep your head down and your light off the water.'], fx:{sus:6}},
+n24:{them:['Good night, Amelia. Log off first this time.']},
+
+n22:{them:['Names and ownership don’t go on this channel.','You taught me that, the first week. You made me write it down.'], fx:{sus:6}},
+
+n7:{them:['Fine. Keep your locked doors.','But hear me: this household notices patterns. Don’t become one.']},
+
+/* --- cover-crack branch --- */
+nx:{them:['…That’s not funny.','Amelia. Tell me that’s you.'], fx:{sus:10},
+ opts:[{t:'Of course it’s me. Bad joke. Long night.',to:'nx2'},
+       {t:'This isn’t Amelia.',to:'nb1'},
+       {t:'(say nothing)',to:'nb2'}]},
+
+nx2:{them:['Your jokes are usually worse than that.','…Type the thing you say when I worry.'],
+ opts:[{t:'“Slowly, and safely.”',to:'nx3'},
+       {t:'“Everything is fine.”',to:'nfail'},
+       {t:'“Good night.”',to:'nfail'}]},
+
+nx3:{them:['…All right. Slowly and safely.','Get some sleep. And get off this machine.'], fx:{sus:-12}},
+
+nfail:{them:['That is not it.','Get off this machine. Whoever you are — the house has already seen you.'], fx:{cover:true, drop:true, sus:20}},
+
+nb1:{them:['Then you should know that this channel is logged.','And that the room you are sitting in is not as far away as you think.'], fx:{cover:true, drop:true, sus:20}},
+nb2:{them:['who is this'], fx:{cover:true, drop:true, sus:20}},
+
+/* --- silence branch --- */
+silent:{them:['I can see the account active. Reading her folders at this hour and not answering me — that is either you at your worst, or it is not you at all.'],
+ opts:[{t:'It’s me. At my worst.',to:'n25'},
+       {t:'(keep silent)',to:'nb2'},
+       {t:'Not answering was kinder than what I’d say.',to:'n4'}]},
+
+n25:{them:['…Honesty. Then I will worry less, and differently.'],
+ opts:[{t:'Worry about the work instead.',to:'n5'},
+       {t:'Don’t worry at all. Good night.',to:'n26'}]},
+n26:{them:['One of us has to.']},
+};
+
 function renderIM(rec, body){
-  rec.imLog = rec.imLog || STATE.imLog.slice();
-  if(!rec.imLog.length){ rec.imLog = IM_SCRIPT.slice(); }
-  rec.fu = rec.fu||0;
+  rec.log  = rec.log  || (STATE.imLog.length ? STATE.imLog.slice() : []);
+  rec.node = rec.node || STATE.imNode || 'start';
+  rec.busy = false;
   const draw=()=>{
-    const log=rec.imLog.map(m=>`<div class="im-msg ${m.who}">${escapeHtml(m.text)}</div>`).join('');
-    const canned = GM_CONFIG.imInteractive ? `
-      <div class="im-canned">
-        <button data-c="It’s me. Couldn’t sleep.">“It’s me. Couldn’t sleep.”</button>
-        <button data-c="Who is this?">“Who is this?”</button>
-        <button data-c="Just finishing something. Go to bed.">“Go to bed.”</button>
-      </div>
-      <div class="im-input"><input id="${rec.id}-imin" placeholder="reply as Amelia…" autocomplete="off"><button id="${rec.id}-imsend">Send</button></div>`
-      : `<div class="im-canned" style="color:var(--faint);font-style:italic;padding:14px">— this session, the messages do not stop, and you cannot answer. (GM: imInteractive off) —</div>`;
-    body.innerHTML=`<div class="im"><div class="im-head">encrypted channel · <span class="who">${escapeHtml(rec.who||'████')}</span> · assumes you are Amelia</div>
-      <div class="im-log" id="${rec.id}-imlog">${log}</div>${canned}</div>`;
-    const lg=document.getElementById(rec.id+'-imlog'); if(lg)lg.scrollTop=lg.scrollHeight;
-    if(GM_CONFIG.imInteractive){
-      body.querySelectorAll('.im-canned button').forEach(b=> b.onclick=()=>imReply(rec, b.dataset.c));
-      const inp=document.getElementById(rec.id+'-imin'), snd=document.getElementById(rec.id+'-imsend');
-      if(snd)snd.onclick=()=>{ if(inp.value.trim()){ imReply(rec, inp.value.trim()); inp.value=''; } };
-      if(inp)inp.onkeydown=(e)=>{ if(e.key==='Enter'&&inp.value.trim()){ imReply(rec, inp.value.trim()); inp.value=''; } };
+    const n=IM_TREE[rec.node]||{};
+    const log=rec.log.map(m=>`<div class="im-msg ${m.who}">${escapeHtml(m.text)}</div>`).join('')
+      + (rec.busy?`<div class="im-msg them typing">…</div>`:'');
+    let foot='';
+    if(!GM_CONFIG.imInteractive){
+      foot=`<div class="im-end">— the messages do not stop, and you cannot answer. (GM: imInteractive off) —</div>`;
+    } else if(STATE.imEnded){
+      foot=`<div class="im-end">— the other session closed the channel —</div>`;
+    } else if(!rec.busy && n.opts){
+      foot=`<div class="im-canned">${n.opts.map((o,i)=>`<button data-i="${i}">${escapeHtml(o.t)}</button>`).join('')}</div>`;
     }
+    body.innerHTML=`<div class="im"><div class="im-head">encrypted house channel · <span class="who">${escapeHtml(rec.who||'████')}</span> · assumes you are Amelia — replies send as her</div>
+      <div class="im-log" id="${rec.id}-imlog">${log}</div>${foot}</div>`;
+    const l=document.getElementById(rec.id+'-imlog'); if(l)l.scrollTop=l.scrollHeight;
+    body.querySelectorAll('.im-canned button').forEach(b=> b.onclick=()=>choose(parseInt(b.dataset.i)));
   };
-  rec.refresh=draw; draw();
-}
-function imReply(rec, text){
-  rec.imLog.push({who:'me', text});
-  // cover flag: a careless answer breaks cover
-  if(/who is this/i.test(text)){ STATE.coverIntact=false; }
-  STATE.imLog=rec.imLog.slice(); persist();
-  rec.refresh();
-  // typing indicator then a followup
-  setTimeout(()=>{
-    rec.imLog.push({who:'them',text:'…'}); rec.refresh();
-    setTimeout(()=>{
-      rec.imLog.pop();
-      const fu = IM_FOLLOWUP[rec.fu++ % IM_FOLLOWUP.length];
-      rec.imLog.push({who:'them', text: STATE.coverIntact?fu:'who is this. this isn’t her.'});
-      STATE.imLog=rec.imLog.slice(); persist();
-      rec.refresh();
-    }, 1400);
-  }, 700);
+  const say=(who,text)=>{ rec.log.push({who,text}); STATE.imLog=rec.log.slice(); persist(); };
+  const playThem=(lines,done)=>{
+    let i=0;
+    const step=()=>{
+      if(i>=lines.length){ rec.busy=false; done&&done(); draw(); return; }
+      rec.busy=true; draw();
+      const line=lines[i++];
+      setTimeout(()=>{ say('them',line); step(); }, 800+Math.min(1900, line.length*22));
+    };
+    step();
+  };
+  const runFx=(fx)=>{
+    if(!fx) return;
+    if(fx.sus) bumpSuspicion(fx.sus);
+    if(fx.cover){ STATE.coverIntact=false; persist(); }
+    if(fx.drop) setTimeout(()=>{ suspicion=20; refreshTrayUsers(); toast('Session','The second session ended. 1 user signed in.',false); }, 2400);
+    if(fx.knock) setTimeout(()=> toast('…','From somewhere below, very faint: footsteps on the tower stairs.',false), 8000);
+  };
+  const enter=(id)=>{
+    rec.node=id; STATE.imNode=id; persist();
+    const n=IM_TREE[id];
+    playThem(n.them.slice(), ()=>{
+      runFx(n.fx);
+      if(!n.opts){ STATE.imEnded=true; persist(); }
+    });
+  };
+  const choose=(i)=>{
+    const n=IM_TREE[rec.node]; if(!n||!n.opts||rec.busy) return;
+    const o=n.opts[i];
+    say(o.t.startsWith('(')?'sys':'me', o.t);
+    draw();
+    setTimeout(()=>enter(o.to), 600);
+  };
+  rec.refresh=draw;
+  // resume logic: replay the current node's lines only if they were never said
+  const cur=IM_TREE[rec.node];
+  const played = rec.log.some(m=>m.who==='them' && cur && cur.them.includes(m.text));
+  if(!rec.log.length) enter('start');
+  else if(!STATE.imEnded && cur && !played) enter(rec.node);
+  else draw();
 }
 
 /* ---- Tier-3 capstone: "who is this" types into a notes window, then 1 user ---- */
@@ -1709,7 +2290,7 @@ function ghostCursorBlip(){
 function checkThreads(){
   const r=STATE.read;
   const A = ['coast-survey','gate','lintel','tower-study','manor-library'].filter(x=>r[x]).length>=2;
-  const B = r['she-asked-again'] && (r['timeline']||r['records-wall']||r['two-of-us']);
+  const B = r['she-asked-again'] && (r['timeline']||r['records-wall']||r['two-of-us']||r['memories']);
   const C = r['share-principle'] && r['door-both-ways'];
   if(A && !STATE._a){ STATE._a=true; console.log('%c[THREAD A — LOCATION] assembled: the players can place Amelia at Blackthorn Manor.','color:#ffa500'); }
   if(B && !STATE._b){ STATE._b=true; console.log('%c[THREAD B — AURORA] assembled: the amnesiac sister landed.','color:#ffa500'); }

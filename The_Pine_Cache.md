@@ -17,6 +17,7 @@
 - **Starhaven Biolabs** = the medical-research institute of Libra University; Pine's cover posting and the players' accessible site. *Not* the weapons facility.
 - **Biolabs Site Alpha** = the restricted facility where Project Chimera (hybridization science) and the Veerulent weaponization pipeline actually run. Pine coordinates with it at a distance — her Starhaven address is the quiet door.
 - **Director Antonio Bellini** = Site Alpha's head (canon).
+- **Dr. Ramon Galceran** = Pine's Project Proteus colleague at Site Alpha (the P-1 researcher). *(Renamed from a placeholder; Libran register.)*
 - **MB** = Pine's Scepter handler; high-ranking, unidentified in the cache.
 - **Professor Yucca** = the players' starting professor at Libra University. *(Note: "Yucca" is a family name and bears no relation to Rayn Yucca the Unifier — no collision, kept as canon.)*
 - The party as the cache references them: **Joey, Hiro, Poltymus, Rixso** (adjust to current roster; Kameo and others post-date the cache and shouldn't appear).
@@ -101,19 +102,19 @@
 >
 > Dr. Pine
 
-> **From:** r.singh@sitealpha.sec
+> **From:** r.galceran@sitealpha.sec
 > **To:** a.pine@starhaven.lib
 > **Subject:** P-1 stability
 >
 > Dr. Pine — P-1 held a transformed state past twenty-four hours this cycle. Structural integrity clean throughout. If we can isolate the marker responsible for the duration, the replication applications are… I'll keep the adjectives out of the log. You'll want to see the sequencing.
 >
-> — Singh
+> — Galceran
 
 > **From:** a.pine@starhaven.lib
-> **To:** r.singh@sitealpha.sec
+> **To:** r.galceran@sitealpha.sec
 > **Subject:** Re: P-1 stability
 >
-> Excellent work. Send me the sequencing under separate cover. And Singh — the duration result does not leave the bay. Not even to Bellini's office without my say. Especially not there.
+> Excellent work. Send me the sequencing under separate cover. And Galceran — the duration result does not leave the bay. Not even to Bellini's office without my say. Especially not there.
 >
 > A.
 
