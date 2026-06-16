@@ -214,11 +214,11 @@
 > "E" is the last thing my project needs near it. But I know better than to refuse. I'll keep the corridor clear and the cameras off.
 > S.R.
 
-*(GM: shadow corruption's primary canon is native — the Whispering Shadow's influence by way of the Depths of Twilight, with the Driftlands' Twilight Watchers ("the practitioners up north") holding the acute-exposure purification knowledge S.R. covets and can't buy. The **Orre/Cipher** connection sits on top of that, reconciled rather than imported: Shima is a continent very far from the rest of the Pokémon world, which still exists but rarely touches Shiman affairs. **Cipher** — operating an ocean away in Orre under the scientist **Ein** — engineers Shadow Pokémon by their own "closed-heart" method, and S.R.'s reading is the canon-correct one: the same darkness surfaces wherever the world wears thin, and Orre is simply a different tap on it. The distance is a feature — a deniable, un-subpoenable offshore channel for technique-sharing — and the asymmetry Pine insists on (Cipher thinks it's a technique; Scepter knows it's cosmological) keeps the foreign thread from ever overshadowing the native one. **Pull-weight: deliberately light.** Orre is a flavor of reach and a source of crude technique, not a plot the party must chase across the world; treat it as proof that Scepter's arms are long, not as a passport. "E" is Ignas — a domestic Scepter problem, below.)*
+*(GM: shadow corruption's primary canon is native — the Whispering Shadow's influence by way of the Depths of Twilight, with the Driftlands' Twilight Watchers ("the practitioners up north") holding the acute-exposure purification knowledge S.R. covets and can't buy. The **Orre/Cipher** connection sits on top of that, reconciled rather than imported: Shima is a continent very far from the rest of the Pokémon world, which still exists but rarely touches Shiman affairs. **Cipher** — operating an ocean away in Orre under the scientist **Ein** — engineers Shadow Pokémon by their own "closed-heart" method, and S.R.'s reading is the canon-correct one: the same darkness surfaces wherever the world wears thin, and Orre is simply a different tap on it. The distance is a feature — a deniable, un-subpoenable offshore channel for technique-sharing — and the asymmetry Pine insists on (Cipher thinks it's a technique; Scepter knows it's cosmological) keeps the foreign thread from ever overshadowing the native one. **Pull-weight: deliberately light.** Orre is a flavor of reach and a source of crude technique, not a plot the party must chase across the world; treat it as proof that Scepter's arms are long, not as a passport. "E" is **Emmanuel Disco** — Cipher's flamboyant "special consultant" (a Miror B.–type), the one Orre import who actually shows up in-theater; he travels with the enforcer **Ignas**, who does his violence for him. He is how Orre's long arm physically touches the party, without the party having to chase Orre across the world. See Thread 7.)*
 
 ---
 
-## THREAD 7 — The Spear, and Ignas ("E")
+## THREAD 7 — The Spear, and "E" (Emmanuel Disco, with Ignas)
 
 > **From:** ████@████.sec
 > **To:** a.pine@starhaven.lib; s.r.@████.sec
@@ -238,7 +238,7 @@
 > And yes — "E" nearly broke the very people doing our digging for us. If he touches the carrier party again before they've opened the last rooms for us, the cost isn't his to spend. Make that clear to him in whatever language he respects.
 > A.
 
-*(GM: "the object" / "two" = a second primordial artifact in Scepter's hands — the primordial spear, never named in the cache, deliberately. This dates Scepter's artifact-acquisition timeline and tells the players, if they're sharp, that the orb-hunt is part of a *set*. Ignas ("E") nearly killing the party is the in-fiction record of an encounter the table may remember — or foreshadowing of one to come.)*
+*(GM: "the object" / "two" = a second primordial artifact in Scepter's hands — the primordial spear, never named in the cache, deliberately. This dates Scepter's artifact-acquisition timeline and tells the players, if they're sharp, that the orb-hunt is part of a *set*. "E" is **Emmanuel Disco**, Cipher's consultant (a Miror B.–type), who travels with the enforcer **Ignas** — and it was Ignas who did the actual killing, under E's command. The op nearly destroying the party is the in-fiction record of an encounter the table may remember — or foreshadowing of one to come.)*
 
 ---
 

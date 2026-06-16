@@ -2,7 +2,7 @@
 ### Finished, paste-ready file contents for the desktop minigame
 **Companion to `Pine_Desktop_DesignDoc.md`.** Every file the design doc describes is written out below as final prose. The builder can drop these straight into the filesystem objects. Each entry gives: the in-OS **filename**, the **app** that opens it, a one-line **purpose tag**, and the **body**.
 
-**Conventions (consistent with `The_Pine_Cache.md`):** personal mail = `amelia.pine@home.net`; work = `a.pine@starhaven.lib`; secured = `████.sec`. Redactions render as `████`. "E." = Elias/Nero, "H." = Helena Blackthorn — never spelled out in-fiction. Current year for timestamps: **848 AFR**; use the calendar's common month names if you want dated files (placeholders below use plain dates the GM can restyle).
+**Conventions (consistent with `The_Pine_Cache.md`):** personal mail = `amelia.pine@home.net`; work = `a.pine@starhaven.lib`; secured = `████.sec`. Redactions render as `████`. "M." = Elias/Nero (a.k.a. "Marten" when travelling; signs Scepter work-mail as her handler **"MB"**), "H." = Helena Blackthorn — never spelled out in-fiction. *(Note: `"E"` in the work-mail cache is a different man — **Emmanuel Disco**, Cipher's flamboyant "special consultant" (a Miror B.–type), who travels with the enforcer **Ignas**. "M." and "E" are not the same person, and "E" is not Ignas.)* Current year for timestamps: **848 AFR**; use the calendar's common month names if you want dated files (placeholders below use plain dates the GM can restyle).
 
 **Camouflage ratio reminder:** plot files are marked ⭑ THREAD A/B/C. Mundane files are marked ○. Keep roughly 2–3 ○ per ⭑ visible in any open folder.
 
@@ -18,7 +18,7 @@ The lenses are gone — sold, like everything here — but the mounts are still
 bolted to the floor, pointing at nothing. Someone pinned star charts where the
 sky used to be.
 
-It's E.'s room when he's here. His maps are still on the curved wall. I move my
+It's M.'s room when he's here. His maps are still on the curved wall. I move my
 papers around them and try not to read them and read them anyway. I try not to
 be here when he is.
 
@@ -108,8 +108,8 @@ once, since this started, gone more than nine days without standing in that room
 
 I left before she saw my face do the thing it does.
 
-I am going to fix this. I do not care what it costs or who I have to become to buy
-the means. I have stopped pretending that sentence frightens me.
+I am going to fix this. I do not care what it costs, or who I have to become to buy
+the means.
 ```
 
 ### ⭑ `timeline.txt` — Notes app — *the methodical hunt; plants the trial*
@@ -146,9 +146,8 @@ What I have learned trying:
   - The people who ran that trial have resources, lawyers, and silence I cannot
     out-spend or out-wait.
   - There is exactly one kind of organisation that can open doors like these, and
-    they came to ME, in the end. They offered access. I have stopped asking myself
-    whether I should have said no. The question is a luxury and Aurora does not have
-    time for my conscience.
+    they came to ME, in the end. They offered access. Whether I should have said no
+    is a luxury question, and Aurora does not have time for my conscience.
 
 If the share took something out of her, the share can be made to give it back.
 First I have to find where it went.
@@ -165,9 +164,9 @@ First I have to find where it went.
 ### ○ `playlist-for-her.txt` — Notes app / links to Music — *mundane-tender bridge to the Music app*
 ```
 Songs A. used to know every word to. I play them in the tower sometimes. The
-caretaker thinks I'm strange. The caretaker is correct.
-(See: Music. The third track was her favourite. She'd kill me for admitting I
-remember that and she doesn't.)
+caretaker has noticed. I did not explain myself.
+(See: Music. The third track was her favourite. I still know which one. She
+doesn't.)
 ```
 
 ---
@@ -233,7 +232,7 @@ THREADS I CAN STILL PULL:
    something that isn't its own," if the early notes are right. It was never returned to
    the wild or to records. Someone kept it. Find who.
 
-Three threads. Any one of them is a door. I have stopped being afraid of doors.
+Three threads. Any one of them is a way in. I will pull all three.
 ```
 
 ### ○ `requisition-draft.txt` — Notes app — *dull cover texture; sells the lab realism*
