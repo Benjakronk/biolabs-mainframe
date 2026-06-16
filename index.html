@@ -255,31 +255,161 @@ body{
 .web-menu{position:absolute;top:40px;left:80px;right:10px;background:#1b1b20;border:1px solid var(--line);border-radius:7px;z-index:10;box-shadow:0 14px 30px rgba(0,0,0,.5);overflow:hidden}
 .web-menu div{padding:8px 12px;font-size:11px;color:var(--dim);cursor:pointer;font-family:var(--mono)}
 .web-menu div:hover{background:var(--bg3);color:var(--orange)}
-.web-page{flex:1;overflow:auto}
-.site{padding:26px 30px 40px;font-size:12.5px;line-height:1.6;font-family:var(--sans);color:#cdccc8;max-width:680px;margin:0 auto}
-.site-head{font-family:var(--mono);font-size:15px;letter-spacing:.12em;color:var(--acc,#fff);border-bottom:2px solid var(--acc,#444);padding-bottom:10px;margin-bottom:18px}
-.site-head span{display:block;font-size:10px;color:var(--faint);letter-spacing:.04em;margin-top:4px}
-.site h4{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--acc,#aaa);margin:20px 0 8px;text-transform:uppercase}
-.site .item{border-bottom:1px solid #232227;padding:9px 0}
-.site .item b{color:#e0ded8;font-weight:500}
-.site .item .sf{font-size:11px;color:var(--dim);margin-top:3px}
-.site .pin{background:#211d14;border:1px solid #3a3322;border-radius:6px;padding:10px 12px;margin:10px 0;font-family:var(--serif);font-size:13px;color:#d6cdb8;transform:rotate(-.4deg)}
-.site .pin:nth-child(odd){transform:rotate(.5deg)}
-.site .statusbox{border:1px solid var(--line);border-radius:7px;padding:12px;background:#121316;font-family:var(--mono);font-size:11.5px;line-height:1.8}
-.site .err{color:var(--danger);font-family:var(--mono);text-align:center;margin-top:80px;font-size:13px;line-height:2}
-.site .sbtn{display:inline-block;border:1px solid var(--acc,#666);color:var(--acc,#ccc);border-radius:6px;padding:8px 16px;cursor:pointer;font-family:var(--mono);font-size:11px;margin-top:8px}
-.site .sbtn:hover{background:rgba(255,255,255,.04)}
-.web-logo{font-family:var(--mono);letter-spacing:.3em;color:var(--orange);text-align:center;font-size:18px;margin:30px 0 26px}
-.web-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:26px}
-.web-tile{background:#1a1a1f;border:1px solid var(--line);border-radius:8px;padding:14px;cursor:pointer;transition:.12s}
+.web-page{flex:1;overflow:auto;background:#0f0f12}
+
+/* --- browser start page (the OS's own new-tab, stays dark) --- */
+.web-start{padding:26px 30px 40px;max-width:720px;margin:0 auto}
+.web-logo{font-family:var(--mono);letter-spacing:.3em;color:var(--orange);text-align:center;font-size:18px;margin:18px 0 24px}
+.web-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px;margin-bottom:26px}
+.web-tile{background:#1a1a1f;border:1px solid var(--line);border-radius:8px;padding:13px 14px;cursor:pointer;transition:.12s;display:flex;gap:11px;align-items:center}
 .web-tile:hover{background:var(--bg3);transform:translateY(-1px)}
-.web-tile b{display:block;font-size:12px;color:var(--txt);margin-bottom:4px}
-.web-tile span{font-size:10px;color:var(--faint);font-family:var(--mono)}
+.web-tile .fav{width:26px;height:26px;border-radius:6px;flex:0 0 26px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#10100f;font-weight:700}
+.web-tile b{display:block;font-size:12px;color:var(--txt);margin-bottom:2px}
+.web-tile span{font-size:9.5px;color:var(--faint);font-family:var(--mono)}
 .web-h2{font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;margin-bottom:8px}
 .web-hist{display:flex;justify-content:space-between;gap:10px;padding:7px 4px;border-bottom:1px solid #232328;font-family:var(--mono);font-size:11px;color:var(--dim);cursor:pointer}
 .web-hist:hover{color:var(--orange)}
 .web-hist .t{color:var(--faint);font-size:10px;white-space:nowrap}
 .web-hist.ghost .t{color:var(--orange)}
+
+/* ===================== WEBSITES (each its own identity) ===================== */
+.ws{min-height:100%;font:14px/1.55 system-ui,'Inter',sans-serif}
+.ws-wrap{max-width:660px;margin:0 auto;padding:0 24px}
+.ws-nav{display:flex;flex-wrap:wrap;gap:16px;font-size:11px;letter-spacing:.03em}
+.ws-nav b{cursor:pointer;font-weight:500;opacity:.82}
+.ws-nav b:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
+.ws h1{margin:0}
+.ws p{margin:.5em 0}
+/* image slot with graceful text fallback */
+.wimg{position:relative;overflow:hidden;border-radius:6px;background:#e7e3d8}
+.wimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.wimg .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#8d8678;font:italic 11px/1.45 Georgia,serif;padding:10px;
+  background:repeating-linear-gradient(45deg,#eceadf,#eceadf 11px,#e4e1d4 11px,#e4e1d4 22px)}
+
+/* 1 — Coast Ether & Power : corporate utility, teal */
+.ws-ether{background:#f4f7f8;color:#22383d}
+.ws-ether .top{background:#0d6e7e;color:#eafafa}
+.ws-ether .top .ws-wrap{display:flex;align-items:center;justify-content:space-between;padding-top:13px;padding-bottom:13px}
+.ws-ether .brand{font-weight:700;font-size:15px;display:flex;align-items:center;gap:9px;letter-spacing:.01em}
+.ws-ether .brand .mk{width:20px;height:20px;border-radius:50%;background:#7fd6df;box-shadow:inset 0 0 0 3px #0d6e7e}
+.ws-ether .hero{background:#e3eef0;border-bottom:3px solid #0d6e7e}
+.ws-ether .hero .ws-wrap{padding-top:22px;padding-bottom:20px}
+.ws-ether .hero h1{font-size:21px;color:#0a5662}
+.ws-ether .hero .sub{color:#5c7a7f;font-size:12px;margin-top:4px}
+.ws-ether section{padding:8px 0 4px}
+.ws-ether h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#0a5662;margin:18px 0 8px}
+.ws-ether .card{background:#fff;border:1px solid #d6e2e4;border-radius:8px;padding:13px 15px;margin:10px 0;box-shadow:0 1px 2px rgba(13,110,126,.06)}
+.ws-ether .card b{color:#143a40}
+.ws-ether .card .sf{font-size:12px;color:#5d7378;margin-top:4px}
+.ws-ether .statline{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #cfe0e2;font-size:12.5px}
+.ws-ether .tag{display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:2px 8px;border-radius:10px}
+.ws-ether .tag.open{background:#fde7c2;color:#9a5a00}
+.ws-ether .foot{margin-top:22px;background:#0d6e7e;color:#bfe6ea;font-size:10.5px}
+.ws-ether .foot .ws-wrap{padding:14px 24px}
+
+/* 2 — Libra University : academic, navy + gold + parchment, serif */
+.ws-uni{background:#f7f4ea;color:#2b2720;font-family:Georgia,'Spectral',serif}
+.ws-uni .top{background:#1c294c;color:#ece4cf;border-bottom:4px solid #c19a3e}
+.ws-uni .top .ws-wrap{display:flex;align-items:center;gap:14px;padding-top:14px;padding-bottom:14px}
+.ws-uni .crest{width:42px;height:42px;flex:0 0 42px;border-radius:50%;background:#c19a3e;color:#1c294c;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:inset 0 0 0 2px #1c294c}
+.ws-uni .crest img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.ws-uni .brand h1{font-size:19px;letter-spacing:.02em}
+.ws-uni .brand .mot{font-style:italic;font-size:11px;color:#cbb480}
+.ws-uni .barnav{background:#16203d;color:#d7cead}
+.ws-uni .barnav .ws-wrap{padding:9px 24px}
+.ws-uni .barnav .ws-nav b{color:#e7dcb8}
+.ws-uni h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#7a1f2b;border-bottom:2px solid #c19a3e;padding-bottom:5px;margin:20px 0 10px}
+.ws-uni .news{padding:9px 0;border-bottom:1px solid #e1d9c5}
+.ws-uni .news b{font-size:15px;color:#1c294c;font-weight:700}
+.ws-uni .news .dt{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#9a7a3a;margin-bottom:3px}
+.ws-uni .news .sf{font-size:13px;color:#4a4438;margin-top:3px}
+.ws-uni .dirbox{background:#fffdf6;border:1px solid #ddd2b4;border-left:4px solid #7a1f2b;border-radius:4px;padding:12px 14px;font-size:13px;margin-top:8px}
+.ws-uni .foot{margin-top:24px;background:#1c294c;color:#b9b08e;font-size:10.5px}
+.ws-uni .foot .ws-wrap{padding:14px 24px}
+
+/* 3 — Starhaven Biolabs : clinical modern, white + green */
+.ws-star{background:#fff;color:#27332e}
+.ws-star .top{border-bottom:1px solid #e4ebe7}
+.ws-star .top .ws-wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px}
+.ws-star .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:#0f5a4a}
+.ws-star .brand .mk{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#15a07e,#0c6f73);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+.ws-star .ws-nav b{color:#4a5b54}
+.ws-star .hero{background:linear-gradient(118deg,#10906f,#0b6f73);color:#eafff8}
+.ws-star .hero .ws-wrap{padding-top:30px;padding-bottom:28px}
+.ws-star .hero h1{font-size:23px;font-weight:600}
+.ws-star .hero p{color:#c8f3e7;font-size:13px;max-width:440px}
+.ws-star h4{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#0f5a4a;margin:20px 0 8px}
+.ws-star .card{border:1px solid #e4ebe7;border-radius:9px;padding:14px 16px;margin:10px 0}
+.ws-star .card b{color:#143a31}
+.ws-star .card .sf{font-size:12.5px;color:#5a6b64;margin-top:4px}
+.ws-star .notice{background:#fff6ed;border:1px solid #f0d9bf;border-left:4px solid #d98a2b;border-radius:6px;padding:12px 14px;font-size:12.5px;color:#7a5320;margin:10px 0}
+.ws-star .foot{margin-top:24px;border-top:1px solid #e4ebe7;color:#8a978f;font-size:10.5px}
+.ws-star .foot .ws-wrap{padding:14px 24px}
+
+/* 4 — Promontory Noticeboard : amateur community, cork + sticky notes */
+.ws-board{color:#2c2415;font-family:'Comic Sans MS','Chalkboard SE','Marker Felt',cursive;
+  background:#b08a52;
+  background-image:radial-gradient(circle at 30% 20%,rgba(0,0,0,.07) 1.5px,transparent 1.5px),radial-gradient(circle at 70% 65%,rgba(255,255,255,.05) 1.5px,transparent 1.5px);
+  background-size:13px 13px,17px 17px}
+.ws-board .head{text-align:center;padding:18px 10px 6px;color:#fff8e6;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.ws-board .head h1{font-size:22px}
+.ws-board .head .sub{font-size:11px;opacity:.9;margin-top:2px}
+.ws-board .pad{padding:10px 22px 28px}
+.ws-board .note{position:relative;background:#fff8df;border:1px solid #e7d9a8;border-radius:3px;padding:14px 16px 13px;margin:16px auto;max-width:430px;font-size:13.5px;line-height:1.5;color:#332a16;box-shadow:0 6px 14px rgba(0,0,0,.28)}
+.ws-board .note::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff8a7a,#c0392b);box-shadow:0 2px 3px rgba(0,0,0,.4)}
+.ws-board .note:nth-child(2n){transform:rotate(-1.3deg);background:#eaf6e6;border-color:#bcd9b2}
+.ws-board .note:nth-child(3n){transform:rotate(1.1deg);background:#e6f0fa;border-color:#b6cde4}
+.ws-board .note:nth-child(2n)::before{background:radial-gradient(circle at 35% 30%,#86d0ff,#2b6fb0)}
+.ws-board .note .by{display:block;margin-top:7px;font-size:11px;color:#7a6a40;text-align:right;font-style:italic}
+.ws-board .counter{text-align:center;color:#fff3d6;font-size:11px;margin-top:10px}
+.ws-board .counter span{font-family:var(--mono);background:#1a1206;padding:2px 6px;border-radius:3px;letter-spacing:.16em}
+
+/* 5 — The Coast Herald : newspaper, newsprint serif */
+.ws-herald{background:#f3efe5;color:#1b1a16;font-family:Georgia,'Spectral',serif}
+.ws-herald .mast{text-align:center;border-bottom:3px double #1b1a16;margin-bottom:4px}
+.ws-herald .mast .ws-wrap{padding:16px 24px 12px}
+.ws-herald .mast h1{font-size:34px;letter-spacing:.01em;font-weight:900;font-family:'Spectral',Georgia,serif}
+.ws-herald .mast .rule{display:flex;justify-content:space-between;border-top:1px solid #1b1a16;border-bottom:1px solid #1b1a16;margin-top:10px;padding:4px 0;font-size:10px;text-transform:uppercase;letter-spacing:.12em}
+.ws-herald .lead{padding:14px 0;border-bottom:1px solid #c9c3b4}
+.ws-herald .lead h2{font-size:24px;line-height:1.15;margin:0 0 6px;font-weight:800}
+.ws-herald .byline{font-style:italic;font-size:11.5px;color:#6a6453;margin-bottom:9px}
+.ws-herald .lead p{font-size:13.5px;column-count:1}
+.ws-herald .drop::first-letter{font-size:40px;float:left;line-height:.8;padding:4px 8px 0 0;font-weight:800}
+.ws-herald h4{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7a3b22;border-bottom:1px solid #1b1a16;padding-bottom:4px;margin:18px 0 8px}
+.ws-herald .brief{padding:9px 0;border-bottom:1px solid #d8d2c2}
+.ws-herald .brief b{font-size:15px;font-weight:700}
+.ws-herald .brief .sf{font-size:13px;color:#46423a;margin-top:2px}
+.ws-herald .foot{margin-top:18px;border-top:3px double #1b1a16;font-size:10.5px;color:#6a6453;text-align:center;padding:12px 0}
+
+/* 6 — Reedside Continuing Care : soft, calming, rounded */
+.ws-reed{background:#eef5ef;color:#33433a}
+.ws-reed .top{background:#fff}
+.ws-reed .top .ws-wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px}
+.ws-reed .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:#3f7a5e}
+.ws-reed .brand .mk{width:24px;height:24px;border-radius:50%;background:#8fc7a8;display:flex;align-items:center;justify-content:center;font-size:13px}
+.ws-reed .ws-nav b{color:#5a6f63}
+.ws-reed .hero{background:linear-gradient(#d7ead9,#cfe4d6)}
+.ws-reed .hero .ws-wrap{padding-top:22px;padding-bottom:24px}
+.ws-reed .hero h1{font-size:22px;color:#2f5e47;font-weight:600}
+.ws-reed .hero .sub{color:#4d6b59;font-size:13px;margin-top:5px}
+.ws-reed .hero .wimg{margin-top:16px;aspect-ratio:21/9}
+.ws-reed h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#3f7a5e;margin:20px 0 8px}
+.ws-reed .card{background:#fff;border:1px solid #d8e6dc;border-radius:12px;padding:14px 16px;margin:10px 0}
+.ws-reed .card b{color:#284b39}
+.ws-reed .card .sf{font-size:12.5px;color:#5a6f63;margin-top:4px}
+.ws-reed .portal{background:#fff;border:1px solid #cfe2d6;border-radius:12px;padding:16px;text-align:center;margin:10px 0}
+.ws-reed .sbtn{display:inline-block;background:#3f7a5e;color:#fff;border-radius:8px;padding:9px 22px;cursor:pointer;font-size:12px;margin-top:10px;font-weight:600}
+.ws-reed .sbtn:hover{background:#356a51}
+.ws-reed .foot{margin-top:24px;background:#3f7a5e;color:#d3e8da;font-size:10.5px}
+.ws-reed .foot .ws-wrap{padding:14px 24px}
+
+/* error / no-route page (browser-style) */
+.ws-err{background:#1e1f23;color:#c7c7c7;min-height:100%;display:flex;align-items:center;justify-content:center}
+.ws-err .box{max-width:340px;text-align:center;padding:24px}
+.ws-err .ico{font-size:42px;opacity:.5}
+.ws-err h1{font-size:17px;margin:14px 0 8px;font-weight:600}
+.ws-err p{font-size:12.5px;color:#8f8f8f;line-height:1.6}
+.ws-err .addr{font-family:var(--mono);font-size:11px;color:#ff7a6a;margin-top:10px;word-break:break-all}
 
 /* ===================== SETTINGS ===================== */
 .settings{padding:24px 28px;font-size:12.5px;max-width:520px}
@@ -295,6 +425,9 @@ body{
 .wp-gull{background:linear-gradient(180deg,#7e8a92,#4a545c 60%,#5a5048)}
 .set-users{font-family:var(--mono);font-size:11px}
 .set-users .n{color:var(--orange)}
+.set-reset{background:transparent;border:1px solid #5a2f2a;color:var(--danger);border-radius:6px;padding:8px 14px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.03em;transition:.15s;white-space:nowrap}
+.set-reset:hover{background:rgba(255,92,77,.08)}
+.set-reset.armed{background:var(--danger);color:#fff;border-color:var(--danger);animation:pulseOrange 1s infinite}
 
 /* ===================== TRASH ===================== */
 .trash-banner{background:rgba(255,92,77,.06);border-bottom:1px solid #3a2420;color:var(--dim);font-size:11px;padding:9px 14px;font-style:italic}
@@ -313,6 +446,23 @@ body{
 .im-canned button{background:#222226;border:1px solid var(--line);color:var(--dim);border-radius:14px;padding:7px 13px;font-size:11px;cursor:pointer;font-family:var(--mono);text-align:left;line-height:1.4}
 .im-canned button:hover{color:var(--orange);border-color:var(--orange-dim);background:#26262c}
 .im-end{padding:14px;text-align:center;color:var(--faint);font-style:italic;font-size:11px;border-top:1px solid var(--line)}
+
+/* ===================== MESSAGES (multi-conversation chat) ===================== */
+.msgs{display:flex;height:100%;font-size:12px}
+.msgs-side{width:168px;flex:0 0 168px;background:#161619;border-right:1px solid var(--line);overflow:auto}
+.msg-contact{padding:11px 13px;border-bottom:1px solid #232328;cursor:pointer;border-left:2px solid transparent}
+.msg-contact:hover{background:var(--bg3)}
+.msg-contact.active{background:rgba(255,165,0,.07);border-left-color:var(--orange)}
+.msg-contact .nm{font-size:12px;color:var(--txt);font-weight:500;display:flex;align-items:center;gap:6px}
+.msg-contact .dot{width:7px;height:7px;border-radius:50%;background:var(--ether);box-shadow:0 0 6px var(--ether);margin-left:auto}
+.msg-contact .dot.off{background:#44444c;box-shadow:none}
+.msg-contact .sub{font-size:9.5px;color:var(--faint);margin-top:2px;letter-spacing:.03em}
+.msg-contact .prev{font-size:10.5px;color:var(--dim);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg-contact.unread .nm{color:#fff}
+.msg-contact.unread .prev{color:var(--txt)}
+.msgs-conv{flex:1;display:flex;flex-direction:column;min-width:0}
+.msgs-empty{flex:1;display:flex;align-items:center;justify-content:center;color:var(--faint);font-style:italic}
+.dicon.alert .lb,.tbtn.alert{color:var(--orange)}
 
 /* ===================== TASKBAR ===================== */
 #taskbar{
@@ -391,7 +541,7 @@ body{
   <div class="tb-start"><span class="logo">◆ LUMEN</span></div>
   <div class="tb-tasks" id="tbTasks"></div>
   <div class="tb-tray">
-    <div class="tray-item" id="trayEther" title="Ether Monitor"><span class="ledg"></span><span id="trayEtherTxt">ether: nominal</span></div>
+    <div class="tray-item" id="trayEther" title="Bond-Channel Monitor"><span class="ledg"></span><span id="trayEtherTxt">bond band: quiet</span></div>
     <div class="tray-item" id="trayUsers" onclick="openApp('settings')" title="Active sessions"><span class="ico">👤</span><span id="trayUsersTxt">1 user signed in</span></div>
     <div class="tray-clock" id="trayClock">--:--</div>
     <button class="tray-logout" onclick="logout()">⏻</button>
@@ -449,13 +599,17 @@ const DEFAULT_STATE = {
   tier         : GM_CONFIG.startingTier,
   fired        : {},     // eventId -> true (so they don't repeat)
   mutations    : [],     // co-user file additions that have appeared
-  imLog        : [],     // {who,text}
+  imLog        : [],     // {who,text} — house (Helena) channel transcript
   coverIntact  : true,
   lastLoginAt  : null,
   trashRecovered: {},
   wallpaper    : 'sisters',   // she keeps the photographs as her wallpaper
-  imNode       : null,        // current node in the IM conversation tree
+  imNode       : null,        // current node in the house-channel conversation tree
   imEnded      : false,
+  imStarted    : false,       // has the house (Helena) channel gone live yet
+  msgActive    : 'vesper',    // which Messages conversation is open
+  vesperStep   : 0,           // how many VESPER live-drip lines have arrived
+  vesperRead   : false,       // player has opened the VESPER thread
   webHistory   : [],          // {url,t,ghost?}
   traceCount   : 0,           // ether circuit traces run
 };
@@ -695,6 +849,7 @@ came out wrong and the rightness was the kitchen and the two of us and the noise
 'two-of-us':{name:'two-of-us.img',app:'image',glyph:'🖼',thread:'B',img:'sisters'},
 'memories':{name:'memories.img',app:'image',glyph:'🖼',thread:'B',img:'memories'},
 'aurora-field':{name:'aurora-field.img',app:'image',glyph:'🖼',thread:'B',img:'reeds'},
+'aurora-now':{name:'aurora-now.img',app:'image',glyph:'🖼',thread:'B',img:'auroranow'},
 'manor-library':{name:'manor-library.img',app:'image',glyph:'🖼',thread:'A',img:'library'},
 'tower-from-below':{name:'tower-from-below.img',app:'image',glyph:'🖼',thread:'A',img:'tower'},
 'gulls':{name:'gulls.img',app:'image',glyph:'🖼',thread:null,img:'gulls'},
@@ -943,7 +1098,7 @@ MB`},
 const TREE = {
   'House'        : {glyph:'🏚', files:['tower-study','to-the-caretaker','coast-survey','gate','lintel','ether-bill-dispute','groceries-promontory']},
   'Photos'       : {glyph:'🖼', files:['two-of-us','memories','aurora-field','manor-library','tower-from-below','gulls','tea-rings']},
-  'Aurora'       : {glyph:'📁', files:['she-asked-again','timeline','records-wall','redacted-trial','playlist-for-her']},
+  'Aurora'       : {glyph:'📁', files:['she-asked-again','aurora-now','timeline','records-wall','redacted-trial','playlist-for-her']},
   'Research'     : {glyph:'📁', files:['redacted-enc'], sub:{
         'shared-exp':{glyph:'📁', files:['share-principle','door-both-ways','loose-ends','requisition-draft']}
      }},
@@ -1036,6 +1191,26 @@ reeds:{cap:'A. doing her actual job.', photo:'images/aurora%20field.jpg', svg:`<
   <g stroke='#4c7c8a' stroke-width='2' fill='none' opacity='.5'><path d='M180 250 q20 -10 40 0'/><path d='M230 270 q20 -8 40 2'/></g>
   <rect x='0' y='300' width='480' height='20' fill='#101a14' opacity='.7'/>
 </svg>`},
+auroranow:{cap:'the photograph they sent this month. by the window — she always liked the morning side of a room. she looks well. she looks like herself. that is the whole cruelty of it.', photo:'images/aurora%20reedside.jpg', svg:`<svg viewBox='0 0 480 320'>
+  <rect width='480' height='320' fill='#e8e6ea'/>
+  <rect x='150' y='18' width='300' height='284' fill='#cfe0d0'/>
+  <g stroke='#bcc9bd' stroke-width='2' fill='none' opacity='.8'><path d='M185 302 Q205 200 192 120'/><path d='M270 302 Q258 210 280 132'/><path d='M370 302 Q392 208 368 140'/></g>
+  <rect x='150' y='18' width='300' height='284' fill='none' stroke='#aeb4b8' stroke-width='6'/>
+  <line x1='300' y1='18' x2='300' y2='302' stroke='#aeb4b8' stroke-width='4'/>
+  <rect x='362' y='40' width='80' height='50' fill='#f4f2ee' stroke='#cdcac4'/>
+  <text x='402' y='60' text-anchor='middle' font-size='9' fill='#9a948a' font-family='serif'>Reedside</text>
+  <text x='402' y='73' text-anchor='middle' font-size='5' fill='#b3ada3' font-family='monospace'>continuing care</text>
+  <circle cx='150' cy='252' r='44' fill='none' stroke='#3a3a40' stroke-width='4'/>
+  <circle cx='150' cy='252' r='44' fill='none' stroke='#55555c' stroke-width='1' stroke-dasharray='3 9'/>
+  <rect x='72' y='150' width='66' height='112' rx='10' fill='#2b2b30'/>
+  <g transform='translate(105,150)'>
+    <ellipse cx='0' cy='-6' rx='20' ry='23' fill='#caa97e'/>
+    <path d='M-21 -16 Q-7 -42 0 -20 Q7 -42 21 -16 L17 8 Q0 17 -17 8 Z' fill='#c0445f' opacity='.85'/>
+    <rect x='-20' y='14' width='40' height='88' rx='12' fill='#cbb6e0'/>
+  </g>
+  <rect x='0' y='304' width='480' height='16' fill='#dcd9de'/>
+</svg>`},
+
 library:{cap:'from the house’s own records — the library back when the shelves were still full. nobody photographs the gaps.', photo:'images/grand%20library.jpg', svg:`<svg viewBox='0 0 480 320'>
   <rect width='480' height='320' fill='#15120d'/>
   <g fill='#241d14'><rect x='10' y='20' width='90' height='300'/><rect x='380' y='20' width='90' height='300'/></g>
@@ -1183,6 +1358,7 @@ const TRACKS = [
 const APPS = {
   files   :{title:'Files',         glyph:'🗂'},
   mail    :{title:'Mail',          glyph:'✉'},
+  messages:{title:'Messages',      glyph:'💬'},
   web     :{title:'Browse',        glyph:'🌐'},
   image   :{title:'Image Viewer',  glyph:'🖼'},
   notes   :{title:'Notes',         glyph:'📝'},
@@ -1191,7 +1367,7 @@ const APPS = {
   trash   :{title:'Trash',         glyph:'🗑'},
   settings:{title:'Settings',      glyph:'⚙'},
 };
-const DESKTOP_ICONS = ['files','mail','web','image','notes','music','ether','trash','settings'];
+const DESKTOP_ICONS = ['files','mail','messages','web','image','notes','music','ether','trash','settings'];
 
 /* ============================================================
    RUNTIME STATE
@@ -1278,6 +1454,7 @@ function renderIcons(){
   DESKTOP_ICONS.forEach(app=>{
     const d=document.createElement('div'); d.className='dicon'; d.dataset.app=app;
     if(app==='mail' && hasUnreadGhostMail()) d.classList.add('alert');
+    if(app==='messages' && hasUnreadMessages()) d.classList.add('alert');
     d.innerHTML=`<span class="gl">${APPS[app].glyph}</span><span class="lb">${APPS[app].title}</span>`;
     d.ondblclick=()=>openApp(app);
     d.onclick=(e)=>{ document.querySelectorAll('.dicon').forEach(x=>x.classList.remove('sel')); d.classList.add('sel'); };
@@ -1285,6 +1462,7 @@ function renderIcons(){
   });
 }
 function hasUnreadGhostMail(){ return MAIL.inbox.some(m=>m.ghost && m._arrived && m.unread); }
+function hasUnreadMessages(){ return (!STATE.vesperRead) || (STATE.imStarted && !STATE.imEnded); }
 
 /* ============================================================
    WINDOW MANAGER
@@ -1331,7 +1509,7 @@ function openApp(app, payload){
 }
 function appDefaultSize(app){
   const map={files:{w:620,h:430},mail:{w:680,h:470},image:{w:560,h:480},notes:{w:560,h:480},
-    music:{w:360,h:420},ether:{w:390,h:470},trash:{w:560,h:420},settings:{w:480,h:440},im:{w:380,h:480},web:{w:740,h:520}};
+    music:{w:360,h:420},ether:{w:390,h:470},trash:{w:560,h:420},settings:{w:480,h:440},messages:{w:600,h:520},web:{w:740,h:520}};
   let s=map[app]||{w:520,h:400};
   return {w:Math.min(s.w, window.innerWidth-30), h:Math.min(s.h, window.innerHeight-70)};
 }
@@ -1417,7 +1595,7 @@ function renderApp(rec, payload){
     case 'ether':    renderEther(rec,body); break;
     case 'trash':    renderTrash(rec,body); break;
     case 'settings': renderSettings(rec,body); break;
-    case 'im':       renderIM(rec,body); break;
+    case 'messages': renderMessages(rec,body); break;
   }
 }
 
@@ -1529,7 +1707,7 @@ function openEnc(f){
 }
 
 /* ---------- IMAGE VIEWER ---------- */
-const IMAGE_ORDER=['sisters','memories','reeds','library','tower','coast','gate','lintel','gulls','tea'];
+const IMAGE_ORDER=['sisters','memories','reeds','auroranow','library','tower','coast','gate','lintel','gulls','tea'];
 function openImageAt(imgKey, fname){
   let id=openImageWin;
   if(id && WINS[id]){ focusWin(id); WINS[id].imgKey=imgKey; renderImage(WINS[id], document.getElementById(id+'-body')); }
@@ -1632,85 +1810,187 @@ leave him alone. he has paid enough.</div>`;
     <div class="${cls}">${redactHtml(bodyTxt)}</div>${extra}`;
 }
 
-/* ---------- BROWSE (web explorer) ---------- */
+/* ---------- BROWSE (web explorer) ----------
+   Each site is a believable, self-contained web page with its own identity.
+   Optional flavour images live in images/web/ (all have a text fallback):
+     images/web/uni-crest.png      — Libra University crest (square)
+     images/web/starhaven.jpg      — Starhaven building/lab (landscape)
+     images/web/herald-desert.jpg  — Coast Herald lead-story photo (landscape)
+     images/web/reedside.jpg       — Reedside grounds / aviary (wide landscape)
+     images/web/harbour.jpg        — Promontory harbour snapshot (landscape)
+*/
 const WEB_BOOKMARKS=[
-  ['coast-ether.net','Coast Ether & Power','#54d6e0'],
-  ['librauniversity.lib','Libra University','#d8b66a'],
-  ['starhaven.lib','Starhaven Biolabs','#5ee8b0'],
-  ['promontory-board.net','Promontory Noticeboard','#caa24a'],
-  ['coast-herald.net','The Coast Herald','#ff8a5c'],
-  ['reedside-care.net','Reedside Continuing Care','#9fd89a'],
+  ['coast-ether.net','Coast Ether & Power','#0d6e7e','⚡'],
+  ['librauniversity.lib','Libra University','#c19a3e','📖'],
+  ['starhaven.lib','Starhaven Biolabs','#15a07e','✚'],
+  ['promontory-board.net','Promontory Noticeboard','#b08a52','📌'],
+  ['coast-herald.net','The Coast Herald','#1b1a16','📰'],
+  ['reedside-care.net','Reedside Continuing Care','#3f7a5e','🕊'],
 ];
+function wimg(src, alt, ratio){
+  return `<div class="wimg" style="aspect-ratio:${ratio||'16 / 9'}"><div class="ph">${escapeHtml(alt)}</div><img src="${src}" alt="" loading="lazy" onerror="this.style.display='none'"></div>`;
+}
+function wsFoot(txt){ return `<div class="foot"><div class="ws-wrap">${txt}</div></div>`; }
+function wsNav(items){ return `<div class="ws-nav">${items.map(i=>`<b>${escapeHtml(i)}</b>`).join('')}</div>`; }
+
 const SITES={
 'lumen://start':()=>{
-  const tiles=WEB_BOOKMARKS.map(([u,n,c])=>`<div class="web-tile" data-go="${u}" style="border-top:3px solid ${c}"><b>${escapeHtml(n)}</b><span>${u}</span></div>`).join('');
+  const tiles=WEB_BOOKMARKS.map(([u,n,c,g])=>`<div class="web-tile" data-go="${u}"><span class="fav" style="background:${c}">${g}</span><span><b>${escapeHtml(n)}</b><span>${u}</span></span></div>`).join('');
   const hist=(STATE.webHistory||[]).slice(-7).reverse().map(h=>
     `<div class="web-hist ${h.ghost?'ghost':''}" data-go="${escapeHtml(h.url)}"><span>${escapeHtml(h.url)}</span><span class="t">${escapeHtml(h.t)}${h.ghost?' — not this device':''}</span></div>`).join('')
     || '<div class="web-hist" style="cursor:default;color:var(--faint)">no history</div>';
-  return `<div class="site"><div class="web-logo">◆ LUMEN BROWSE</div>
+  return `<div class="web-start"><div class="web-logo">◆ LUMEN BROWSE</div>
     <div class="web-tiles">${tiles}</div>
     <div class="web-h2">history</div>${hist}</div>`;
 },
-'coast-ether.net':()=>`<div class="site" style="--acc:#54d6e0">
-  <div class="site-head">COAST ETHER &amp; POWER<span>reliable as the tide*&nbsp;&nbsp;(*the tide is not contractually binding)</span></div>
-  <h4>Service notices</h4>
-  <div class="item"><b>Promontory road feeder — scheduled maintenance deferred.</b><div class="sf">Crews cannot reach the headland in the current swell. Affected customers: 1.</div></div>
-  <div class="item"><b>Unmetered-draw audits, north Coast region.</b><div class="sf">Postponed indefinitely pending staffing. Customers reporting irregular meter readings are thanked for their continued patience.</div></div>
-  <h4>Enquiry status</h4>
-  <div class="statusbox">reference ████-4471 — <span style="color:var(--orange)">OPEN</span><br>
-  opened: 437 days ago<br>status: under review<br>assigned: pending assignment<br>
-  expected resolution: <span class="redact">████</span></div>
-  <div class="sf" style="margin-top:8px;color:var(--faint)">Your enquiry is important to us.</div>
+
+'coast-ether.net':()=>`<div class="ws ws-ether">
+  <div class="top"><div class="ws-wrap">
+    <div class="brand"><span class="mk"></span>COAST ETHER &amp; POWER</div>
+    ${wsNav(['Home','My Account','Outages','Billing','Contact'])}
+  </div></div>
+  <div class="hero"><div class="ws-wrap">
+    <h1>Keeping the coast lit.</h1>
+    <div class="sub">Reliable as the tide.* &nbsp; <span style="font-size:10px">*The tide is not contractually binding.</span></div>
+  </div></div>
+  <div class="ws-wrap">
+    <section><h4>Service notices</h4>
+      <div class="card"><b>Promontory road feeder — maintenance deferred.</b><div class="sf">Crews cannot reach the headland in the current swell. Affected customers: 1.</div></div>
+      <div class="card"><b>Unmetered-draw audits, north Coast region — postponed.</b><div class="sf">Indefinitely, pending staffing. Customers reporting irregular meter readings are thanked for their continued patience.</div></div>
+      <div class="card"><b>Razorcliff weather array — load increase approved.</b><div class="sf">The University’s storm-research station will draw additional power through the season. Cliff-feeder customers may notice brief dips during instrument runs.</div></div>
+      <div class="card"><b>Winter tariff from next billing cycle.</b><div class="sf">Headland and promontory addresses remain on the remote-supply schedule. We continue to regret, formally, that we can do nothing about the wind.</div></div>
+    </section>
+    <section><h4>Your open enquiry</h4>
+      <div class="card">
+        <div class="statline"><span>Reference</span><b>████-4471</b></div>
+        <div class="statline"><span>Status</span><span class="tag open">Open · under review</span></div>
+        <div class="statline"><span>Opened</span><span>437 days ago</span></div>
+        <div class="statline"><span>Assigned to</span><span style="color:#9a5a00">pending assignment</span></div>
+        <div class="statline" style="border:none"><span>Expected resolution</span><span class="redact">████</span></div>
+      </div>
+      <p style="font-size:12px;color:#5d7378">Your enquiry is important to us.</p>
+    </section>
+  </div>
+  ${wsFoot('Coast Ether &amp; Power · a licensed Federation utility · billing enquiries answered within 30 business days')}
 </div>`,
-'librauniversity.lib':()=>`<div class="site" style="--acc:#d8b66a">
-  <div class="site-head">LIBRA UNIVERSITY<span>astria campus · public bulletin</span></div>
-  <h4>News</h4>
-  <div class="item"><b>New trainer cohort sets out.</b><div class="sf">Professor Yucca’s office reports strong early results from this season’s group — first badges already logged. “Lovely group, genuinely,” the professor was quoted.</div></div>
-  <div class="item"><b>University to assist Federation survey of the forest ruins.</b><div class="sf">Field access remains restricted. Students are reminded that anything that glows should be reported, not pocketed.</div></div>
-  <div class="item"><b>Library hours reduced in the old wing.</b><div class="sf">The Blackthorn-sponsored wing closes at dusk until further notice, owing to maintenance below stairs.</div></div>
-  <h4>Staff directory (excerpt)</h4>
-  <div class="statusbox">PINE, A. — research staff, Starhaven outreach<br>status: <span style="color:var(--orange)">on extended leave</span> — correspondence held at the institute</div>
+
+'librauniversity.lib':()=>`<div class="ws ws-uni">
+  <div class="top"><div class="ws-wrap">
+    <div class="crest"><img src="images/web/uni-crest.png" alt="" onerror="this.replaceWith(document.createTextNode('❦'))"></div>
+    <div class="brand"><h1>LIBRA UNIVERSITY</h1><div class="mot">Scientia · Memoria · Custodia</div></div>
+  </div></div>
+  <div class="barnav"><div class="ws-wrap">${wsNav(['About','Admissions','Research','News','Directory','Library'])}</div></div>
+  <div class="ws-wrap">
+    <h4>University News</h4>
+    <div class="news"><div class="dt">Trainer Programme</div><b>Applications open for the coming season.</b><div class="sf">Professor Yucca’s office will place a limited number of Site Alpha starters with registered first-year trainers. Nominations close at term’s end; temperament pairing is final.</div></div>
+    <div class="news"><div class="dt">Official Statement</div><b>On the Site Alpha investigation.</b><div class="sf">The University notes the continuing inquiry into unauthorised access to restricted research materials at its Site Alpha facility. The University is cooperating fully. No further comment will be issued at this time.</div></div>
+    <div class="news"><div class="dt">Patronage</div><b>House Astralis renews its astronomical endowment.</b><div class="sf">The coast’s oldest celestial family will again fund the University’s sky-survey programme. The Constellar observatory reports an unusually active season; staff decline, politely, to say active with what.</div></div>
+    <div class="news"><div class="dt">Field Stations</div><b>Razorcliff weather array seeks volunteer observers.</b><div class="sf">Night shifts, foul weather, excellent tea. Enquire at the Meteorology office — no experience required, only stamina.</div></div>
+    <div class="news"><div class="dt">Facilities</div><b>Library hours reduced in the old wing.</b><div class="sf">The Blackthorn-sponsored wing now closes at dusk, owing to maintenance below stairs.</div></div>
+    <h4>Staff Directory</h4>
+    <div class="dirbox"><b>PINE, A.</b> — research staff, Starhaven outreach<br>
+      <span style="color:#7a1f2b">Status: on extended leave</span> — correspondence held at the institute.</div>
+  </div>
+  ${wsFoot('Libra University · Astria Campus · a public bulletin of the Office of Communications')}
 </div>`,
-'starhaven.lib':()=>`<div class="site" style="--acc:#5ee8b0">
-  <div class="site-head">STARHAVEN BIOLABS<span>the medical-research institute of libra university</span></div>
-  <h4>Outreach</h4>
-  <div class="item"><b>Community files programme.</b><div class="sf">The institute keeps half an eye on promising new trainers for its outreach files. Nominations welcome via your professor.</div></div>
-  <div class="item"><b>The institute thanks its partners.</b><div class="sf">Continuing gratitude to our private benefactors, whose contributions are made, as ever, in kind.</div></div>
-  <h4>Notice</h4>
-  <div class="statusbox" style="border-color:#3a3322">workstation access audit in progress following a network incident.<br><br>
-  if you receive mail from a colleague’s address that seems unlike them, do not reply. report it to the duty officer.</div>
+
+'starhaven.lib':()=>`<div class="ws ws-star">
+  <div class="top"><div class="ws-wrap">
+    <div class="brand"><span class="mk">✚</span>Starhaven Biolabs</div>
+    ${wsNav(['Research','Outreach','People','Partners','Contact'])}
+  </div></div>
+  <div class="hero"><div class="ws-wrap">
+    <h1>Medicine, bond science, and the questions underneath them.</h1>
+    <p>The medical-research institute of Libra University.</p>
+  </div></div>
+  <div class="ws-wrap">
+    <h4>The Starlight Nursery</h4>
+    <div class="card"><b>Where Libra’s starters begin.</b><div class="sf">Each season our developmental programme at Biolabs Site Alpha raises the young Pokémon entrusted to the region’s new trainers, pairing every one with a partner candidate selected for temperament and bond potential — the first thread of a lifelong link.</div></div>
+    <div class="card"><b>We follow every journey.</b><div class="sf">Placement runs through your registering professor, who reports back to us. We keep a file on each starter we send out, and take a quiet pride in the ones who go far. A Libra starter has never been returned.</div></div>
+    <div class="card"><b>A note for visitors.</b><div class="sf">Site Alpha is a restricted research facility and is not open to the public; the developmental wing cannot receive callers. Please direct all placement enquiries to Starhaven.</div></div>
+    <h4>With thanks to our partners</h4>
+    <div class="card"><b>Made possible in kind.</b><div class="sf">Continuing gratitude to our private benefactors, whose contributions are made, as ever, in kind.</div></div>
+    <h4>Notice to staff</h4>
+    <div class="notice"><b>Workstation access audit in progress</b> following a network incident. If you receive mail from a colleague’s address that seems unlike them, do not reply — report it to the duty officer.</div>
+  </div>
+  ${wsFoot('Starhaven Biolabs · Libra University · not the weapons facility, whatever you have heard')}
 </div>`,
-'promontory-board.net':()=>`<div class="site" style="--acc:#caa24a">
-  <div class="site-head">PROMONTORY NOTICEBOARD<span>the village, the harbour, and everything the gulls haven’t taken</span></div>
-  <div class="pin">BOAT: Tuesdays and Fridays, swell permitting. The swell rarely permits. — harbourmaster</div>
-  <div class="pin">NO DELIVERIES PAST THE GATE. Stop asking. We don’t care what you’ll pay. — harbour stores</div>
-  <div class="pin">Stop feeding the gulls. They remember faces now. They remember MINE. — R.</div>
-  <div class="pin">Lights in the old tower again this week — third time this month. The house has been empty twenty years. Whoever’s renting it: mind the road after dark, the ruts eat axles. And maybe leave a lamp off once in a while, some of us sleep facing the headland.</div>
-  <div class="pin">Found: one glove (left). Claim at the shop. You know who you are. You bought ear plugs.</div>
+
+'promontory-board.net':()=>`<div class="ws ws-board">
+  <div class="head"><h1>★ The Promontory Noticeboard ★</h1><div class="sub">the village, the harbour, and everything the gulls haven’t taken</div></div>
+  <div class="pad">
+    <div class="note">BOAT: Tuesdays &amp; Fridays, swell permitting. The swell rarely permits.<span class="by">— harbourmaster</span></div>
+    <div class="note">NO DELIVERIES PAST THE GATE. Stop asking. We don’t care what you’ll pay.<span class="by">— harbour stores</span></div>
+    <div class="note">Stop feeding the gulls. They remember faces now. They remember MINE.<span class="by">— R.</span></div>
+    <div class="note">Lights in the old tower again — third time this month. That house has been empty twenty years. Whoever’s renting it: mind the road after dark, the ruts eat axles. And leave a lamp off once in a while — some of us sleep facing the headland.<span class="by">— a neighbour</span></div>
+    <div class="note">FOUND: one glove (left). Claim at the shop. You know who you are. You bought ear plugs.<span class="by">— the shop</span></div>
+    <div class="note">The big Sideris freighter rounded the point again and didn’t put in. They never put in. What are that lot LOOKING for out past the shelf?<span class="by">— harbourmaster</span></div>
+    <div class="note">Saw the armoured ones — APEX — up on the cliff road before dawn. Didn’t wave back. Lock your sheds and your boathouses, and keep the little ones in.<span class="by">— R.</span></div>
+    <div class="note">Barometer’s gone funny and the sky over the headland was too bright at two in the morning — no moon to blame. Anyone else, or just me and the gulls?<span class="by">— a fisherman</span></div>
+    <div class="counter">you are visitor no. <span>000417</span> · best viewed at 800×600</div>
+  </div>
 </div>`,
-'coast-herald.net':()=>`<div class="site" style="--acc:#ff8a5c">
-  <div class="site-head">THE COAST HERALD<span>evening edition · libra coast</span></div>
-  <div class="item"><b>TEN YEARS ON: the desert corridor.</b><div class="sf">Where did everyone go? A special report on the refugee crossings, the children who arrived alone, and the questions the Federation has stopped answering.</div></div>
-  <div class="item"><b>Survey teams active again at the forest ruins.</b><div class="sf">League officials describe the renewed activity as routine. Local trainers describe it as “four kids and an orb story.”</div></div>
-  <div class="item"><b>Estate audits reach the north coast.</b><div class="sf">Two Federation auditors have been working the old houses along the headland. The old houses are not answering their gates.</div></div>
-  <div class="item"><b>Care-sector funding under review.</b><div class="sf">Long-term residential facilities face another lean year; private arrangements increasingly carry the sector.</div></div>
+
+'coast-herald.net':()=>`<div class="ws ws-herald">
+  <div class="mast"><div class="ws-wrap">
+    <h1>The Coast Herald</h1>
+    <div class="rule"><span>Libra Coast</span><span>Evening Edition</span><span>Price: 2 figs</span></div>
+  </div></div>
+  <div class="ws-wrap">
+    <div class="lead">
+      <h2>Ten Years On: The Desert Corridor</h2>
+      <div class="byline">A special report · by the Herald investigations desk</div>
+      ${wimg('images/web/herald-desert.jpg','[ photograph: the refugee corridor at dusk ]','3 / 2')}
+      <p class="drop" style="margin-top:12px">Where did everyone go? A decade after the crossings began, this paper revisits the children who arrived alone, the towns that emptied, and the questions the Federation has quietly stopped answering. What we found was not a misfortune. It had a budget, and a name no official will say on the record.</p>
+    </div>
+    <h4>Also this evening</h4>
+    <div class="brief"><b>House Sidus heir disowned after Biolabs breach.</b><div class="sf">Three months on, the inquiry into unauthorised access at the University’s restricted Site Alpha facility has yielded no public finding, and the University’s statement remains as terse as the night it was issued. The man at its centre is named: Rayn Sidus, of the Aquilan ruling house, who held a seat on the facility’s board through family connection. Lord Aldebaran Sidus has disowned his kinsman publicly; those near the family will say only that they are afraid of what he does next. A handsome championship sponsorship appeared in the house’s name within weeks of the story breaking. This paper draws no conclusion from the timing.</div></div>
+    <div class="brief"><b>Gym Leader presses his campaign against the city’s quiet trade.</b><div class="sf">Brutus — the Coast’s sunniest giant, and its Dark-and-Psychic gym leader — told supporters in Astria that the League “will not be sharing this city” with the syndicate that has rooted itself in certain civic offices. Names were not, of course, named.</div></div>
+    <div class="brief"><b>The three crowns and one badge.</b><div class="sf">Houses Sideris, Astralis and Lucens continue their decorous, decades-long contest for influence over the Constellation gym. The houses call it stewardship; the rest of the Coast calls it what it is. Gym Leader Brutus, who actually runs the place, was not asked.</div></div>
+    <div class="brief"><b>APEX extends its patrols along the north headland.</b><div class="sf">The order has lengthened its coastal sweeps and declines to say what it is hunting. Residents near the old estates report the armoured Conduits passing at odd hours and not stopping to talk. “Routine,” says the Astria command — which is not the word the headland would choose.</div></div>
+    <div class="brief"><b>Estate audits reach the north coast.</b><div class="sf">Two Federation auditors have been working the old houses along the headland. The old houses are not answering their gates.</div></div>
+    <div class="brief"><b>Care-sector funding under review.</b><div class="sf">Long-term residential facilities face another lean year; private arrangements increasingly carry the sector.</div></div>
+  </div>
+  <div class="foot">The Coast Herald · established when the lighthouse still ran on oil · letters to the editor are read, eventually</div>
 </div>`,
-'reedside-care.net':()=>`<div class="site" style="--acc:#9fd89a">
-  <div class="site-head">REEDSIDE CONTINUING CARE<span>our residents live gently, in the present</span></div>
-  <h4>Visiting</h4>
-  <div class="item"><b>Hours:</b><div class="sf">Mornings by arrangement; afternoons open. We find our residents are most themselves in morning light.</div></div>
-  <div class="item"><b>The aviary opened this spring.</b><div class="sf">Already a favourite. Several residents have shown a remarkable, wordless way with the birds.</div></div>
-  <h4>Family portal</h4>
-  <div class="statusbox" id="reedside-portal">Secure sign-in for arrangements, photographs, and visit records.<br>
-  <span class="sbtn" data-portal="1">SIGN IN</span></div>
+
+'reedside-care.net':()=>`<div class="ws ws-reed">
+  <div class="top"><div class="ws-wrap">
+    <div class="brand"><span class="mk">🕊</span>Reedside Continuing Care</div>
+    ${wsNav(['Home','Our Care','Visiting','Family Portal'])}
+  </div></div>
+  <div class="hero"><div class="ws-wrap">
+    <h1>Our residents live gently, in the present.</h1>
+    <div class="sub">A quiet home on the water, for those who need time held kindly.</div>
+    ${wimg('images/web/reedside.jpg','[ photograph: the Reedside grounds and aviary ]','21 / 9')}
+  </div></div>
+  <div class="ws-wrap">
+    <h4>Visiting</h4>
+    <div class="card"><b>Hours</b><div class="sf">Mornings by arrangement; afternoons open. We find our residents are most themselves in morning light.</div></div>
+    <div class="card"><b>The aviary opened this spring.</b><div class="sf">Already a favourite. Several residents have shown a remarkable, wordless way with the birds.</div></div>
+    <h4>From the home this month</h4>
+    <div class="card"><b>The first fledglings have flown.</b><div class="sf">One of our residents sat with them every morning until they were ready, and waved them off without a word. We do not always know what our residents remember. We always know what they feel.</div></div>
+    <h4>Family Portal</h4>
+    <div class="portal" id="reedside-portal">Secure sign-in for arrangements, photographs, and visit records.
+      <div><span class="sbtn" data-portal="1">Sign in</span></div>
+    </div>
+  </div>
+  ${wsFoot('Reedside Continuing Care · funded discreetly, run gently · we do not use our residents’ names in public records')}
 </div>`,
-'████.sec/ledger':()=>`<div class="site"><div class="err">NO ROUTE<br><span style="font-size:11px;color:var(--faint)">this address does not resolve on civilian routing.<br>your attempt has been noted by the carrier.</span></div></div>`,
+
+'████.sec/ledger':()=>`<div class="ws ws-err"><div class="box">
+  <div class="ico">⚠</div>
+  <h1>This site can’t be reached</h1>
+  <p>The address does not resolve on civilian routing. There is no public path to a <b>.sec</b> host from this network.</p>
+  <p style="margin-top:8px;color:#b08">Your attempt was noted by the carrier.</p>
+  <div class="addr">████.sec/ledger</div>
+</div></div>`,
 };
 function renderWeb(rec, body){
   rec.url=rec.url||'lumen://start'; rec.stack=rec.stack||[]; rec.menu=false;
   const draw=()=>{
     const page = SITES[rec.url] ? SITES[rec.url]()
-      : `<div class="site"><div class="err">PAGE NOT FOUND<br><span style="font-size:11px;color:var(--faint)">${escapeHtml(rec.url)} — the address book is small out here.</span></div></div>`;
+      : `<div class="ws ws-err"><div class="box"><div class="ico">🔌</div><h1>Page not found</h1><p>Nothing answers at this address. The address book is small out here.</p><div class="addr">${escapeHtml(rec.url)}</div></div></div>`;
     const menu = rec.menu ? `<div class="web-menu">${['lumen://start'].concat(WEB_BOOKMARKS.map(b=>b[0])).map(u=>`<div data-go="${u}">${u}</div>`).join('')}</div>` : '';
     body.innerHTML=`<div class="web">
       <div class="web-bar">
@@ -1779,18 +2059,26 @@ function refreshMusic(){ const w=Object.values(WINS).find(w=>w.app==='music'); i
 /* ---------- ETHER MONITOR ---------- */
 let etherLog=[];
 let etherT=0;
+/* The Ether Monitor is Amelia's own research instrument: a bond-channel
+   resonance analyser. She uses it to watch HER asset — P-1, the carrier that
+   holds Aurora — on the ether "bond band" (the mauri the Share engineers).
+   Nothing here is a mystery to her; she built the rig to keep an eye on the
+   one thing she cannot replace. RUN SAMPLE reads P-1's signature in her own
+   knowing, grieving voice. The only thing she does NOT know is the second
+   analyser that joins the band once the co-user is active (the watcher). */
 const ETHER_AMBIENT=[
-  'draw nominal — 1.2u',
-  'hearth circuit microspike — settled',
-  'tide compensation engaged — nominal',
-  'draw nominal — 1.1u',
-  'salt fouling on the line — within tolerance',
-  'draw nominal — 1.3u',
+  'baseline field 0.6 mauri — stable',
+  'channel band quiet — no active coupling',
+  'thermal / tidal bands compensated',
+  'mauri reference lamp — calibrated',
+  'faint carrier echo — below capture threshold',
+  'sampling cadence nominal',
 ];
 function renderEther(rec, body){
   body.innerHTML=`<div class="ether">
-    <div class="ether-read">ETHER DRAW
-      <div class="ether-val nominal" id="${rec.id}-eval">nominal</div></div>
+    <div class="ether-read">BOND-CHANNEL MONITOR
+      <div class="ether-val nominal" id="${rec.id}-eval">channel quiet</div>
+      <div id="${rec.id}-stats" style="font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:7px;letter-spacing:.04em"></div></div>
     <div class="ether-graph">
       <svg viewBox="0 0 380 70" preserveAspectRatio="none">
         <polyline id="${rec.id}-w2" fill="none" stroke="#9a7bff" stroke-width="1" opacity="0" points=""/>
@@ -1798,57 +2086,63 @@ function renderEther(rec, body){
       </svg>
       <div class="ether-legend" id="${rec.id}-leg"></div>
     </div>
-    <button class="ether-btn" id="${rec.id}-trace">TRACE CIRCUIT</button>
+    <button class="ether-btn" id="${rec.id}-trace">RUN SAMPLE</button>
     <div class="ether-sweep" id="${rec.id}-sweep"><i></i></div>
     <div class="ether-log" id="${rec.id}-log"></div>
   </div>`;
   const eVal=document.getElementById(rec.id+'-eval'),
+        stats=document.getElementById(rec.id+'-stats'),
         w1=document.getElementById(rec.id+'-w1'),
         w2=document.getElementById(rec.id+'-w2'),
         leg=document.getElementById(rec.id+'-leg'),
         logEl=document.getElementById(rec.id+'-log'),
-        traceBtn=document.getElementById(rec.id+'-trace'),
+        sampleBtn=document.getElementById(rec.id+'-trace'),
         sweep=document.getElementById(rec.id+'-sweep');
   const drawLog=()=>{
     logEl.innerHTML = etherLog.slice(-40).reverse().map(l=>`<div class="${l.anom?'anom':''}"><span class="t">${l.t}</span> — ${escapeHtml(l.msg)}</div>`).join('')
-      || '<span class="t">— monitor idle —</span>';
+      || '<span class="t">— instrument idle —</span>';
   };
   let raf;
   const tick=()=>{
     etherT+=0.035;
-    const anom = etherSpike && GM_CONFIG.showEtherSpikes;
-    const ghost = suspicion>=25;
+    const anom = etherSpike && GM_CONFIG.showEtherSpikes;        // active coupling (shared-exp open)
+    const carrier = anom || (STATE.traceCount||0)>=2;            // the localised standing signature
+    const coupling = anom ? (0.61 + Math.abs(Math.sin(etherT*1.3))*0.31)
+                          : (0.02 + Math.abs(Math.sin(etherT))*0.05);
     w1.setAttribute('points', etherWave(etherT, anom?1:0));
-    if(ghost){ w2.setAttribute('opacity','.55'); w2.setAttribute('points', etherWave(etherT*0.8+40, 2)); }
-    else w2.setAttribute('opacity','0');
     w1.setAttribute('stroke', anom?'#ffa500':'#54d6e0');
-    eVal.textContent = anom?'ANOMALOUS — no source on this circuit':'nominal';
+    if(carrier){ w2.setAttribute('opacity','.6'); w2.setAttribute('points', etherWave(etherT*0.85+40, 2)); }
+    else w2.setAttribute('opacity','0');
+    eVal.textContent = anom ? 'COUPLING ACTIVE — bond band live' : 'channel quiet';
     eVal.className = 'ether-val '+(anom?'anom':'nominal');
-    leg.innerHTML = ghost?`<span style="color:#9a7bff">▮</span> second draw — not this device`:'';
+    stats.textContent = `band: mauri (bond)   ·   coupling ${coupling.toFixed(2)}${anom?' ▲':''}`;
+    leg.innerHTML = carrier
+      ? `<span style="color:#9a7bff">▮</span> carrier signature${(STATE.traceCount||0)>=2?' — P-1 (held)':''}`
+      : '';
     raf=requestAnimationFrame(tick);
   };
   tick();
   let ai=Math.floor(etherT)%ETHER_AMBIENT.length;
   const amb=setInterval(()=>{ etherLog.push({t:clockStr(),msg:ETHER_AMBIENT[ai++%ETHER_AMBIENT.length]}); drawLog(); }, 11000);
   rec.onClose=()=>{ cancelAnimationFrame(raf); clearInterval(amb); };
-  traceBtn.onclick=()=>{
-    traceBtn.disabled=true; traceBtn.textContent='TRACING…';
+  sampleBtn.onclick=()=>{
+    sampleBtn.disabled=true; sampleBtn.textContent='SAMPLING…';
     sweep.style.visibility='visible';
     const bar=sweep.querySelector('i'); bar.style.width='0';
     requestAnimationFrame(()=>requestAnimationFrame(()=>bar.style.width='100%'));
-    etherLog.push({t:clockStr(),msg:'tracing circuit — house loop, both wings…'}); drawLog();
+    etherLog.push({t:clockStr(),msg:'capturing — integrating the bond band over the whole house…'}); drawLog();
     setTimeout(()=>{
-      etherTraceResults().forEach(l=>etherLog.push({t:clockStr(),anom:!!l.anom,msg:l.msg}));
+      etherSampleResults().forEach(l=>etherLog.push({t:clockStr(),anom:!!l.anom,msg:l.msg}));
       drawLog();
       bumpSuspicion(6);
       sweep.style.visibility='hidden'; bar.style.width='0';
-      traceBtn.disabled=false; traceBtn.textContent='TRACE CIRCUIT';
+      sampleBtn.disabled=false; sampleBtn.textContent='RUN SAMPLE';
     }, 2800);
   };
   rec.refresh=drawLog;
   drawLog();
 }
-function etherWave(t, mode){ // 0 calm cyan · 1 anomalous orange · 2 the second draw (console-like stepped pulses)
+function etherWave(t, mode){ // 0 calm baseline · 1 active coupling (orange) · 2 carrier signature (slow standing pulse)
   let p='';
   for(let x=0;x<=380;x+=6){
     let y = 35 + Math.sin(x/26 + t)*5 + Math.sin(x/9 + t*1.7)*2;
@@ -1858,35 +2152,42 @@ function etherWave(t, mode){ // 0 calm cyan · 1 anomalous orange · 2 the secon
   }
   return p;
 }
-function etherTraceResults(){
+function etherSampleResults(){
   STATE.traceCount=(STATE.traceCount||0)+1; persist();
-  if(STATE.traceCount===1){
+  const n=STATE.traceCount;
+  if(n===1){
     return [
-      {msg:'trace complete. draws on this account’s circuit:'},
-      {msg:'· tower study (this console) — 0.4u'},
-      {msg:'· kitchens — 0.7u'},
-      {msg:'· library wing — 1.1u'},
-      {anom:true, msg:'· west wing — 9.8u — UNMETERED. no manifest entry.'},
-      {msg:'file reference ████-4471 remains open.'},
+      {msg:'sample complete. ambient field characterised.'},
+      {msg:'· thermal, tidal, salt bands — nominal.'},
+      {anom:true, msg:'· bond band (mauri) — the standing resonance, exactly where I left it. the asset is coupled to the channel even at rest.'},
+      {msg:'P-1 reads on the band the way a struck bell goes on humming. it always does now. the most expensive nightlight in the world.'},
     ];
   }
-  if(suspicion>=25 && !STATE.fired['trace-second']){
-    STATE.fired['trace-second']=true; persist();
+  if(n===2){
     return [
-      {msg:'trace complete.'},
-      {anom:true, msg:'a second console is active on this account — library wing, 0.5u.'},
-      {anom:true, msg:'it is reading the same files you are.'},
+      {msg:'sample complete. characterising the carrier.'},
+      {anom:true, msg:'· P-1 holding a transformed state — clean, stable. past Galceran’s twenty-six hours and climbing.'},
+      {anom:true, msg:'· the signature sits dead-centre in the Share channel: a whole human self, wearing a borrowed body, resonating like it is trying to be heard.'},
+      {msg:'I built this rig to watch her. I tell myself it is to measure the work. mostly it is so I can see she is still in there.'},
+    ];
+  }
+  if(suspicion>=25 && !STATE.fired['sample-second']){
+    STATE.fired['sample-second']=true; persist();
+    return [
+      {msg:'sample complete. carrier nominal — P-1 holds.'},
+      {anom:true, msg:'· a second analyser is sampling this band. library wing. not my instrument.'},
+      {msg:'someone is reading the asset over my shoulder. that is new. I know what the carrier is. I would very much like to know who that is.'},
     ];
   }
   return [
-    {msg:'trace complete. west wing draw unchanged — 9.8u, unmetered.'},
-    {msg:'whatever runs over there has not stopped to sleep either.'},
+    {msg:'sample complete. carrier signature unchanged. P-1 holds, steady.'},
+    {msg:'still in there. still hers. I have not lost her — only mislaid her into the wrong shape.'},
   ];
 }
 function refreshEther(){ const w=Object.values(WINS).find(w=>w.app==='ether'); if(w&&w.refresh)w.refresh(); refreshTray(); }
-function refreshTray(){ const t=document.getElementById('trayEther'), txt=document.getElementById('trayEtherTxt'); if(etherSpike){t.classList.add('anom');txt.textContent='ether: ANOMALOUS';} else {t.classList.remove('anom');txt.textContent='ether: nominal';} }
-function triggerEtherSpike(){ if(!GM_CONFIG.showEtherSpikes||etherSpike)return; etherSpike=true; etherLog.push({t:clockStr(),anom:true,msg:'resonance spike — strongest with /Research/shared-exp open. no source on this circuit.'}); refreshEther(); }
-function maybeClearSpike(){ if(etherSpike){ etherSpike=false; etherLog.push({t:clockStr(),anom:false,msg:'draw returned to nominal.'}); refreshEther(); } }
+function refreshTray(){ const t=document.getElementById('trayEther'), txt=document.getElementById('trayEtherTxt'); if(etherSpike){t.classList.add('anom');txt.textContent='bond band: ACTIVE';} else {t.classList.remove('anom');txt.textContent='bond band: quiet';} }
+function triggerEtherSpike(){ if(!GM_CONFIG.showEtherSpikes||etherSpike)return; etherSpike=true; etherLog.push({t:clockStr(),anom:true,msg:'coupling detected — bond band — strongest with /Research/shared-exp open. the channel is live in this house, right now.'}); refreshEther(); }
+function maybeClearSpike(){ if(etherSpike){ etherSpike=false; etherLog.push({t:clockStr(),anom:false,msg:'coupling lost — channel quiet again.'}); refreshEther(); } }
 
 /* ---------- TRASH ---------- */
 function renderTrash(rec, body){
@@ -1915,6 +2216,7 @@ function openHalfImage(f){
 
 /* ---------- SETTINGS ---------- */
 function renderSettings(rec, body){
+  let armed=false, armTimer=null;
   const draw=()=>{
     const wp=currentWallpaper();
     const sessions = suspicion>=30 ? 2:1;
@@ -1932,12 +2234,26 @@ function renderSettings(rec, body){
         <div class="set-users" style="color:var(--faint)">off</div></div>
       <div class="set-row"><div><div class="lab">Device</div><div class="desc">Shiman consumer workstation · ether-powered</div></div>
         <div class="set-users" style="color:var(--faint)">Lumen OS 8.4</div></div>
-      <div class="set-row" style="border:none"><div><div class="lab">Account</div><div class="desc">signed in as</div></div>
+      <div class="set-row"><div><div class="lab">Account</div><div class="desc">signed in as</div></div>
         <div class="set-users" style="color:var(--orange)">A. PINE</div></div>
+      <div class="set-row" style="border:none;padding-top:18px"><div><div class="lab">Reset progress</div><div class="desc">erase everything on this device — read files, messages, the co-user, all of it — and start the session fresh</div></div>
+        <button class="set-reset ${armed?'armed':''}" id="setResetBtn">${armed?'Click again to erase':'Reset all progress'}</button></div>
     </div>`;
-    body.querySelectorAll('.wp-opt').forEach(e=> e.onclick=()=>{ STATE.wallpaper=e.dataset.wp; persist(); applyWallpaper(); draw(); });
+    body.querySelectorAll('.wp-opt').forEach(e=> e.onclick=()=>{ disarm(); STATE.wallpaper=e.dataset.wp; persist(); applyWallpaper(); draw(); });
+    const rb=document.getElementById('setResetBtn');
+    if(rb) rb.onclick=()=>{
+      if(armed){ resetGame(); return; }
+      armed=true; draw();
+      armTimer=setTimeout(()=>{ armed=false; if(rec.el && rec.el.isConnected) draw(); }, 4000);
+    };
   };
+  const disarm=()=>{ if(armTimer){ clearTimeout(armTimer); armTimer=null; } armed=false; };
   rec.refresh=draw; draw();
+}
+function resetGame(){
+  try{ Store.write(structuredCloneSafe(DEFAULT_STATE)); }catch(e){}
+  try{ if(coUserTimer) clearInterval(coUserTimer); if(clockTimer) clearInterval(clockTimer); }catch(e){}
+  location.reload();
 }
 function currentWallpaper(){ const wp=STATE.wallpaper||'sisters'; return wp==='default'?'lumen' : wp==='coast'?'gulls' : wp; } // 'default'/'coast' = legacy saved values
 function applyWallpaper(){
@@ -1988,10 +2304,10 @@ function tryFire(pool){
 const TIER1=[
   {id:'t1-users', run:()=>{ refreshTrayUsers(); toast('Session', 'A second session is now active on this account.', false); }},
   {id:'t1-lastactive', run:()=>{ toast('Activity', 'Account last active: just now — not from this device.', false); }},
-  {id:'t1-etherdraw', run:()=>{ // the monitor notices the other console
-      etherLog.push({t:clockStr(), anom:true, msg:'a second draw signature appeared on this circuit — pattern matches a console, not an appliance.'});
+  {id:'t1-etherdraw', run:()=>{ // the monitor notices the other analyser on the band
+      etherLog.push({t:clockStr(), anom:true, msg:'a second sampling signature touched the bond band — brief. someone else just took a reading.'});
       refreshEther();
-      toast('Ether', 'A second draw signature appeared on the circuit.', true);
+      toast('Ether', 'A second reading was taken on the bond band — not by you.', true);
   }},
   {id:'t1-music', run:()=>{ // music starts/stops on its own once
       if(musicPlaying<0){ playTrack(0); toast('Music', 'A track started playing on its own.', false); }
@@ -2045,7 +2361,7 @@ const TIER3=[
       toast('Mail', 'A draft was edited just now — not by you.', false);
   }},
   {id:'t3-encaccess', run:()=>{ // the other session tries the sealed archive
-      etherLog.push({t:clockStr(), anom:true, msg:'decryption load spike — library wing console. duration: 4s. FAILED.'});
+      etherLog.push({t:clockStr(), anom:true, msg:'coupling surge on the sealed trial archive — library wing forced the channel for 4s. it collapsed. the seal held.'});
       refreshEther();
       toast('Archive', 'redacted-trial.enc — access attempt from the second session: FAILED.', false);
   }},
@@ -2073,12 +2389,14 @@ function halfDeleteEvent(){
   }
 }
 
-/* ---- Tier-3: IM window (branching conversation — pick a reply; no typing) ---- */
+/* ---- Tier-3: the house channel (Helena) goes live inside the Messages app ---- */
 function openIM(){
-  const who = GM_CONFIG.coUserIdentityHints ? 'H.' : '████';
-  APPS.im={title:'Messages — '+who, glyph:'💬'};
-  const id=openApp('im'); WINS[id].who=who;
-  toast('Message', who+' is typing to you…', false);
+  if(STATE.imEnded) return;
+  STATE.imStarted=true; STATE.msgActive='house'; persist();
+  const id=openApp('messages');
+  const rec=WINS[id]; if(rec){ rec.active='house'; rec.treeBooted=false; if(rec.refresh) rec.refresh(); }
+  renderIcons();
+  toast('Message', '████ is typing to you on the house channel…', false);
 }
 
 /* Conversation tree. node: {them:[lines], opts:[{t,to}], fx:{sus,cover,drop,knock}}
@@ -2192,67 +2510,181 @@ n25:{them:['…Honesty. Then I will worry less, and differently.'],
 n26:{them:['One of us has to.']},
 };
 
-function renderIM(rec, body){
-  rec.log  = rec.log  || (STATE.imLog.length ? STATE.imLog.slice() : []);
-  rec.node = rec.node || STATE.imNode || 'start';
-  rec.busy = false;
-  const draw=()=>{
-    const n=IM_TREE[rec.node]||{};
-    const log=rec.log.map(m=>`<div class="im-msg ${m.who}">${escapeHtml(m.text)}</div>`).join('')
-      + (rec.busy?`<div class="im-msg them typing">…</div>`:'');
-    let foot='';
-    if(!GM_CONFIG.imInteractive){
-      foot=`<div class="im-end">— the messages do not stop, and you cannot answer. (GM: imInteractive off) —</div>`;
-    } else if(STATE.imEnded){
-      foot=`<div class="im-end">— the other session closed the channel —</div>`;
-    } else if(!rec.busy && n.opts){
-      foot=`<div class="im-canned">${n.opts.map((o,i)=>`<button data-i="${i}">${escapeHtml(o.t)}</button>`).join('')}</div>`;
+/* ============================================================
+   MESSAGES APP — two conversations:
+   · VESPER  — an ongoing Scepter relay chat the player WATCHES unfold
+               (read-only; backlog + a live drip that ends in the relay
+               noticing Amelia isn't really the one reading). Feral Rot in
+               Florinex, the League's coming mistake, and Marcus wanting to
+               deploy P-1 — which Amelia refuses, her real motive leaking.
+   · ████    — the house channel (Helena): the live-intrusion branching tree
+               where the player must answer as Amelia. Dormant until the
+               co-user event (openIM) brings it live.
+   ============================================================ */
+const CHATS=[
+  {id:'vesper', name:'VESPER', sub:'secure relay · Shadows'},
+  {id:'house',  name:'████',   sub:'house channel'},
+];
+
+/* VESPER — already-exchanged backlog (read on open). who: them=VESPER, me=Amelia */
+const VESPER_BACKLOG=[
+ {who:'them', text:'You saw the Florinex corridor numbers?'},
+ {who:'me',   text:'I wrote half of them. Site Alpha still copies me on the corridor reports — nobody ever took my name off the distribution list.'},
+ {who:'them', text:'Then you know it’s past the river. Sick Elking, the water going wrong, a Venomire that couldn’t hold its own venom. The rangers are calling it a blight. They don’t have a name for it.'},
+ {who:'me',   text:'It has a name and it’s ours. Two containers off a transport that should never have been touched. Veerum breeding true in the wild, the compound through the soil and into the food chain.'},
+ {who:'them', text:'We do not put that op in writing.'},
+ {who:'me',   text:'I’m not writing it. I’m telling you it isn’t a leak anymore. It’s an ecology. You don’t clean those up — you outlive them, or you don’t.'},
+ {who:'them', text:'Does the program leadership understand that?'},
+ {who:'me',   text:'The program leadership is delighted. Vistrix’s people read the same field reports I do and they don’t see a disaster — they see a trial that ran itself for free. “Environmental viability, confirmed.” They’ve a researcher sitting in a route station writing the corpse count up like a quarterly.'},
+ {who:'them', text:'That’s the part that frightens me. They think they won.'},
+ {who:'me',   text:'They think they won. So they’ll do it again on purpose, somewhere it counts — the desert theatre, where the shipment was headed. Loud. Because no one has told them the corridor is about to bury Pokémon faster than the rangers can log them.'},
+ {who:'them', text:'And then the League makes its mistake.'},
+ {who:'me',   text:'And then the League makes its mistake. It cordons the wrong valley, or it culls it, or it stands up at the Pax Cove championship and calls it a natural outbreak — and every trainer who watched a starter rot from the inside knows the League just lied to their face. That is not a problem for us. That is a recruiting season.'},
+ {who:'them', text:'Marcus wants it documented before it breaks. Hard evidence, in our hands, the hour the League denies it. He thinks it’s worth an asset.'},
+ {who:'me',   text:'Which asset.'},
+ {who:'them', text:'You know which one. The championship puts every official who matters under one roof. The Proteus walks in wearing a face nobody questions, lifts the corridor file, walks out. Only it can do that.'},
+ {who:'me',   text:'No.'},
+ {who:'them', text:'It isn’t a no you get to make by yourself, A. Marcus asked. I’m only the relay.'},
+ {who:'me',   text:'Then relay this. The asset has gone out four times this year. It wore the quartermaster at Alder to move a convoy schedule. It walked a meeting in Grandharbor in a shape I will not put on this channel. Every deployment is a thing that can go wrong in a way I cannot undo. It is not a lockpick, and it does not grow back.'},
+ {who:'them', text:'It came home fine every time.'},
+ {who:'me',   text:'It came home. And it asked me, after, whether it had done well. It holds the borrowed faces a little longer each time before it lets them go. You don’t see that part. I do.'},
+ {who:'them', text:'Amelia. It is a tool with an excellent success rate. Don’t turn it into a person.'},
+ {who:'me',   text:'I know exactly what it is. Tell Marcus the asset stays in this house. Find him another door.'},
+];
+/* VESPER — live drip while the player watches; ends in the relay noticing the reader isn't Amelia */
+const VESPER_LIVE=[
+ {who:'them', text:'Marcus is going to push on the asset. You should have an answer ready that isn’t just “no.”'},
+ {who:'them', text:'You there? The relay says you’re reading.'},
+ {who:'them', text:'You never go quiet about Florinex. You have opinions about the water table.'},
+ {who:'them', text:'Two ticks against every line. You’ve read all of this and typed nothing.'},
+ {who:'them', text:'The last time you read me and went silent, it was bad news you were deciding how to soften.'},
+ {who:'them', text:'…This isn’t how you type. The cadence is wrong.'},
+ {who:'them', text:'Who is this.'},
+ {who:'sys',  text:'VESPER has stopped. The relay shows the channel still open — and still being read.'},
+];
+
+function msgBubble(m){ return `<div class="im-msg ${m.who}">${escapeHtml(m.text)}</div>`; }
+function msgScroll(id){ const l=document.getElementById(id); if(l) l.scrollTop=l.scrollHeight; }
+
+function renderMessages(rec, body){
+  rec.active = rec.active || STATE.msgActive || 'vesper';
+  const clearDrip=()=>{ if(rec.vTimer){ clearTimeout(rec.vTimer); rec.vTimer=null; } if(rec.vType){ clearTimeout(rec.vType); rec.vType=null; } };
+  rec.onClose=()=>{ clearDrip(); };
+
+  /* ---- contact list metadata ---- */
+  const meta=(id)=>{
+    if(id==='vesper'){
+      const delivered=VESPER_BACKLOG.concat(VESPER_LIVE.slice(0,STATE.vesperStep));
+      const last=delivered[delivered.length-1];
+      const more=STATE.vesperStep<VESPER_LIVE.length;
+      return {online:more, unread:!STATE.vesperRead, prev:last?last.text:''};
     }
-    body.innerHTML=`<div class="im"><div class="im-head">encrypted house channel · <span class="who">${escapeHtml(rec.who||'████')}</span> · assumes you are Amelia — replies send as her</div>
-      <div class="im-log" id="${rec.id}-imlog">${log}</div>${foot}</div>`;
-    const l=document.getElementById(rec.id+'-imlog'); if(l)l.scrollTop=l.scrollHeight;
-    body.querySelectorAll('.im-canned button').forEach(b=> b.onclick=()=>choose(parseInt(b.dataset.i)));
+    const last=STATE.imLog[STATE.imLog.length-1];
+    return {online:STATE.imStarted&&!STATE.imEnded,
+            unread:STATE.imStarted&&!STATE.imEnded&&rec.active!=='house',
+            prev:STATE.imStarted?(last?last.text:'…'):'no recent messages'};
   };
-  const say=(who,text)=>{ rec.log.push({who,text}); STATE.imLog=rec.log.slice(); persist(); };
-  const playThem=(lines,done)=>{
+
+  const draw=()=>{
+    const side=CHATS.map(c=>{
+      const m=meta(c.id);
+      return `<div class="msg-contact ${rec.active===c.id?'active':''} ${m.unread?'unread':''}" data-c="${c.id}">
+        <div class="nm">${escapeHtml(c.name)}<span class="dot ${m.online?'':'off'}"></span></div>
+        <div class="sub">${escapeHtml(c.sub)}</div>
+        <div class="prev">${escapeHtml(m.prev||'')}</div></div>`;
+    }).join('');
+    body.innerHTML=`<div class="msgs"><div class="msgs-side">${side}</div><div class="msgs-conv" id="${rec.id}-conv"></div></div>`;
+    body.querySelectorAll('.msg-contact').forEach(e=> e.onclick=()=>{ clearDrip(); rec.active=e.dataset.c; STATE.msgActive=rec.active; persist(); renderIcons(); draw(); });
+    drawConv();
+    setWinTitle(rec.id,'Messages — '+(CHATS.find(c=>c.id===rec.active)||{name:''}).name);
+  };
+  const drawConv=()=>{
+    const conv=document.getElementById(rec.id+'-conv'); if(!conv) return;
+    if(rec.active==='vesper') drawVesper(conv); else drawHouse(conv);
+  };
+
+  /* ---- VESPER (watch + drip) ---- */
+  const drawVesper=(conv)=>{
+    if(!STATE.vesperRead){ STATE.vesperRead=true; persist(); renderIcons(); }
+    const delivered=VESPER_BACKLOG.concat(VESPER_LIVE.slice(0,STATE.vesperStep));
+    const more=STATE.vesperStep<VESPER_LIVE.length;
+    const log=delivered.map(msgBubble).join('')+(rec.vBusy?`<div class="im-msg them typing">…</div>`:'');
+    conv.innerHTML=`<div class="im">
+      <div class="im-head">secure relay · <span class="who">VESPER</span> · Shadows liaison${more?' · online':''}</div>
+      <div class="im-log" id="${rec.id}-vlog">${log}</div>
+      <div class="im-end">${more?'— you are reading. you are not replying. —':'— end of channel —'}</div></div>`;
+    msgScroll(rec.id+'-vlog');
+    if(more && !rec.vTimer && !rec.vBusy && rec.active==='vesper'){
+      rec.vTimer=setTimeout(()=>{
+        rec.vTimer=null; rec.vBusy=true; drawConv();
+        rec.vType=setTimeout(()=>{
+          rec.vType=null; rec.vBusy=false;
+          const line=VESPER_LIVE[STATE.vesperStep]; STATE.vesperStep++; persist();
+          if(line && /who is this/i.test(line.text)) bumpSuspicion(8);
+          drawConv();
+        }, 1300);
+      }, STATE.vesperStep===0?6500:5000);
+    }
+  };
+
+  /* ---- House channel (Helena) branching tree ---- */
+  const houseSay=(who,text)=>{ STATE.imLog.push({who,text}); persist(); };
+  const housePlay=(lines,done)=>{
     let i=0;
     const step=()=>{
-      if(i>=lines.length){ rec.busy=false; done&&done(); draw(); return; }
-      rec.busy=true; draw();
+      if(i>=lines.length){ rec.treeBusy=false; if(done)done(); drawConv(); return; }
+      rec.treeBusy=true; drawConv();
       const line=lines[i++];
-      setTimeout(()=>{ say('them',line); step(); }, 800+Math.min(1900, line.length*22));
+      setTimeout(()=>{ houseSay('them',line); step(); }, 800+Math.min(1900,line.length*22));
     };
     step();
   };
-  const runFx=(fx)=>{
+  const houseFx=(fx)=>{
     if(!fx) return;
     if(fx.sus) bumpSuspicion(fx.sus);
     if(fx.cover){ STATE.coverIntact=false; persist(); }
     if(fx.drop) setTimeout(()=>{ suspicion=20; refreshTrayUsers(); toast('Session','The second session ended. 1 user signed in.',false); }, 2400);
     if(fx.knock) setTimeout(()=> toast('…','From somewhere below, very faint: footsteps on the tower stairs.',false), 8000);
   };
-  const enter=(id)=>{
-    rec.node=id; STATE.imNode=id; persist();
-    const n=IM_TREE[id];
-    playThem(n.them.slice(), ()=>{
-      runFx(n.fx);
-      if(!n.opts){ STATE.imEnded=true; persist(); }
-    });
+  const houseEnter=(id)=>{
+    STATE.imNode=id; persist();
+    const node=IM_TREE[id];
+    housePlay(node.them.slice(), ()=>{ houseFx(node.fx); if(!node.opts){ STATE.imEnded=true; persist(); renderIcons(); } });
   };
-  const choose=(i)=>{
-    const n=IM_TREE[rec.node]; if(!n||!n.opts||rec.busy) return;
-    const o=n.opts[i];
-    say(o.t.startsWith('(')?'sys':'me', o.t);
-    draw();
-    setTimeout(()=>enter(o.to), 600);
+  const houseChoose=(i)=>{
+    const node=IM_TREE[STATE.imNode]; if(!node||!node.opts||rec.treeBusy) return;
+    const o=node.opts[i];
+    houseSay(o.t.startsWith('(')?'sys':'me', o.t);
+    drawConv();
+    setTimeout(()=>houseEnter(o.to), 600);
   };
+  const drawHouse=(conv)=>{
+    if(!STATE.imStarted){
+      conv.innerHTML=`<div class="im"><div class="im-head">encrypted house channel · <span class="who">████</span></div>
+        <div class="msgs-empty">████ is offline.<br>no recent messages.</div></div>`;
+      return;
+    }
+    const node=IM_TREE[STATE.imNode||'start']||{};
+    const log=STATE.imLog.map(msgBubble).join('')+((rec.treeBusy&&rec.active==='house')?`<div class="im-msg them typing">…</div>`:'');
+    let foot='';
+    if(!GM_CONFIG.imInteractive) foot=`<div class="im-end">— the messages do not stop, and you cannot answer. —</div>`;
+    else if(STATE.imEnded) foot=`<div class="im-end">— the other session closed the channel —</div>`;
+    else if(!rec.treeBusy && node.opts) foot=`<div class="im-canned">${node.opts.map((o,i)=>`<button data-i="${i}">${escapeHtml(o.t)}</button>`).join('')}</div>`;
+    conv.innerHTML=`<div class="im"><div class="im-head">encrypted house channel · <span class="who">████</span> · assumes you are Amelia — replies send as her</div>
+      <div class="im-log" id="${rec.id}-hlog">${log}</div>${foot}</div>`;
+    msgScroll(rec.id+'-hlog');
+    conv.querySelectorAll('.im-canned button').forEach(b=> b.onclick=()=>houseChoose(parseInt(b.dataset.i)));
+    if(!rec.treeBooted){
+      rec.treeBooted=true;
+      const cur=IM_TREE[STATE.imNode||'start'];
+      const played=STATE.imLog.some(m=>m.who==='them' && cur && cur.them.includes(m.text));
+      if(!STATE.imLog.length){ houseEnter('start'); }
+      else if(!STATE.imEnded && cur && !played){ houseEnter(STATE.imNode); }
+    }
+  };
+
   rec.refresh=draw;
-  // resume logic: replay the current node's lines only if they were never said
-  const cur=IM_TREE[rec.node];
-  const played = rec.log.some(m=>m.who==='them' && cur && cur.them.includes(m.text));
-  if(!rec.log.length) enter('start');
-  else if(!STATE.imEnded && cur && !played) enter(rec.node);
-  else draw();
+  draw();
 }
 
 /* ---- Tier-3 capstone: "who is this" types into a notes window, then 1 user ---- */
@@ -2290,7 +2722,7 @@ function ghostCursorBlip(){
 function checkThreads(){
   const r=STATE.read;
   const A = ['coast-survey','gate','lintel','tower-study','manor-library'].filter(x=>r[x]).length>=2;
-  const B = r['she-asked-again'] && (r['timeline']||r['records-wall']||r['two-of-us']||r['memories']);
+  const B = r['she-asked-again'] && (r['timeline']||r['records-wall']||r['two-of-us']||r['memories']||r['aurora-now']);
   const C = r['share-principle'] && r['door-both-ways'];
   if(A && !STATE._a){ STATE._a=true; console.log('%c[THREAD A — LOCATION] assembled: the players can place Amelia at Blackthorn Manor.','color:#ffa500'); }
   if(B && !STATE._b){ STATE._b=true; console.log('%c[THREAD B — AURORA] assembled: the amnesiac sister landed.','color:#ffa500'); }
